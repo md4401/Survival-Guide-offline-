@@ -7,11 +7,13 @@ export interface Settings {
   locale: Lang; theme: 'dark' | 'light' | 'red'; fontScale: number; battery: boolean;
   dev: boolean; country: string; onboarded: boolean;
   units: 'metric' | 'imperial'; hour12: boolean; clockOffsetMs: number; profile: Profile;
+  /** IANA time zone for the Almanac ('' = device) and last used coordinates */
+  tz: string; loc: { lat: number; lon: number } | null;
 }
 
 export const DEFAULTS: Settings = {
   locale: 'en', theme: 'dark', fontScale: 1, battery: false, dev: false, country: '', onboarded: false,
-  units: 'metric', hour12: false, clockOffsetMs: 0,
+  units: 'metric', hour12: false, clockOffsetMs: 0, tz: '', loc: null,
   profile: { people: 2, kids: 0, elderly: 0, pets: 0, home: '', region: '' },
 };
 

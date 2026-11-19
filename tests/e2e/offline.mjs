@@ -41,7 +41,17 @@ try {
   await page.goto(`http://localhost:${PORT}/#/guide/shelter.camp-setup`);
   await page.waitForSelector('ol.steps li');
   check('camp guide offline', true);
-  await page.evaluate(() => (document.documentElement.lang = 'pt'));
+  // Almanac pages offline
+  const go = async (h, sel) => { await page.goto(`http://localhost:${PORT}/#/${h}`); await page.waitForSelector(sel, { timeout: 5000 }); };
+  await go('world/countries', 'details.card');
+  const n = await page.$$eval('details.card', (e) => e.length);
+  check('250 countries offline', n === 250, `(${n})`);
+  await go('world/clock', '.big-num'); check('clock renders', /\d/.test(await page.textContent('.big-num')));
+  await go('world/sun', 'h2'); check('sun/moon renders', (await page.textContent('main')).length > 100);
+  await go('world/calendar', 'table.cal'); check('calendar renders', true);
+  await go('world/climate', 'table.cal'); check('climate renders', true);
+  await go('world/tables', 'table.cal'); check('tables render', true);
+  await go('world/counter', 'h1'); check('counter renders', true);
   check('no uncaught errors', errors.length === 0, errors.join('|'));
   await browser.close();
 } catch (e) { console.error(e); ok = false; }

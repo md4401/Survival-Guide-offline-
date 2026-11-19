@@ -19,4 +19,5 @@ Markdown with frontmatter in `content/{lang}/…` (id, category, plan, vital, re
 - [x] F1 base, i18n, content pipeline
 - [x] F2 home, triage (3 taps), emergency numbers, flashlight/strobe/SOS Morse, whistle, GPS coordinates
 - [x] F3 guide renderer, MiniSearch (accent-insensitive, typo-tolerant, synonyms), favorites, history, settings page, developer mode
+- [x] F4 Almanac: clock + manual offset + zones, day counter, sun/moon/seasons, calendar + BR holidays + alt calendars, 250 countries, climate sample, tables
 - E2E offline test: `npm run build && npm run test:e2e`
