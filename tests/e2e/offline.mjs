@@ -134,6 +134,18 @@ try {
     await go('settings', 'select'); await page.uncheck('input[type=checkbox] >> nth=2');
     check('no uncaught errors on the new routes', errors.length === before, errors.slice(before).join('|'));
   }
+  // H: redesigned Guides and Scenarios pages
+  {
+    await go('scenarios', 'main'); await page.waitForSelector('text=What is happening now?'); check('scenarios page renders with triage shortcut', (await page.textContent('main')).includes('What is happening now?') && !!(await page.$('a[href="#/triage"]')));
+    await go('settings', 'select'); await page.check('input[type=checkbox] >> nth=2');
+    await go('scenarios', 'ul.grid2'); check('scenarios page shows 8 cards in Developer mode', (await page.$$eval('ul.grid2 li', (e) => e.length)) === 8);
+    check('scenario cards start with the most urgent (house fire)', (await page.textContent('ul.grid2 li')).toLowerCase().includes('fire'));
+    await go('guides', 'input[type=search]'); await wait(800); const total = await page.$$eval('section.stack h2', (e) => e.length);
+    check('guides page groups guides by category', total >= 8, `(${total})`);
+    await page.fill('input[type=search]', 'tsunami'); await page.waitForSelector('a[href="#/guide/disaster.tsunami"]'); check('guides filter finds the tsunami guide', (await page.$$eval('ul.list li', (e) => e.length)) === 1);
+    await page.fill('input[type=search]', 'zzzzzz'); await page.waitForSelector('text=No guide matches'); check('guides filter shows an empty state', true);
+    await go('settings', 'select'); await page.uncheck('input[type=checkbox] >> nth=2');
+  }
   // Low-end device simulation: CPU 6x slower, offline cold start → help → first step
   {
     const lp = await ctx.newPage(); const cdp = await ctx.newCDPSession(lp);
@@ -146,7 +158,7 @@ try {
     await lp.close();
   }
   // Accessibility: touch targets >= 48 px on key screens
-  for (const h of ['', 'triage', 'emergency', 'guide/water.diy-filter', 'prepare', 'world', 'settings', 'messages', 'messages/sync', 'plans', 'world/climate', 'learn', 'library', 'library/phrases', 'system', 'signal', 'prepare/stock']) {
+  for (const h of ['', 'triage', 'emergency', 'guide/water.diy-filter', 'prepare', 'world', 'settings', 'messages', 'messages/sync', 'plans', 'world/climate', 'scenarios', 'guides', 'learn', 'library', 'library/phrases', 'system', 'signal', 'prepare/stock']) {
     await go(h, 'main');
     const small = await page.$$eval('a, button, select, input:not([type=checkbox]):not([type=range]):not([type=file])', (els) =>
       els.filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && (r.height < 47.5 || r.width < 47.5); })

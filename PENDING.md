@@ -46,4 +46,6 @@
 - Not built: semaphore alphabet and traffic-light tables (could not verify the content), child-style explanation button in the assistant (needs a downloaded model), offline maps, altimeter/barometer, official alerts, account sync, billing, 600 articles / 40+ scenarios / 1,500 glossary terms
 - Step counter, level and return trail need testing on real phones (sensor quality varies); local notifications only work in the Android build
 - Forecast fetch is untested against the live API
+- The 20 newest guides (and the 13 from G6) are drafts: they need sources and professional review (especially first aid and poisoning wording) before being published
+- Total content is now 47 guides and 8 scenarios, far below the 600 articles / 40+ scenarios in the content map
 
