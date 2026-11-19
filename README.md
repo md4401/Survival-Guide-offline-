@@ -28,7 +28,9 @@ src/content/             loader (lazy per-language pack), access rule (vital nev
 src/db/                  Dexie (favorites, history, counters, checklists, notes, kv/settings): device only
 src/features/            home, triage, emergency (numbers, flashlight/strobe/SOS, whistle, GPS), guides, search, almanac, prepare, tools, settings
 src/lib/                 astro (sun/moon/seasons), clock, calendar, morse, coords, units: pure and unit-tested
-src/interfaces/          license, assistant, voice reading, pack updates: contracts + no-op stubs (not implemented)
+src/interfaces/          license (Ed25519, offline), voice reading, pack updater: implemented, behind flags (off)
+src/ai/                  optional assistant: model catalog, download manager, anchored-answer logic (guards, retrieval, verification)
+android/ ios/            Capacitor native projects (not built here)
 ```
 - **Content** is data, not code. Drafts (`status: draft`) are hidden unless *Developer mode* is on (Settings). The 2 complete example guides (campsite, water filter) are published with a visible "Needs review" badge. Everything else is an empty draft: no medical or safety facts were invented.
 - **Offline**: service worker precaches the whole shell and both language packs; user data in IndexedDB.
@@ -42,17 +44,21 @@ src/interfaces/          license, assistant, voice reading, pack updates: contra
 - [x] F4 Almanac: clock + manual offset + zones, day counter, sun/moon/seasons, calendar + BR holidays + alt calendars, 250 countries, climate sample, tables
 - [x] F5 kits + checklist + calculator, family plan, timer/stopwatch, converter, notes, onboarding/profile, Premium/AI/voice/update interfaces
 - [x] F6 offline E2E, size budget, RTL and touch-target checks
+- [x] F7 Crisis mode, water/chlorine calculators, rule-based suggestions, real population/time-zone/emergency data, partial es/fr/ar/hi/zh, PNG icons + update prompt, Android/iOS projects, offline license / voice / pack updater (flagged off), optional AI assistant
+
+## Optional AI assistant (separate download)
+Settings → *AI assistant* → **AI models**. The assistant is not part of the app or its 50 MB core: you choose a model (Tiny / Lite / Standard / Pro, or a custom Hugging Face repo), see its size, confirm, and it downloads to your device (Wi-Fi recommended; mobile data needs an extra tick). After that it works offline and can be deleted at any time. Answers are anchored to the reviewed guides (see DECISIONS #28): life-risk questions open the vital guide directly, doses/diagnoses/weapons are refused, every answer must cite a guide and cannot invent numbers, and the AI is off during Crisis mode. Without a model, the assistant lists matching guides. **Untested with a real model**: the build sandbox cannot reach Hugging Face (see PENDING).
 
 ## Acceptance criteria
 | Criterion | Result |
 |---|---|
 | Works in airplane mode, start to finish | E2E passes with the network off after first load |
-| Icon → first emergency step ≤3 taps, ≤2 s | 3 taps, ~0.25 s in headless Chromium (**not yet measured on a low-end device**) |
+| Icon → first emergency step ≤3 taps, ≤2 s | 3 taps; ~0.25 s, and ~0.65 s with the CPU throttled 6× (headless Chromium; **not yet on a real low-end phone**) |
 | PT and EN complete, no hard-coded text | `check:i18n` enforces parity and no literal JSX text |
 | Tests for clock, sun/moon, calendar, content validation | `tests/almanac.test.ts`, `tests/content-validation.test.ts` |
-| Core ≤ 50 MB | ~0.3 MB |
+| Core ≤ 50 MB | ~0.4 MB (the AI model/runtime are never part of it) |
 
 ## Known limits
-See `PENDING.md` (what is left) and `DECISIONS.md` (every deviation and why). Highlights: content/numbers/climate/kit quantities/tables need professional review and official sources; country population and time zones are not in the data source; moon phase timing is ±~1 day; native projects not generated; low-end-device and real-phone sensor testing still to do.
+See `PENDING.md` (what is left) and `DECISIONS.md` (every deviation and why). Highlights: guide content, climate, kit/water parameters, tables and holidays need professional review and official sources; emergency numbers outside the spec examples are unverified community data; moon phase timing is ±~1 day; translations other than en/pt are partial drafts; the AI, native builds and real-device behaviour are untested.
 
 Data: country data from npm `world-countries` (ODbL), attribution shown in the app.

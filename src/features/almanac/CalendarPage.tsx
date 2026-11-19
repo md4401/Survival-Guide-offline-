@@ -20,9 +20,9 @@ export function CalendarPage() {
     <main class="stack">
       <h1>{t('world.calendar')}</h1>
       <div class="row">
-        <button onClick={() => shift(-1)} aria-label={t('cal.prev')}>‹</button>
+        <button onClick={() => shift(-1)} aria-label={t('cal.prev')}><span class="flip">‹</span></button>
         <strong style="flex:1;text-align:center">{fmt(s.locale, Date.UTC(y, m - 1, 1, 12), { month: 'long', year: 'numeric', timeZone: 'UTC' })}</strong>
-        <button onClick={() => shift(1)} aria-label={t('cal.next')}>›</button>
+        <button onClick={() => shift(1)} aria-label={t('cal.next')}><span class="flip">›</span></button>
       </div>
       <table class="cal">
         <thead><tr>{wd.map((d) => <th>{d}</th>)}</tr></thead>

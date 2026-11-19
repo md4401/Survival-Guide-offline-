@@ -15,7 +15,7 @@ export function Layout({ route, children }: { route: string; children: Component
   return (
     <>
       <header class="topbar">
-        {route !== '' && <button onClick={back} aria-label={t('common.back')}>‹</button>}
+        {route !== '' && <button onClick={back} aria-label={t('common.back')}><span class="flip">‹</span></button>}
         <a class="brand" href={href()}>{t('app.name')}</a>
         <a class="btn" href={href('search')} aria-label={t('common.search')}>🔍</a>
         <a class="btn" href={href('settings')} aria-label={t('settings.title')}>⚙️</a>

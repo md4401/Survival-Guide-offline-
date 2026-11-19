@@ -28,7 +28,7 @@ export function Home() {
       <a class="btn btn-danger btn-block help-btn" href={href('triage')}>{t('home.help')}</a>
       <a class="btn btn-block" href={href('crisis')}>{crisis ? `${t('crisis.active')}: ${t('counter.day', { n: dayNumber(crisis.start, Date.now()) })}` : t('crisis.living')}</a>
       <p class="muted">{t('home.tagline')}</p>
-      {!st.onboarded && <a class="btn card" href={href('onboarding')}>{t('onb.banner')} →</a>}
+      {!st.onboarded && <a class="btn card" href={href('onboarding')}>{t('onb.banner')}</a>}
       <h2>{t('home.tools')}</h2>
       <div class="grid2">
         <a class="btn tool" href={href('torch')}>🔦 {t('home.torch')}</a>

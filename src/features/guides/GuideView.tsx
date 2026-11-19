@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'preact/hooks';
 import type { Guide } from '../../content/types';
 import { getGuide, loadGuides } from '../../content/loader';
-import { t, isFallback } from '../../i18n';
+import { t } from '../../i18n';
 import { href } from '../../router';
 import { db } from '../../db/dexie';
 import { getSettings, useSettings } from '../../db/settings';
@@ -33,6 +33,7 @@ export function FavButton({ id }: { id: string }) {
 export function GuideView({ id }: { id: string }) {
   useSettings();
   const [g, setG] = useState<Guide | null | undefined>(undefined);
+  const [fallback, setFallback] = useState(false);
   const [titles, setTitles] = useState<Record<string, string>>({});
   useEffect(() => {
     setG(undefined);
@@ -40,7 +41,7 @@ export function GuideView({ id }: { id: string }) {
       setG(x ?? null);
       if (x) db.history.put({ id, at: Date.now() }).catch(() => {});
     });
-    loadGuides().then(({ guides }) => setTitles(Object.fromEntries(guides.map((a) => [a.id, a.title]))));
+    loadGuides().then(({ guides, fallback: fb }) => { setFallback(fb); setTitles(Object.fromEntries(guides.map((a) => [a.id, a.title]))); });
   }, [id]);
   if (g === undefined) return <main><p>{t('app.loading')}</p></main>;
   if (g === null) return <main><p>{t('guide.notFound')}</p></main>;
@@ -50,7 +51,7 @@ export function GuideView({ id }: { id: string }) {
         <h1 style="flex:1">{g.title}</h1>
         <FavButton id={g.id} />
       </div>
-      {isFallback('nav.home') && <p class="danger-box">{t('lang.fallback')}</p>}
+      {fallback && <p class="danger-box">{t('lang.fallback')}</p>}
       <p>{g.summary}</p>
       <p class="muted">
         {g.vital && <span class="badge">{t('guide.vital')}</span>}{' '}

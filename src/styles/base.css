@@ -43,3 +43,4 @@ table.cal th, table.cal td { padding: .5rem .25rem; border: 1px solid var(--bord
 table.cal td.today { background: var(--accent); color: #000; font-weight: 700; }
 table.cal td.hol { color: var(--danger); font-weight: 700; }
 details summary { min-block-size: var(--tap); display: flex; align-items: center; cursor: pointer; }
+[dir='rtl'] .flip { display: inline-block; transform: scaleX(-1); }

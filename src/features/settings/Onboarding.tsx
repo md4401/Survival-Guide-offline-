@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks';
-import { t, MVP_LANGS } from '../../i18n';
+import { t, ALL_LANGS } from '../../i18n';
 import { updateSettings, useSettings } from '../../db/settings';
 import { go } from '../../router';
 import type { Lang } from '../../content/types';
@@ -20,7 +20,7 @@ export function Onboarding() {
   return (
     <main class="stack">
       <p class="muted">{t('onb.step', { n: step, total: TOTAL })}</p>
-      {step === 1 && <><h1>{t('settings.language')}</h1>{MVP_LANGS.map((l) => <button class={`btn-block ${s.locale === l ? 'pill-on' : ''}`} onClick={() => updateSettings({ locale: l as Lang })}>{t(`lang.${l}`)}</button>)}</>}
+      {step === 1 && <><h1>{t('settings.language')}</h1>{ALL_LANGS.map((l) => <button class={`btn-block ${s.locale === l ? 'pill-on' : ''}`} onClick={() => updateSettings({ locale: l as Lang })}>{t(`lang.${l}`)}</button>)}</>}
       {step === 2 && <><h1>{t('num.country')}</h1>
         <select value={s.country} onChange={(e) => updateSettings({ country: (e.target as HTMLSelectElement).value })}>
           <option value="">—</option>{[...COUNTRY_CODES].sort((a, b) => regionName(a, s.locale).localeCompare(regionName(b, s.locale), s.locale)).map((c) => <option value={c}>{regionName(c, s.locale)}</option>)}</select></>}
