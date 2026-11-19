@@ -1117,7 +1117,7 @@
   "metal.title": "Metal detector",
   "metal.warn": "A phone can only sense iron and magnets very close to it. It cannot find coins, gold or buried objects.",
   "metal.start": "Start",
-  "metal.unsupported": "This device or browser does not give access to the magnetic sensor.",
+  "metal.unsupported": "This device does not have a magnetic sensor that the app can read.",
   "metal.error": "The magnetic sensor stopped working.",
   "metal.denied": "Sensor access was denied.",
   "metal.calibrating": "Calibrating: hold still, away from metal.",
@@ -1126,5 +1126,10 @@
   "metal.zero": "Recalibrate",
   "metal.help": "Keep away from other phones, cases with magnets and electronics for a stable reading.",
   "home.agenda": "{n} event(s) today",
-  "about.perm.mic": "Microphone: only for the audio recorder and sound meter, when you press start. Recordings stay on this device."
+  "about.perm.mic": "Microphone: only for the audio recorder and sound meter, when you press start. Recordings stay on this device.",
+  "media.mic.denied": "Microphone access was denied.",
+  "media.cam.denied": "Camera access was denied.",
+  "media.settings": "Allow it in Android Settings > Apps > this app > Permissions, then try again.",
+  "media.nodevice": "No microphone or camera was found on this device.",
+  "media.busy": "The microphone or camera is being used by another app. Close it and try again."
 }

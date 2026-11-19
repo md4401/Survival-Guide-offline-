@@ -15,12 +15,15 @@ import { usePremium } from '../../components/PremiumGate';
 const getSettingsDev = () => getSettings().dev;
 const getLocale = () => getSettings().locale;
 
+/** Review dates come from YAML as Date objects or ISO strings; show a short local date. */
+const fmtDate = (d: unknown) => { const x = new Date(d as string); return Number.isNaN(x.getTime()) ? String(d) : x.toLocaleDateString(getLocale(), { timeZone: 'UTC' }); };
+
 export function ReviewSeal({ g }: { g: Guide }) {
   return (
     <p class="muted">
       <span class="badge">{t(`review.${g.review.level}`)}</span>{' '}
       {g.needsReview && <span class="badge badge-warn">{t('review.needs')}</span>}{' '}
-      <span>{t('review.date', { date: g.review.date })}</span> · <span>{t('review.source', { source: g.review.source })}</span>
+      <span>{t('review.date', { date: fmtDate(g.review.date) })}</span> · <span>{t('review.source', { source: g.review.source })}</span>
     </p>
   );
 }

@@ -1117,7 +1117,7 @@
   "metal.title": "Detector de metais",
   "metal.warn": "O celular só percebe ferro e ímãs bem perto dele. Não encontra moedas, ouro nem objetos enterrados.",
   "metal.start": "Começar",
-  "metal.unsupported": "Este aparelho ou navegador não dá acesso ao sensor magnético.",
+  "metal.unsupported": "Este aparelho não tem um sensor magnético que o app consiga ler.",
   "metal.error": "O sensor magnético parou de funcionar.",
   "metal.denied": "O acesso ao sensor foi negado.",
   "metal.calibrating": "Calibrando: fique parado, longe de metal.",
@@ -1126,5 +1126,10 @@
   "metal.zero": "Recalibrar",
   "metal.help": "Afaste de outros celulares, capas com ímã e eletrônicos para uma leitura estável.",
   "home.agenda": "{n} evento(s) hoje",
-  "about.perm.mic": "Microfone: só para o gravador de áudio e o medidor de decibéis, quando você toca em iniciar. As gravações ficam neste aparelho."
+  "about.perm.mic": "Microfone: só para o gravador de áudio e o medidor de decibéis, quando você toca em iniciar. As gravações ficam neste aparelho.",
+  "media.mic.denied": "O acesso ao microfone foi negado.",
+  "media.cam.denied": "O acesso à câmera foi negado.",
+  "media.settings": "Permita em Ajustes do Android > Apps > este app > Permissões e tente de novo.",
+  "media.nodevice": "Nenhum microfone ou câmera foi encontrado neste aparelho.",
+  "media.busy": "O microfone ou a câmera está em uso por outro app. Feche-o e tente de novo."
 }

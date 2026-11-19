@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { t } from '../../i18n';
+import { mediaMessage } from '../../lib/media';
 import { db, type Recording } from '../../db/dexie';
 
 function Player({ r, onChange }: { r: Recording; onChange: () => void }) {
@@ -25,7 +26,7 @@ export function Recorder() {
       rec.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
       rec.onstop = async () => { stream.getTracks().forEach((x) => x.stop()); clearInterval(timer.current); setOn(false); const blob = new Blob(chunks, { type: rec.mimeType || 'audio/webm' }); if (blob.size) { await db.recordings.add({ name: new Date().toLocaleString(), at: t0, ms: Date.now() - t0, mime: blob.type, blob }); await load(); } };
       rec.start(); mr.current = rec; setOn(true); setSec(0); timer.current = setInterval(() => setSec(Math.round((Date.now() - t0) / 1000)), 500);
-    } catch { setMsg(t('rec.denied')); }
+    } catch (e) { setMsg(mediaMessage(e, 'mic')); }
   };
   return (
     <main class="stack"><h1>{t('rec.title')}</h1><p class="muted">{t('rec.privacy')}</p>

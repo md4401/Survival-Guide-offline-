@@ -37,7 +37,7 @@ export function Home() {
     <main class="stack">
       <a class="btn btn-danger btn-block help-btn" href={href('triage')}>{t('home.help')}</a>
       <a class="btn btn-block" href={href('crisis')}>{crisis ? `${t('crisis.active')}: ${t('counter.day', { n: dayNumber(crisis.start, Date.now()) })}` : t('crisis.living')}</a>
-      <a class="btn card" href={href('library')}>💡 {pick(factOfDay().text, getSettings().locale)}</a>
+      <a class="btn poster" href={href('library')}>💡 {pick(factOfDay().text, getSettings().locale)}</a>
       {today > 0 && <a class="btn card" href={href('tools', 'agenda')}>🗓 {t('home.agenda', { n: today })}</a>}
       {due > 0 && <a class="btn card" href={href('inventory')}>⏰ {t('home.due', { n: due })}</a>}
       <p class="muted">{t('home.tagline')}</p>
@@ -45,13 +45,13 @@ export function Home() {
       <h2>{t('home.tools')}</h2>
       <a class="btn card" href={href('tools')}>🧰 {t('tools.title')}</a>
       <div class="grid2">
-        <a class="btn tool" href={href('torch')}>🔦 {t('home.torch')}</a>
-        <a class="btn tool" href={href('whistle')}>📣 {t('home.whistle')}</a>
-        <a class="btn tool" href={href('torch')}>🆘 {t('home.sos')}</a>
-        <a class="btn tool" href={href('numbers')}>📞 {t('home.numbers')}</a>
-        <a class="btn tool" href={href('gps')}>📍 {t('home.gps')}</a>
-        <a class="btn tool" href={href('messages')}>💬 {t('home.messages')}</a>
-        {hasAi && <a class="btn tool" href={href('assistant')}>🤖 {t('ai.title')}</a>}
+        <a class="btn tool" href={href('torch')}><span class="ico" aria-hidden="true">🔦</span><span>{t('home.torch')}</span></a>
+        <a class="btn tool" href={href('whistle')}><span class="ico" aria-hidden="true">📣</span><span>{t('home.whistle')}</span></a>
+        <a class="btn tool" href={href('torch')}><span class="ico" aria-hidden="true">🆘</span><span>{t('home.sos')}</span></a>
+        <a class="btn tool" href={href('numbers')}><span class="ico" aria-hidden="true">📞</span><span>{t('home.numbers')}</span></a>
+        <a class="btn tool" href={href('gps')}><span class="ico" aria-hidden="true">📍</span><span>{t('home.gps')}</span></a>
+        <a class="btn tool" href={href('messages')}><span class="ico" aria-hidden="true">💬</span><span>{t('home.messages')}</span></a>
+        {hasAi && <a class="btn tool" href={href('assistant')}><span class="ico" aria-hidden="true">🤖</span><span>{t('ai.title')}</span></a>}
       </div>
       {(st.onboarded || st.loc) && <><h2>{t('suggest.title')}</h2><ul class="list">{sug.map((x) => <li><a class="btn" href={href('guide', SCENARIO_GUIDE[x.scenario as ScenarioKey])}><span style="flex:1">{t(`scenario.${x.scenario}`)}</span><span class="muted">{t('suggest.why')}: {t(x.reason)}</span></a></li>)}</ul></>}
       {pinned.length > 0 && <><h2>{t('fav.title')}</h2><ul class="list">{pinned.map((g) => <li><a class="btn" href={href('guide', g.id)}>{g.title}</a></li>)}</ul></>}

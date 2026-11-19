@@ -10,12 +10,12 @@ export function Emergency() {
       <NumbersList />
       <h2>{t('emergency.tools')}</h2>
       <div class="grid2">
-        <a class="btn tool" href={href('torch')}>🔦 {t('home.torch')}</a>
-        <a class="btn tool" href={href('whistle')}>📣 {t('home.whistle')}</a>
-        <a class="btn tool" href={href('gps')}>📍 {t('home.gps')}</a>
-        <a class="btn tool" href={href('messages')}>💬 {t('home.messages')}</a>
-        <a class="btn tool" href={href('signal')}>🚨 {t('signal.title')}</a>
-        <a class="btn tool" href={href('compass')}>🧭 {t('compass.title')}</a>
+        <a class="btn tool" href={href('torch')}><span class="ico" aria-hidden="true">🔦</span><span>{t('home.torch')}</span></a>
+        <a class="btn tool" href={href('whistle')}><span class="ico" aria-hidden="true">📣</span><span>{t('home.whistle')}</span></a>
+        <a class="btn tool" href={href('gps')}><span class="ico" aria-hidden="true">📍</span><span>{t('home.gps')}</span></a>
+        <a class="btn tool" href={href('messages')}><span class="ico" aria-hidden="true">💬</span><span>{t('home.messages')}</span></a>
+        <a class="btn tool" href={href('signal')}><span class="ico" aria-hidden="true">🚨</span><span>{t('signal.title')}</span></a>
+        <a class="btn tool" href={href('compass')}><span class="ico" aria-hidden="true">🧭</span><span>{t('compass.title')}</span></a>
       </div>
     </main>
   );
