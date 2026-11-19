@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { t } from '../../i18n';
+import { getSettings } from '../../db/settings';
 
 function beep() {
+  if (getSettings().silent) return;
   try {
     const AC = window.AudioContext ?? (window as any).webkitAudioContext; const c = new AC();
     const o = c.createOscillator(); o.frequency.value = 880; o.connect(c.destination); o.start(); setTimeout(() => { o.stop(); c.close(); }, 800);

@@ -5,7 +5,10 @@ import { loadGuides } from '../../content/loader';
 import { useUserLists } from '../guides/Search';
 import { useSettings } from '../../db/settings';
 import type { Guide } from '../../content/types';
-import { getKV } from '../../db/dexie';
+import { getKV, db } from '../../db/dexie';
+import { usePremium } from '../../components/PremiumGate';
+import { dueSoon, isDue } from '../../lib/inventory';
+import { loadReminders } from '../prepare/Inventory';
 import { loadAi } from '../../ai/manager';
 import { dayNumber } from '../../lib/clock';
 import { season } from '../../lib/astro';
@@ -19,6 +22,8 @@ export function Home() {
   useEffect(() => { loadGuides().then((r) => setGuides(r.guides)); }, [st.locale, st.dev]);
   const [crisis, setCrisis] = useState<CrisisState | null>(null);
   useEffect(() => { getKV<CrisisState | null>('crisis', null).then(setCrisis); }, []);
+  const premium = usePremium(); const [due, setDue] = useState(0);
+  useEffect(() => { if (!premium) { setDue(0); return; } (async () => setDue(dueSoon(await db.inventory.toArray()).length + (await loadReminders()).filter((r) => isDue(r)).length))().catch(() => {}); }, [premium]);
   const [hasAi, setHasAi] = useState(false);
   useEffect(() => { loadAi().then((a) => setHasAi(!!a.active)); }, []);
   const sug = suggest({ season: st.loc ? season(new Date(), st.loc.lat) : null, home: st.profile.home, kids: st.profile.kids, elderly: st.profile.elderly, pets: st.profile.pets });
@@ -27,6 +32,7 @@ export function Home() {
     <main class="stack">
       <a class="btn btn-danger btn-block help-btn" href={href('triage')}>{t('home.help')}</a>
       <a class="btn btn-block" href={href('crisis')}>{crisis ? `${t('crisis.active')}: ${t('counter.day', { n: dayNumber(crisis.start, Date.now()) })}` : t('crisis.living')}</a>
+      {due > 0 && <a class="btn card" href={href('inventory')}>⏰ {t('home.due', { n: due })}</a>}
       <p class="muted">{t('home.tagline')}</p>
       {!st.onboarded && <a class="btn card" href={href('onboarding')}>{t('onb.banner')}</a>}
       <h2>{t('home.tools')}</h2>

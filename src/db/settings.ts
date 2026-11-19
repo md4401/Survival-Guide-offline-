@@ -8,12 +8,13 @@ export interface Settings {
   dev: boolean; country: string; onboarded: boolean;
   units: 'metric' | 'imperial'; hour12: boolean; clockOffsetMs: number; profile: Profile;
   /** IANA time zone for the Almanac ('' = device) and last used coordinates */
+  silent: boolean;
   tz: string; loc: { lat: number; lon: number } | null;
 }
 
 export const DEFAULTS: Settings = {
   locale: 'en', theme: 'dark', fontScale: 1, battery: false, dev: false, country: '', onboarded: false,
-  units: 'metric', hour12: false, clockOffsetMs: 0, tz: '', loc: null,
+  units: 'metric', hour12: false, clockOffsetMs: 0, silent: false, tz: '', loc: null,
   profile: { people: 2, kids: 0, elderly: 0, pets: 0, home: '', region: '' },
 };
 
