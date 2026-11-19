@@ -4,7 +4,8 @@ import './styles/base.css';
 import { loadSettings } from './db/settings';
 import { App } from './app';
 import { initPwa } from './pwa';
+import { initLiveUpdate } from './lib/liveNative';
 
 initPwa();
 
-loadSettings().finally(() => render(<App />, document.getElementById('app')!));
+loadSettings().finally(() => { render(<App />, document.getElementById('app')!); initLiveUpdate(); });

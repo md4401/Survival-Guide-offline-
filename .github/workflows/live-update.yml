@@ -1,0 +1,41 @@
+name: Live update
+# Publishes the web part of every merged build to the `live` branch. Installed Android apps download it by themselves (see src/lib/liveNative.ts),
+# so screens, guides and translations update without installing a new APK. Native changes still need a new APK (raise MIN_APK in native-version.json).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: live-update
+  cancel-in-progress: true
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Build
+        env:
+          BUILD_ID: ${{ github.sha }}
+        run: npm run build
+      - name: Manifest
+        run: |
+          MIN_APK="$(node -p "require('./native-version.json').minApk")"
+          mkdir -p "$RUNNER_TEMP/live/files"
+          cp -r dist/. "$RUNNER_TEMP/live/files/"
+          rm -f "$RUNNER_TEMP/live/files/sw.js" "$RUNNER_TEMP/live/files/manifest.webmanifest" "$RUNNER_TEMP/live/files"/workbox-*.js
+          BUILD_ID="${{ github.sha }}" MIN_APK="$MIN_APK" node scripts/make-live-manifest.mjs dist "$RUNNER_TEMP/live/manifest.json"
+      - name: Publish to the live branch (single commit, replaces the previous one)
+        run: |
+          cd "$RUNNER_TEMP/live"
+          git init -q -b live
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Live bundle ${{ github.sha }}"
+          git push -q -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" live

@@ -58,6 +58,8 @@ android/ ios/            Capacitor native projects (not built here)
 
 - [x] Visual redesign: neon/black poster style from the moodboard (tokens, layout, Anton headings, new icon); contrast tested
 
+- [x] Self-updating app: fixed APK signing key (updates install over the old version), live updates of screens and guides for the Android app, automatic safe updates for the web app, public `latest` APK release
+
 ## Optional AI assistant (separate download)
 Settings → *AI assistant* → **AI models**. The assistant is not part of the app or its 50 MB core: you choose a model (Tiny / Lite / Standard / Pro, or a custom Hugging Face repo), see its size, confirm, and it downloads to your device (Wi-Fi recommended; mobile data needs an extra tick). After that it works offline and can be deleted at any time. Answers are anchored to the reviewed guides (see DECISIONS #28): life-risk questions open the vital guide directly, doses/diagnoses/weapons are refused, every answer must cite a guide and cannot invent numbers, and the AI is off during Crisis mode. Without a model, the assistant lists matching guides. **Untested with a real model**: the build sandbox cannot reach Hugging Face (see PENDING).
 

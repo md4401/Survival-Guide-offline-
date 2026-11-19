@@ -9,8 +9,26 @@ import { licenseService, licenseStatus, PUBLIC_KEY_HEX, type License } from '../
 import { packUpdater, type PackInfo } from '../../interfaces/packUpdate';
 import { listReports } from '../../lib/reports';
 import { reviewStats } from '../../lib/review';
+import { isNative, liveStatus, onLiveStatus, checkNow, applyNow, autoEnabled, setAuto } from '../../lib/liveNative';
+import { currentBuild } from '../../lib/liveUpdate';
 import { loadForecast, refreshForecast, codeKey, ageHours, type Forecast } from '../../lib/forecast';
 
+const APK_URL = 'https://github.com/md4401/Survival-Guide-offline-/releases/download/latest/survival-guide.apk';
+function UpdatesCard() {
+  const [st, setSt] = useState(liveStatus()); const [auto, setAutoState] = useState(true);
+  useEffect(() => { autoEnabled().then(setAutoState); return onLiveStatus(() => setSt({ ...liveStatus() })); }, []);
+  const native = isNative(); const label = (() => { switch (st.phase) { case 'checking': return t('upd.phase.checking'); case 'downloading': return t('upd.phase.downloading', { p: Math.round((st.progress ?? 0) * 100) }); case 'ready': return t('upd.phase.ready'); case 'uptodate': return t('upd.phase.uptodate'); case 'needs-apk': return t('upd.phase.needsapk'); case 'error': return t('upd.phase.error', { e: st.error ?? '' }); case 'off': return t('upd.phase.off'); default: return ''; } })();
+  return (
+    <section class="card stack"><h2>{t('upd.title')}</h2><p class="muted" dir="ltr">{t('upd.version', { v: currentBuild().slice(0, 8) })}</p>
+      {!native ? <p>{t('upd.web')}</p> : <>
+        <label class="row"><input type="checkbox" checked={auto} onChange={(e) => { const v = (e.target as HTMLInputElement).checked; setAutoState(v); void setAuto(v); }} /><span>{t('upd.auto')}</span></label>
+        <p class="muted">{t('upd.privacy')}</p>
+        <div class="row"><button class="btn" disabled={st.phase === 'checking' || st.phase === 'downloading'} onClick={() => void checkNow(true)}>{t('upd.check')}</button>{st.phase === 'ready' && <button class="btn primary" onClick={() => void applyNow()}>{t('upd.apply')}</button>}</div>
+        {label && <p role="status" dir="auto">{label}</p>}
+        {st.phase === 'downloading' && <progress max="100" value={Math.round((st.progress ?? 0) * 100)} style="inline-size:100%" aria-label={t('upd.title')} />}
+        {st.phase === 'needs-apk' && <a class="btn primary" href={APK_URL}>{t('upd.apk')}</a>}</>}</section>
+  );
+}
 function LicenseCard() {
   const [lic, setLic] = useState<License | null>(null); const [tok, setTok] = useState(''); const [msg, setMsg] = useState('');
   useEffect(() => { licenseService.current().then(setLic).catch(() => {}); }, []);
@@ -59,5 +77,5 @@ function ForecastCard() {
 }
 export function System() {
   const s = useSettings();
-  return (<main class="stack"><h1>{t('sys.title')}</h1><LicenseCard /><PacksCard /><ForecastCard />{s.dev && <ReviewCard />}<a class="btn" href={href('plans')}>{t('plans.title')}</a></main>);
+  return (<main class="stack"><h1>{t('sys.title')}</h1><UpdatesCard /><LicenseCard /><PacksCard /><ForecastCard />{s.dev && <ReviewCard />}<a class="btn" href={href('plans')}>{t('plans.title')}</a></main>);
 }

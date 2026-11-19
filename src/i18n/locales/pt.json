@@ -1142,5 +1142,20 @@
   "cat.nature": "Natureza e animais",
   "cat.security": "Segurança pessoal",
   "cat.energy": "Energia",
-  "cat.health": "Saúde e cuidados"
+  "cat.health": "Saúde e cuidados",
+  "upd.title": "Atualizações do app",
+  "upd.version": "Versão {v}",
+  "upd.web": "Este app se atualiza sozinho quando há versão nova. As telas de emergência nunca são interrompidas.",
+  "upd.auto": "Atualizar automaticamente",
+  "upd.privacy": "Quando online, o app consulta o GitHub (raw.githubusercontent.com) por uma versão nova das telas e dos guias; o GitHub vê seu endereço IP e nada mais é enviado. Nunca consulta no Modo Crise. A versão nova é usada na próxima vez que você abrir ou sair do app.",
+  "upd.check": "Verificar agora",
+  "upd.apply": "Usar a versão nova agora",
+  "upd.apk": "Baixar o app novo",
+  "upd.phase.checking": "Verificando…",
+  "upd.phase.downloading": "Baixando a versão nova… {p}%",
+  "upd.phase.ready": "Versão nova pronta. Ela será usada na próxima vez que você abrir ou sair do app.",
+  "upd.phase.uptodate": "Você está com a versão mais recente.",
+  "upd.phase.needsapk": "Esta atualização exige instalar o app de novo. Instale por cima do atual; seus dados são mantidos.",
+  "upd.phase.error": "Não foi possível atualizar: {e}",
+  "upd.phase.off": "As atualizações automáticas estão desligadas."
 }

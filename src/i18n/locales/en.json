@@ -1142,5 +1142,20 @@
   "cat.nature": "Nature and animals",
   "cat.security": "Security",
   "cat.energy": "Energy and power",
-  "cat.health": "Health care"
+  "cat.health": "Health care",
+  "upd.title": "App updates",
+  "upd.version": "Version {v}",
+  "upd.web": "This app updates itself when a new version is available. Emergency screens are never interrupted.",
+  "upd.auto": "Update automatically",
+  "upd.privacy": "When online, the app checks GitHub (raw.githubusercontent.com) for a newer version of the screens and guides; GitHub can see your IP address, and nothing else is sent. It never checks in Crisis Mode. A new version is used the next time you open or leave the app.",
+  "upd.check": "Check now",
+  "upd.apply": "Use the new version now",
+  "upd.apk": "Download the new app",
+  "upd.phase.checking": "Checking…",
+  "upd.phase.downloading": "Downloading the new version… {p}%",
+  "upd.phase.ready": "New version ready. It will be used the next time you open or leave the app.",
+  "upd.phase.uptodate": "You have the latest version.",
+  "upd.phase.needsapk": "This update needs a new app installation. Install it over the current one; your data is kept.",
+  "upd.phase.error": "Could not update: {e}",
+  "upd.phase.off": "Automatic updates are off."
 }
