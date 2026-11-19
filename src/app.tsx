@@ -10,6 +10,8 @@ import { Whistle } from './features/emergency/Whistle';
 import { Gps } from './features/emergency/Gps';
 import { GuideView } from './features/guides/GuideView';
 import { ListPage } from './features/guides/ListPage';
+import { Search } from './features/guides/Search';
+import { Settings } from './features/settings/Settings';
 import { t } from './i18n';
 
 export function App() {
@@ -24,6 +26,8 @@ export function App() {
     case 'torch': view = <Torch />; break;
     case 'whistle': view = <Whistle />; break;
     case 'gps': view = <Gps />; break;
+    case 'search': view = <Search />; break;
+    case 'settings': view = <Settings />; break;
     case 'guide': view = <GuideView id={arg ?? ''} />; break;
     case 'scenarios': view = <ListPage kind="scenario" titleKey="list.scenarios" />; break;
     case 'guides': view = <ListPage kind="guide" titleKey="list.guides" />; break;

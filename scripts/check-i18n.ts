@@ -21,7 +21,7 @@ for (const f of files(path.join(ROOT, 'src'))) {
   for (const m of src.matchAll(/\bt\(\s*['"]([\w.\-]+)['"]/g)) if (!(m[1] in en)) errors.push(`${rel}: unknown key ${m[1]}`);
   if (f.endsWith('.tsx')) {
     // literal text between JSX tags, e.g. <p>Hello</p>
-    for (const m of src.matchAll(/>\s*([A-Za-zÀ-ÿ][^<>{}=;]*[A-Za-zÀ-ÿ.!?])\s*</g)) {
+    for (const m of src.matchAll(/(?<![=\-])>\s*([A-Za-zÀ-ÿ][^<>{}=;]*[A-Za-zÀ-ÿ.!?])\s*</g)) {
       if (!/^\s*(const|return|import|export)\b/.test(m[1]) && /\s/.test(m[1].trim()) || /^[A-ZÀ-Ý][a-zà-ÿ]{2,}$/.test(m[1].trim()))
         errors.push(`${rel}: hard-coded text "${m[1].trim()}"`);
     }

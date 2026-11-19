@@ -1,7 +1,6 @@
 # PENDING
 
-## After F2
-- Search page (`#/search`, linked in header), favorites/history lists, full-text search (F3)
+## After F3
 - Almanac (F4), tools/kits/onboarding/settings page (F5), size report + final README (F6)
 - Emergency numbers for more countries need an official source
 - Triage destinations are mostly drafts until content is written and reviewed by a professional
