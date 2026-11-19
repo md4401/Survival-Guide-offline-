@@ -3,7 +3,7 @@ import { t } from '../../i18n';
 import { useSettings } from '../../db/settings';
 import { regionName } from './shared';
 
-interface C { cca2: string; cca3: string; region: string; subregion: string; capital: string | null; area: number; languages: string[]; currencies: string[]; borders: string[]; callingCode: string; name: string }
+interface C { cca2: string; cca3: string; region: string; subregion: string; capital: string | null; area: number; languages: string[]; currencies: string[]; borders: string[]; callingCode: string; name: string; population: number | null; timezones: string[] }
 const dn = (type: 'language' | 'currency', code: string, locale: string) => { try { return new Intl.DisplayNames([locale], { type }).of(code) ?? code; } catch { return code; } };
 
 export function Countries() {
@@ -36,6 +36,8 @@ export function Countries() {
             <li>{t('countries.capital')}: {c.capital ?? '—'}</li>
             <li>{t('countries.region')}: {t(`region.${c.region}`)}{c.subregion ? ` · ${c.subregion}` : ''}</li>
             <li>{t('countries.area')}: {c.area ? `${nf.format(c.area)} km²` : '—'}</li>
+            <li>{t('countries.population')}: {c.population != null ? new Intl.NumberFormat(s.locale, { notation: 'compact' }).format(c.population) : '—'}</li>
+            <li>{t('countries.timezones')}: {c.timezones.join(', ') || '—'}</li>
             <li>{t('countries.languages')}: {c.languages.map((l) => dn('language', l, s.locale)).join(', ') || '—'}</li>
             <li>{t('countries.currency')}: {c.currencies.map((x) => `${dn('currency', x, s.locale)} (${x})`).join(', ') || '—'}</li>
             <li>{t('countries.phone')}: {c.callingCode || '—'}</li>

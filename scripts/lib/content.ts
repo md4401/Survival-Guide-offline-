@@ -36,7 +36,7 @@ export function toGuide(l: Loaded): Guide {
     vital: !!r.vital, status: r.status ?? 'published', needsReview: !!r.needsReview,
     title: r.title, summary: r.summary ?? '', minutes: r.minutes ?? 0, difficulty: r.difficulty,
     warning: r.warning, now: r.now ?? [], materials: r.materials ?? [], related: r.related ?? [],
-    mistakes: r.mistakes ?? [], understand: bullets(l.body),
+    mistakes: r.mistakes ?? [], understand: bullets(l.body), ...(r.timeline ? { timeline: r.timeline } : {}),
     review: { date: String(review.date ?? ''), level: review.level ?? 'draft', source: String(review.source ?? '') },
     tags: r.tags ?? [],
   };

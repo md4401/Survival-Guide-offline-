@@ -24,6 +24,8 @@ export interface Guide {
   related: string[];
   mistakes: string[];
   understand: string[];
+  /** optional action timeline per stage (10min,1h,24h,72h,7d,30d) */
+  timeline?: Partial<Record<'10min' | '1h' | '24h' | '72h' | '7d' | '30d', string[]>>;
   review: Review;
   tags: string[];
 }

@@ -5,6 +5,7 @@ export interface Hist { id: string; at: number }
 export interface Counter { id?: number; name: string; start: number; type: 'up' | 'down' }
 export interface Check { key: string; done: boolean }
 export interface Note { id?: number; text: string; at: number }
+export interface PackRow { id: string; lang: string; version: string; sha256: string; bytes: number; json: string }
 export interface KV { key: string; value: unknown }
 
 class AppDB extends Dexie {
@@ -14,12 +15,14 @@ class AppDB extends Dexie {
   checklists!: Table<Check, string>;
   notes!: Table<Note, number>;
   kv!: Table<KV, string>;
+  packs!: Table<PackRow, string>;
   constructor() {
     super('survival-guide');
     this.version(1).stores({
       favorites: 'id, at', history: 'id, at', counters: '++id',
       checklists: 'key', notes: '++id, at', kv: 'key',
     });
+    this.version(2).stores({ packs: 'id, lang' });
   }
 }
 /** All user data lives only here, on the device. Nothing is ever sent anywhere. */

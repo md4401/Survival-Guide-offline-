@@ -1,10 +1,11 @@
 import { FLAGS } from '../flags';
 import type { Guide } from './types';
-import type { License } from '../interfaces/license';
+import { licenseStatus, type License } from '../interfaces/license';
 
-/** Vital content is NEVER gated. Premium content needs an active license (premium is OFF in the MVP, so it is unreachable). */
-export function canAccess(g: Pick<Guide, 'vital' | 'plan'>, lic: License | null): boolean {
-  if (g.vital) return true;
-  if (g.plan === 'free') return true;
-  return FLAGS.premium && !!lic && lic.active;
+/** Vital content is NEVER gated. Premium content needs an active/grace license, and an ongoing crisis never blocks already-downloaded content. */
+export function canAccess(g: Pick<Guide, 'vital' | 'plan'>, lic: License | null, opts: { crisisActive?: boolean; nowSec?: number } = {}): boolean {
+  if (g.vital || g.plan === 'free') return true;
+  if (!FLAGS.premium) return false;
+  if (opts.crisisActive) return true;
+  return !!lic && licenseStatus(lic, opts.nowSec ?? Date.now() / 1000) !== 'expired';
 }

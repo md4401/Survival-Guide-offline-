@@ -34,6 +34,13 @@ export function validateAll(langs: readonly string[] = LANGS): Issue[] {
         const n = String(s).trim().split(/\s+/).length;
         if (n > MAX_WORDS) bad(`step ${i + 1} has ${n} words (max ${MAX_WORDS}): "${s}"`);
       });
+      for (const [stage, list] of Object.entries<string[]>(raw.timeline ?? {})) {
+        if (!['10min', '1h', '24h', '72h', '7d', '30d'].includes(stage)) bad(`invalid timeline stage: ${stage}`);
+        (list ?? []).forEach((s, i) => {
+          const n = String(s).trim().split(/\s+/).length;
+          if (n > MAX_WORDS) bad(`timeline ${stage} step ${i + 1} has ${n} words (max ${MAX_WORDS}): "${s}"`);
+        });
+      }
       if (!published && !raw.needsReview) bad('draft must set needsReview: true');
       void body;
     }

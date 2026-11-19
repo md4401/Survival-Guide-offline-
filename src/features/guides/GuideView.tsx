@@ -4,7 +4,12 @@ import { getGuide, loadGuides } from '../../content/loader';
 import { t, isFallback } from '../../i18n';
 import { href } from '../../router';
 import { db } from '../../db/dexie';
-import { useSettings } from '../../db/settings';
+import { getSettings, useSettings } from '../../db/settings';
+import { FLAGS } from '../../flags';
+import { voiceReader } from '../../interfaces/tts';
+
+const getSettingsDev = () => getSettings().dev;
+const getLocale = () => getSettings().locale;
 
 export function ReviewSeal({ g }: { g: Guide }) {
   return (
@@ -57,8 +62,16 @@ export function GuideView({ id }: { id: string }) {
       {g.warning && <div class="danger-box" role="alert"><strong>{t('guide.warning')}: </strong>{g.warning}</div>}
       <section class="card">
         <h2>{t('guide.now')}</h2>
+        {(FLAGS.voice || getSettingsDev()) && g.now.length > 0 && <div class="row"><button onClick={() => voiceReader.readSteps(g.now, getLocale())}>🔊 {t('voice.read')}</button><button onClick={() => voiceReader.stop()}>{t('whistle.stop')}</button></div>}
         {g.now.length ? <ol class="steps">{g.now.map((s) => <li>{s}</li>)}</ol> : <p class="muted">{t('guide.empty')}</p>}
       </section>
+      {g.timeline && Object.keys(g.timeline).length > 0 && (
+        <section><h2>{t('crisis.timeline')}</h2>
+          {(['10min', '1h', '24h', '72h', '7d', '30d'] as const).filter((k) => g.timeline![k]?.length).map((k) => (
+            <div class="card"><strong>{t(`stage.${k}`)}</strong><ul>{g.timeline![k]!.map((x) => <li>{x}</li>)}</ul></div>
+          ))}
+        </section>
+      )}
       {g.understand.length > 0 && <section><h2>{t('guide.understand')}</h2><ul>{g.understand.map((s) => <li>{s}</li>)}</ul></section>}
       {g.mistakes.length > 0 && <section><h2>{t('guide.mistakes')}</h2><ul>{g.mistakes.map((s) => <li>{s}</li>)}</ul></section>}
       {g.materials.length > 0 && <section><h2>{t('guide.needs')}</h2><p>{g.materials.join(', ')}</p></section>}
