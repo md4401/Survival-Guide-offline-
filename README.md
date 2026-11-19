@@ -40,7 +40,7 @@ android/ ios/            Capacitor native projects (not built here)
 - **Content** is data, not code. Drafts (`status: draft`) are hidden unless *Developer mode* is on (Settings). The 2 complete example guides (campsite, water filter) are published with a visible "Needs review" badge. The other 22 guides are drafts with conservative text from public guidance, flagged "needs review" and hidden unless Developer mode is on (DECISIONS #31).
 - **Offline**: service worker precaches the whole shell and both language packs; user data in IndexedDB.
 - **Accessibility/UX**: dark theme by default, high-contrast and night-red themes, adjustable font, 48 px targets, no heavy animation (none in battery mode), CSS logical properties.
-- **Native**: `capacitor.config.ts` is ready; run `npx cap add android|ios` + `npx cap sync` (not generated here).
+- **Android**: `android/` is a ready Capacitor project; the APK is built by GitHub Actions (`.github/workflows/android.yml`, see `docs/ANDROID.md`). `ios/` is generated but needs macOS/Xcode.
 
 ## Status (MVP)
 - [x] F1 base, i18n, content pipeline + validator
