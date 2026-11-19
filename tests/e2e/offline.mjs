@@ -52,6 +52,17 @@ try {
   await go('world/climate', 'table.cal'); check('climate renders', true);
   await go('world/tables', 'table.cal'); check('tables render', true);
   await go('world/counter', 'h1'); check('counter renders', true);
+  await go('prepare/kit/72h', 'input[type=checkbox]');
+  await page.click('input[type=checkbox]'); await wait(400);
+  await page.reload(); await page.waitForSelector('input[type=checkbox]');
+  await wait(300);
+  check('checklist persists offline (IndexedDB)', await page.$eval('input[type=checkbox]', (e) => e.checked));
+  await go('tools/converter', 'input'); check('converter renders', true);
+  await go('tools/timer', '.big-num'); check('timer renders', true);
+  await go('prepare/family', 'h1'); check('family plan renders', true);
+  await go('onboarding', 'h1'); check('onboarding renders', true);
+  await go('search', 'input[type=search]'); await page.fill('input[type=search]', 'watr'); await page.waitForSelector('ul.list a');
+  check('search tolerates typos offline', (await page.textContent('ul.list')).toLowerCase().includes('water'));
   check('no uncaught errors', errors.length === 0, errors.join('|'));
   await browser.close();
 } catch (e) { console.error(e); ok = false; }

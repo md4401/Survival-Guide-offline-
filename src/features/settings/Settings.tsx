@@ -1,6 +1,7 @@
 import { updateSettings, useSettings } from '../../db/settings';
 import { ALL_LANGS, MVP_LANGS, t } from '../../i18n';
 import type { Lang } from '../../content/types';
+import { href } from '../../router';
 
 export function Settings() {
   const s = useSettings();
@@ -25,6 +26,7 @@ export function Settings() {
       <label class="row"><input type="checkbox" checked={s.hour12} onChange={(e) => updateSettings({ hour12: (e.target as HTMLInputElement).checked })} /><span>{t('settings.hour12')}</span></label>
       <label class="row"><input type="checkbox" checked={s.battery} onChange={(e) => updateSettings({ battery: (e.target as HTMLInputElement).checked })} /><span>{t('settings.battery')}</span></label>
       <label class="row"><input type="checkbox" checked={s.dev} onChange={(e) => updateSettings({ dev: (e.target as HTMLInputElement).checked })} /><span>{t('settings.dev')}</span></label>
+      <a class="btn" href={href('onboarding')}>{t('settings.profile')}</a>
       <p class="muted">{t('settings.privacy')}</p>
     </main>
   );

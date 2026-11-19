@@ -20,11 +20,18 @@ import { CalendarPage } from './features/almanac/CalendarPage';
 import { Countries } from './features/almanac/Countries';
 import { Climate } from './features/almanac/Climate';
 import { Tables } from './features/almanac/Tables';
+import { Prepare } from './features/prepare/Prepare';
+import { Kit } from './features/prepare/Kit';
+import { Family } from './features/prepare/Family';
+import { Timer } from './features/tools/Timer';
+import { Converter } from './features/tools/Converter';
+import { Notes } from './features/tools/Notes';
+import { Onboarding } from './features/settings/Onboarding';
 import { t } from './i18n';
 
 export function App() {
   useSettings();
-  const [r, arg] = usePath();
+  const [r, arg, arg2] = usePath();
   let view;
   switch (r) {
     case undefined: view = <Home />; break;
@@ -39,7 +46,9 @@ export function App() {
     case 'guide': view = <GuideView id={arg ?? ''} />; break;
     case 'scenarios': view = <ListPage kind="scenario" titleKey="list.scenarios" />; break;
     case 'guides': view = <ListPage kind="guide" titleKey="list.guides" />; break;
-    case 'prepare': view = <ListPage kind="kit" titleKey="list.prepare" />; break;
+    case 'prepare': view = arg === 'kit' ? <Kit kit={arg2 ?? '72h'} /> : arg === 'family' ? <Family /> : <Prepare />; break;
+    case 'tools': view = arg === 'converter' ? <Converter /> : arg === 'notes' ? <Notes /> : <Timer />; break;
+    case 'onboarding': view = <Onboarding />; break;
     case 'world': {
       const W: Record<string, any> = { clock: Clock, counter: Counter, sun: SunMoon, calendar: CalendarPage, countries: Countries, climate: Climate, tables: Tables };
       const V = arg ? W[arg] : World;

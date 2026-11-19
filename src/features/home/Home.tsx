@@ -16,6 +16,7 @@ export function Home() {
     <main class="stack">
       <a class="btn btn-danger btn-block help-btn" href={href('triage')}>{t('home.help')}</a>
       <p class="muted">{t('home.tagline')}</p>
+      {!st.onboarded && <a class="btn card" href={href('onboarding')}>{t('onb.banner')} →</a>}
       <h2>{t('home.tools')}</h2>
       <div class="grid2">
         <a class="btn tool" href={href('torch')}>🔦 {t('home.torch')}</a>
