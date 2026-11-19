@@ -64,6 +64,32 @@ try {
   await go('search', 'input[type=search]'); await page.fill('input[type=search]', 'watr'); await page.waitForSelector('ul.list a');
   check('search tolerates typos offline', (await page.textContent('ul.list')).toLowerCase().includes('water'));
   check('no uncaught errors', errors.length === 0, errors.join('|'));
+  // AI assistant (no model installed): vital → direct guide path, blocked topics, guide fallback, offline download refused
+  await go('assistant', 'input');
+  await page.fill('input[aria-label]', 'how many mg of ibuprofen can I take'); await page.click('button.btn-danger');
+  await page.waitForSelector('.danger-box:has-text("cannot give medicine doses")');
+  check('assistant blocks dose questions', true);
+  await page.fill('input[aria-label]', 'someone is not breathing'); await page.click('button.btn-danger');
+  await page.waitForSelector('a[href="#/emergency"].btn-danger');
+  check('assistant sends life-risk questions to the vital guide/emergency (no AI)', true);
+  await page.fill('input[aria-label]', 'water filter'); await page.click('button.btn-danger');
+  await page.waitForSelector('a[href="#/guide/water.diy-filter"]');
+  check('assistant without a model lists matching guides', true);
+  await go('assistant/models', 'section.card');
+  await page.click('section.card button:has-text("Download")');
+  await page.waitForSelector('[role=alert]:has-text("offline")');
+  check('model download is refused while offline, nothing starts', true);
+  // Low-end device simulation: CPU 6x slower, offline cold start → help → first step
+  {
+    const lp = await ctx.newPage(); const cdp = await ctx.newCDPSession(lp);
+    await cdp.send('Emulation.setCPUThrottlingRate', { rate: 6 });
+    const t1 = Date.now();
+    await lp.goto(`http://localhost:${PORT}/`); await lp.waitForSelector('.help-btn');
+    await lp.click('.help-btn'); await lp.click('a[href="#/triage/water.diy-filter"]'); await lp.waitForSelector('ol.steps li');
+    const ms = Date.now() - t1;
+    check('icon → first step ≤2 s with CPU 6x slower (offline)', ms <= 2000, `(${ms} ms)`);
+    await lp.close();
+  }
   // Accessibility: touch targets >= 48 px on key screens
   for (const h of ['', 'triage', 'emergency', 'guide/water.diy-filter', 'prepare', 'world', 'settings']) {
     await go(h, 'main');

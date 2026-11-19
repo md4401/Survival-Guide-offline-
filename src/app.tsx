@@ -29,6 +29,8 @@ import { Notes } from './features/tools/Notes';
 import { Onboarding } from './features/settings/Onboarding';
 import { Crisis } from './features/crisis/Crisis';
 import { Water } from './features/prepare/Water';
+import { Assistant } from './features/assistant/Assistant';
+import { Models } from './features/assistant/Models';
 import { t } from './i18n';
 
 export function App() {
@@ -50,6 +52,7 @@ export function App() {
     case 'guides': view = <ListPage kind="guide" titleKey="list.guides" />; break;
     case 'prepare': view = arg === 'kit' ? <Kit kit={arg2 ?? '72h'} /> : arg === 'family' ? <Family /> : arg === 'water' ? <Water /> : <Prepare />; break;
     case 'tools': view = arg === 'converter' ? <Converter /> : arg === 'notes' ? <Notes /> : <Timer />; break;
+    case 'assistant': view = arg === 'models' ? <Models /> : <Assistant />; break;
     case 'crisis': view = <Crisis />; break;
     case 'onboarding': view = <Onboarding />; break;
     case 'world': {

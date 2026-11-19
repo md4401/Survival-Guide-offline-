@@ -15,7 +15,9 @@
     "typecheck": "tsc --noEmit",
     "test:e2e": "node tests/e2e/offline.mjs",
     "check:css": "tsx scripts/check-css.ts",
-    "verify": "npm run build && npm test && npm run size && npm run test:e2e"
+    "verify": "npm run build && npm test && npm run size && npm run test:e2e",
+    "cap:sync": "npm run build && cap sync",
+    "icons": "node scripts/gen-icons.mjs"
   },
   "dependencies": {
     "@noble/curves": "^2.4.0",
