@@ -21,7 +21,9 @@
     "eval:ai": "tsx scripts/eval-ai.ts",
     "shots": "node scripts/store-shots.mjs",
     "test:e2e:messages": "node tests/e2e/messages.mjs",
-    "plans": "tsx scripts/gen-plans-doc.ts"
+    "plans": "tsx scripts/gen-plans-doc.ts",
+    "android:sync": "npm run build && cap sync android",
+    "android:debug": "cd android && ./gradlew assembleDebug"
   },
   "dependencies": {
     "@noble/curves": "^2.4.0",

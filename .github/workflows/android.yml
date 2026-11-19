@@ -1,0 +1,66 @@
+name: Android APK
+# Builds an installable APK of the app (web build → Capacitor → Gradle) on a GitHub runner, which has the Android SDK.
+on:
+  push:
+    branches: [main, 'ccr-*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - name: "Android SDK (preinstalled on the runner) - licenses and platform 36"
+        run: |
+          SDKM="$(ls -d "$ANDROID_HOME"/cmdline-tools/*/bin/sdkmanager | head -1)"
+          yes | "$SDKM" --licenses > /dev/null || true
+          "$SDKM" "platforms;android-36" "build-tools;36.0.0"
+      - run: npm ci
+      - name: Build the web app (validates content and translations first)
+        run: npm run build
+      - name: Copy the web build into the Android project
+        run: npx cap sync android
+      - name: Version
+        run: |
+          echo "APP_VERSION_CODE=${{ github.run_number }}" >> "$GITHUB_ENV"
+          echo "APP_VERSION_NAME=0.1.${{ github.run_number }}" >> "$GITHUB_ENV"
+      - name: Debug APK (signed with the debug key; installable by sideloading)
+        working-directory: android
+        run: ./gradlew --no-daemon assembleDebug
+      - name: Decode keystore
+        id: ks
+        env:
+          KS: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+        run: |
+          if [ -n "$KS" ]; then echo "$KS" | base64 -d > "$RUNNER_TEMP/release.keystore"; echo "present=true" >> "$GITHUB_OUTPUT"; else echo "present=false" >> "$GITHUB_OUTPUT"; fi
+      - name: Signed release APK and AAB
+        if: steps.ks.outputs.present == 'true'
+        working-directory: android
+        env:
+          ANDROID_KEYSTORE_PATH: ${{ runner.temp }}/release.keystore
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: ./gradlew --no-daemon assembleRelease bundleRelease
+      - name: Inspect the APK (package, SDK levels, permissions, signature)
+        run: |
+          BT="$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)"
+          APK=android/app/build/outputs/apk/debug/app-debug.apk
+          ls -la android/app/build/outputs/apk/*/
+          "$BT/aapt2" dump badging "$APK" | grep -E "^package:|^sdkVersion|^targetSdkVersion|^application-label:|^uses-permission:" 
+          "$BT/apksigner" verify --verbose "$APK" | head -5
+      - uses: actions/upload-artifact@v4
+        with:
+          name: survival-guide-apk
+          path: |
+            android/app/build/outputs/apk/debug/app-debug.apk
+            android/app/build/outputs/apk/release/*.apk
+            android/app/build/outputs/bundle/release/*.aab
+          if-no-files-found: error
+          retention-days: 30
