@@ -13,7 +13,7 @@
 ## 2. Summary
 | | Count |
 |---|---|
-| Free | 29 |
+| Free | 30 |
 | Free + Premium (essential version free, depth in Premium) | 3 |
 | Premium | 23 |
 | Vital (always free) | 19 |
@@ -127,6 +127,7 @@
 | Feature | Plan | Vital | Built | Note |
 |---|---|---|---|---|
 | Timer, converter and notes | **Free** |  | yes |  |
+| undefined | **Free** |  | yes | calculator, audio recorder, QR reader, agenda, sound level meter, metal detector (magnetic sensor), compass, level, clock, calendar, notes |
 
 ### Water
 | Feature | Plan | Vital | Built | Note |

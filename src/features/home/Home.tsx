@@ -5,6 +5,7 @@ import { loadGuides } from '../../content/loader';
 import { useUserLists } from '../guides/Search';
 import { useSettings, getSettings } from '../../db/settings';
 import { pick } from '../../lib/l10n';
+import { onDay } from '../../lib/agenda';
 import { factOfDay } from '../../lib/library';
 import type { Guide } from '../../content/types';
 import { getKV, db } from '../../db/dexie';
@@ -25,6 +26,8 @@ export function Home() {
   const [crisis, setCrisis] = useState<CrisisState | null>(null);
   useEffect(() => { getKV<CrisisState | null>('crisis', null).then(setCrisis); }, []);
   const premium = usePremium(); const [due, setDue] = useState(0);
+  const [today, setToday] = useState(0);
+  useEffect(() => { db.events.toArray().then((r) => setToday(onDay(r, new Date()).length)).catch(() => {}); }, []);
   useEffect(() => { if (!premium) { setDue(0); return; } (async () => setDue(dueSoon(await db.inventory.toArray()).length + (await loadReminders()).filter((r) => isDue(r)).length))().catch(() => {}); }, [premium]);
   const [hasAi, setHasAi] = useState(false);
   useEffect(() => { loadAi().then((a) => setHasAi(!!a.active)); }, []);
@@ -35,10 +38,12 @@ export function Home() {
       <a class="btn btn-danger btn-block help-btn" href={href('triage')}>{t('home.help')}</a>
       <a class="btn btn-block" href={href('crisis')}>{crisis ? `${t('crisis.active')}: ${t('counter.day', { n: dayNumber(crisis.start, Date.now()) })}` : t('crisis.living')}</a>
       <a class="btn card" href={href('library')}>💡 {pick(factOfDay().text, getSettings().locale)}</a>
+      {today > 0 && <a class="btn card" href={href('tools', 'agenda')}>🗓 {t('home.agenda', { n: today })}</a>}
       {due > 0 && <a class="btn card" href={href('inventory')}>⏰ {t('home.due', { n: due })}</a>}
       <p class="muted">{t('home.tagline')}</p>
       {!st.onboarded && <a class="btn card" href={href('onboarding')}>{t('onb.banner')}</a>}
       <h2>{t('home.tools')}</h2>
+      <a class="btn card" href={href('tools')}>🧰 {t('tools.title')}</a>
       <div class="grid2">
         <a class="btn tool" href={href('torch')}>🔦 {t('home.torch')}</a>
         <a class="btn tool" href={href('whistle')}>📣 {t('home.whistle')}</a>
