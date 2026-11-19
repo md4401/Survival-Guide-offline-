@@ -5,7 +5,9 @@ import type { Guide } from '../../src/content/types';
 
 export const ROOT = path.resolve(import.meta.dirname, '../..');
 export const CONTENT = path.join(ROOT, 'content');
-export const LANGS = ['en', 'pt'] as const;
+export const LANGS = ['en', 'pt', 'es', 'fr', 'ar', 'hi', 'zh'] as const;
+/** Languages whose guides are machine-translated drafts: never publishable until a native speaker reviews them. */
+export const MACHINE_LANGS = ['es', 'fr', 'ar', 'hi', 'zh'] as const;
 
 export function walk(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
@@ -36,7 +38,7 @@ export function toGuide(l: Loaded): Guide {
     vital: !!r.vital, status: r.status ?? 'published', needsReview: !!r.needsReview,
     title: r.title, summary: r.summary ?? '', minutes: r.minutes ?? 0, difficulty: r.difficulty,
     warning: r.warning, now: r.now ?? [], materials: r.materials ?? [], related: r.related ?? [],
-    mistakes: r.mistakes ?? [], understand: bullets(l.body),
+    mistakes: r.mistakes ?? [], understand: bullets(l.body), ...(r.timeline ? { timeline: r.timeline } : {}),
     review: { date: String(review.date ?? ''), level: review.level ?? 'draft', source: String(review.source ?? '') },
     tags: r.tags ?? [],
   };

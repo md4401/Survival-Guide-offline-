@@ -1,0 +1,12 @@
+{
+  "_note": "Source: product spec v1.1 §5.1. Sample only. Every entry needs verification against official sources.",
+  "needsReview": true,
+  "countries": {
+    "BR": { "police": "190", "ambulance": "192", "fire": "193", "civil": "199", "mental": "188" },
+    "EU": { "general": "112" },
+    "US": { "general": "911" },
+    "CA": { "general": "911" },
+    "GB": { "general": "999" },
+    "AU": { "general": "000" }
+  }
+}

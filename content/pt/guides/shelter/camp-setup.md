@@ -22,7 +22,7 @@ now:
   - Cozinhe e guarde comida a 30 metros ou mais da barraca.
   - Faça o banheiro a 60 metros ou mais de água e trilha.
   - Antes de dormir, deixe lanterna e calçado sempre no mesmo lugar.
-materials: [tent, stakes, ground-tarp, sleeping-bag, flashlight, water-container, small-shovel, trash-bags]
+materials: [Barraca, Estacas e cordas, Lona de piso, Saco de dormir, Lanterna, Recipiente de água, Pá pequena, Sacos de lixo]
 related: [water.diy-filter]
 mistakes:
   - Montar no pôr do sol, sem tempo para corrigir.

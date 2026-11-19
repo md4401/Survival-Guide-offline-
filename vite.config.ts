@@ -7,12 +7,21 @@ export default defineConfig({
   plugins: [
     preact(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
       injectRegister: 'auto',
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,json,png,webmanifest}'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         navigateFallback: 'index.html',
+        runtimeCaching: [{
+          urlPattern: /^https:\/\/cdn\.jsdelivr\.net\/npm\/@huggingface\/transformers@/,
+          handler: 'CacheFirst',
+          options: { cacheName: 'ai-runtime', cacheableResponse: { statuses: [0, 200] }, expiration: { maxEntries: 30 } },
+        }, {
+          urlPattern: /^https:\/\/cdn\.jsdelivr\.net\/npm\/onnxruntime-web/,
+          handler: 'CacheFirst',
+          options: { cacheName: 'ai-runtime', cacheableResponse: { statuses: [0, 200] }, expiration: { maxEntries: 30 } },
+        }],
       },
       manifest: {
         name: 'Survival Guide',
@@ -21,7 +30,12 @@ export default defineConfig({
         display: 'standalone',
         background_color: '#0f1417',
         theme_color: '#0f1417',
-        icons: [{ src: 'icon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any maskable' }],
+        icons: [
+          { src: 'icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+          { src: 'icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+          { src: 'icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+          { src: 'icon.svg', sizes: 'any', type: 'image/svg+xml' },
+        ],
       },
     }),
   ],

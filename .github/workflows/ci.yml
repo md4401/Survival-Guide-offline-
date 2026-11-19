@@ -1,0 +1,17 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Playwright browser (for the offline E2E)
+        run: npx playwright install --with-deps chromium
+      - name: Install Playwright package for the E2E script
+        run: npm i --no-save playwright
+      - run: npm run verify

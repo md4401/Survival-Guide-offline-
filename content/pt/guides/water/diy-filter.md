@@ -20,7 +20,7 @@ now:
   - Despeje a água suja devagar. Recolha a água filtrada.
   - Desinfete: ferva 1 minuto, 3 minutos acima de 2.000 m.
   - Guarde em recipiente limpo e tampado.
-materials: [pet-bottle, scissors, clean-cloth, charcoal, fine-sand, coarse-sand, gravel, clean-container, pot, chlorine-tablets]
+materials: [Garrafa PET de 2 L, Tesoura ou faca, Tecido limpo ou filtro de café, Carvão vegetal de madeira (sem aditivos), Areia fina lavada, Areia grossa lavada, Cascalho, Recipiente limpo, Panela e fogo, Tabletes de cloro]
 related: []
 mistakes:
   - Achar que a água ficou potável só porque ficou clara.

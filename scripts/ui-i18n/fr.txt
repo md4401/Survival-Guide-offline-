@@ -1,0 +1,338 @@
+À propos du contenu
+Les guides marqués « À réviser » n'ont pas encore été vérifiés par un professionnel. Les numéros d'urgence, le climat, les tableaux et les quantités peuvent être incomplets ou erronés. Ne comptez pas uniquement sur cette application en cas de danger de mort.
+Crédits
+Données des pays : world-countries (ODbL), country-json et countries-and-timezones (MIT), emergency-numbers (MIT, données communautaires). Calculs du Soleil et de la Lune : équations publiques de la NOAA et mois synodique moyen.
+Texte provisoire. Un juriste doit relire la politique de confidentialité et les conditions avant la publication.
+Tout ce que vous enregistrez (favoris, notes, listes, profil, plan familial) reste sur cet appareil.
+L'application n'a ni compte, ni publicité, ni statistiques, et n'envoie rien vous concernant.
+Le seul usage du réseau est ce que vous lancez vous-même : télécharger un modèle d'IA facultatif.
+Les sauvegardes sont des fichiers chiffrés que vous conservez. Les signalements d'erreur restent sur l'appareil.
+Caméra : uniquement pour utiliser la lumière comme lampe torche. Aucune photo n'est prise.
+Position : uniquement quand vous demandez vos coordonnées ou les heures du Soleil et de la Lune. Elle n'est jamais envoyée.
+Capteurs de mouvement : uniquement pour la boussole.
+Autorisations
+Confidentialité
+À propos, confidentialité et mentions légales
+Mot de passe incorrect, ou fichier modifié.
+Ce n'est pas un fichier de sauvegarde valide.
+Exporter la sauvegarde
+Fichier de sauvegarde créé.
+Enregistre favoris, notes, listes, compteurs, profil et plan familial dans un fichier chiffré que vous conservez. Rien ne va dans le cloud. Si vous oubliez le mot de passe, le fichier ne peut pas être ouvert.
+Importer une sauvegarde
+Sauvegarde restaurée.
+Mot de passe (4 caractères minimum)
+Utilisez un mot de passe plus long.
+Sauvegarde et restauration
+Polaire
+Subpolaire
+Subtropical
+Tempéré
+Tropical (près de l'équateur)
+Calme
+Très légère brise
+Tempête
+Tempête violente
+Force ouragan
+Légère brise
+Petite brise
+Jolie brise
+Bonne brise
+Vent frais
+Grand frais
+Coup de vent
+Fort coup de vent
+Chinois
+Hébraïque
+Jours fériés au Brésil
+Islamique
+Mois suivant
+Aujourd'hui dans d'autres calendriers
+Persan
+Mois précédent
+À vérifier avec le calendrier officiel.
+Comparer avec…
+Mois
+Données d'exemple (3 villes), approximatives et non vérifiées.
+Réglage manuel
+À utiliser si l'horloge de l'appareil est fausse. Enregistré sur cet appareil.
+Jour de l'année
+Année bissextile
+Décalage actuel : {s} s
+Trimestre
+Réinitialiser
+Saison
+Fuseau horaire
+Semaine ISO
+Les points sont colorés uniquement par bande de latitude, une approximation. Ce ne sont pas de vraies zones climatiques.
+Carte climatique
+Est
+Nord
+Nord-est
+Nord-ouest
+Sud
+Sud-est
+Sud-ouest
+Ouest
+Éloignez-vous des métaux et des aimants. Si elle semble fausse, faites un 8 avec le téléphone pour calibrer.
+L'autorisation du capteur a été refusée.
+Utilise le capteur de votre appareil. Fonctionne sans internet.
+Aucun capteur de boussole sur cet appareil.
+Démarrer la boussole
+Boussole
+En attente du capteur…
+Surface
+Longueur
+Masse
+Pression
+Vitesse
+Température
+Volume
+Valeur
+Convertisseur d'unités
+Date de début
+Compte à rebours jusqu'à la date
+{d} j {h} h {m} min écoulés
+Encore {n} jours
+Nom (p. ex. Jour de crise)
+Nouveau compteur
+Aucun compteur pour l'instant. Créez-en un ci-dessous.
+Compter depuis la date
+Toutes les régions
+Superficie
+Frontières
+Capitale
+{n} pays et territoires
+Monnaie
+Langues
+Indicatif téléphonique
+Population
+Région
+Données : world-countries (ODbL), country-json et countries-and-timezones (MIT). La population est approximative et peut manquer.
+Fuseaux horaires
+Batterie
+environ {h} h restantes au rythme actuel
+Niveau de batterie indisponible sur cet appareil.
+Liste du kit de 72 heures
+Journal de crise
+Ce qui s'est passé, ce que vous avez utilisé, ce que vous avez décidé
+Terminer le mode crise
+Choisissez ce que vous vivez. Cela lance le compteur de jours, économise la batterie et ouvre la liste et la chronologie.
+Ouvrir le guide du scénario
+Articles à réapprovisionner
+L'économie de batterie est activée : ni animations ni mises à jour.
+Résumé de la crise
+A duré {d} jours {h} h. {n} entrées dans le journal.
+Chronologie
+Ajouter un contact
+Contacts d'urgence
+Point de rassemblement hors du quartier
+Heures de contact
+Nom
+Point de rassemblement près de chez soi
+Personne à contacter hors de la ville
+Téléphone
+Degrés, minutes, secondes
+Jour des Morts
+Notre-Dame d'Aparecida
+Journée de la conscience noire
+Carnaval
+Noël
+Fête-Dieu
+Pâques
+Vendredi saint
+Fête de l'Indépendance
+Fête du Travail
+Nouvel An
+Proclamation de la République
+Tiradentes
+Appartement
+Maison
+Communication
+Papiers et argent
+Énergie et lumière
+Nourriture
+Santé
+Abri et chaleur
+Eau
+Copié
+Copier les articles manquants
+Jours
+Piles de rechange
+Couverture
+Argent en petites coupures
+Vêtements de rechange
+Copies de documents
+Articles pour personnes âgées
+Trousse de premiers secours
+Lampe torche
+Nourriture non périssable
+Articles d'hygiène
+Articles pour enfants
+Médicaments personnels
+Nourriture et eau pour animaux
+Batterie externe
+Purification de l'eau (pastilles ou filtre)
+Radio à piles ou à manivelle
+Eau potable
+Sifflet
+Personnes
+{p} % préparé
+Quantités provisoires pour la planification. Elles doivent être relues par un professionnel.
+L
+repas
+pièces
+kit
+votre profil comprend des personnes âgées
+votre profil comprend des enfants
+votre profil comprend des animaux
+Âge : {d} jours
+Le moment des phases est approximatif (environ ±1 jour).
+Premier quartier
+Pleine lune
+Éclairée
+Dernier quartier
+Nouvelle lune
+Prochaine pleine lune
+Prochaine nouvelle lune
+Dernier croissant
+Gibbeuse décroissante
+Premier croissant
+Gibbeuse croissante
+Faire clignoter l'écran
+Saisissez un message
+Alphabet phonétique international
+Jouer le son
+Épelé avec l'alphabet phonétique
+Code Morse et alphabet d'épellation
+Ajouter une note
+Écrivez une note ou une liste de ressources
+Notes
+Enfants, personnes âgées, animaux ?
+Commencer
+Étape {n} sur {total}
+Combien de personnes ?
+Plan familial
+Personnes âgées
+Type de logement
+Enfants
+Personnes
+Animaux
+Énorme
+Faible
+Majeur
+Mineur
+Modéré
+Fort
+Afrique
+Amériques
+Antarctique
+Asie
+Europe
+Océanie
+Signaler une erreur dans ce guide
+Enregistré sur cet appareil. Rien n'est envoyé.
+Les signalements restent sur cet appareil. Copiez-les pour les envoyer à l'équipe de contenu quand vous le souhaitez.
+Qu'est-ce qui est faux ou peu clair ?
+Signalements d'erreur enregistrés ({n})
+Communication
+Papiers et argent
+Énergie et lumière
+Nourriture
+Santé
+Connaissances
+Abri et chaleur
+Eau
+Une indication de ce qu'il faut faire ensuite, jamais un jugement. Elle utilise votre liste de kit, votre plan familial et les guides vitaux ouverts.
+Prochaine étape la plus utile
+Ouvrir
+Score de préparation
+Les pondérations sont un point de départ et peuvent changer après les tests.
+Automne
+Printemps
+Été
+Hiver
+Modifier le profil local
+Suggéré pour vous
+Pourquoi je vois ceci ?
+Aube civile
+Crépuscule civil
+Choisir un pays
+Durée du jour
+Lune
+Midi solaire
+Heures affichées en {tz}. Un pays ne donne qu'un point central approximatif.
+Le soleil ne se couche pas aujourd'hui.
+Le soleil ne se lève pas aujourd'hui.
+Lever du soleil
+Coucher du soleil
+Soleil
+Utiliser le GPS
+Échelle de vent de Beaufort
+Faire bouillir l'eau pour la désinfecter
+Tiré des guides sur l'eau de cette application (à réviser).
+Code Morse
+Magnitude des séismes
+Échelles publiques standard, données à titre indicatif. À vérifier avec des sources officielles.
+Chiffres romains
+Catégories d'ouragan (Saffir-Simpson)
+Indice UV
+Minimal
+Pro
+Standard
+Minuscule
+Temps écoulé
+Démarrer
+Arrêter
+Chronomètre
+Minuteur
+Extrême
+Élevé
+Faible
+Modéré
+Très élevé
+Lire les étapes à voix haute
+Dose de chlore
+Pour une eau claire. Filtrez d'abord l'eau trouble. Utilisez de l'eau de Javel pure, sans additifs.
+Chlore dans le produit (%)
+gouttes (approx.)
+Effort physique intense
+Temps chaud
+Saisissez des valeurs supérieures à zéro.
+De combien d'eau ai-je besoin ?
+Valeurs provisoires pour la planification. Elles doivent être relues par un professionnel. Préférez les instructions de l'étiquette du produit.
+Cible (mg/L)
+Calculateurs d'eau
+Volume d'eau (L)
+Mélangez et attendez {n} minutes avant de boire.
+vous vivez en appartement
+c'est le scénario le plus courant
+c'est l'été là où vous êtes
+c'est l'hiver là où vous êtes
+Pays
+Équateur
+{n} États indépendants
+{n} sans accès à la mer
+Les plus grands par superficie
+Lignes imaginaires
+Cercles polaires
+Les plus peuplés
+Les plus petits par superficie
+Calculé à partir des données des pays de cette application (approximatif).
+Le monde en chiffres
+{n} pays et territoires
+Tropiques (Cancer et Capricorne)
+Équatorial
+Mousson tropicale
+Savane tropicale
+Désert chaud
+Semi-aride (steppe)
+Subtropical humide
+Méditerranéen
+Océanique
+Continental humide
+Subarctique
+Toundra
+Calotte glaciaire
+Zones climatiques
+Résumé qualitatif de 12 grandes zones. À réviser.
+Exemples

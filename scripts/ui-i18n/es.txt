@@ -1,0 +1,338 @@
+Sobre el contenido
+Las guías marcadas «Necesita revisión» aún no han sido comprobadas por un profesional. Los números de emergencia, el clima, las tablas y las cantidades pueden estar incompletos o ser erróneos. No dependa solo de esta app en una situación de riesgo vital.
+Créditos
+Datos de países: world-countries (ODbL), country-json y countries-and-timezones (MIT), emergency-numbers (MIT, datos de la comunidad). Cálculo de Sol y Luna: ecuaciones públicas de la NOAA y el mes sinódico medio.
+Texto provisional. Un abogado debe revisar la política de privacidad y los términos antes del lanzamiento.
+Todo lo que guarda (favoritos, notas, listas, perfil, plan familiar) permanece en este dispositivo.
+La app no tiene cuenta, anuncios ni analítica, y no envía nada sobre usted.
+El único uso de red es lo que usted inicia: descargar un modelo de IA opcional.
+Las copias de seguridad son archivos cifrados que usted conserva. Los informes de error se quedan en el dispositivo.
+Cámara: solo para usar la luz como linterna. No se toman fotos.
+Ubicación: solo cuando usted pide sus coordenadas o las horas del Sol y la Luna. Nunca se envía a ningún sitio.
+Sensores de movimiento: solo para la brújula.
+Permisos
+Privacidad
+Acerca de, privacidad y aviso legal
+Contraseña incorrecta o el archivo fue modificado.
+Este no es un archivo de copia de seguridad válido.
+Exportar copia de seguridad
+Archivo de copia de seguridad creado.
+Guarda favoritos, notas, listas, contadores, perfil y plan familiar en un archivo cifrado que usted conserva. No va nada a la nube. Si olvida la contraseña, el archivo no se puede abrir.
+Importar copia de seguridad
+Copia de seguridad restaurada.
+Contraseña (mínimo 4 caracteres)
+Use una contraseña más larga.
+Copia de seguridad y restauración
+Polar
+Subpolar
+Subtropical
+Templada
+Tropical (cerca del ecuador)
+Calma
+Ventolina
+Tormenta
+Tormenta violenta
+Fuerza de huracán
+Brisa muy débil
+Brisa débil
+Brisa moderada
+Brisa fresca
+Brisa fuerte
+Viento fuerte
+Temporal
+Temporal fuerte
+Chino
+Hebreo
+Festivos de Brasil
+Islámico
+Mes siguiente
+Hoy en otros calendarios
+Persa
+Mes anterior
+Necesita verificación con el calendario oficial.
+Comparar con…
+Mes
+Datos de muestra (3 ciudades), aproximados y aún sin verificar.
+Ajuste manual
+Úselo si el reloj del dispositivo está mal. Se guarda en este dispositivo.
+Día del año
+Año bisiesto
+Ajuste actual: {s} s
+Trimestre
+Restablecer
+Estación
+Zona horaria
+Semana ISO
+Los puntos se colorean solo por franja de latitud, una aproximación. No son zonas climáticas reales.
+Mapa climático
+Este
+Norte
+Noreste
+Noroeste
+Sur
+Sureste
+Suroeste
+Oeste
+Manténgase lejos de metal e imanes. Si parece incorrecta, mueva el móvil en forma de 8 para calibrar.
+Se denegó el permiso del sensor.
+Usa el sensor de su dispositivo. Funciona sin internet.
+No se encontró sensor de brújula en este dispositivo.
+Iniciar brújula
+Brújula
+Esperando al sensor…
+Área
+Longitud
+Masa
+Presión
+Velocidad
+Temperatura
+Volumen
+Valor
+Conversor de unidades
+Fecha de inicio
+Cuenta atrás hasta la fecha
+{d} d {h} h {m} min transcurridos
+Faltan {n} días
+Nombre (p. ej. Día de la crisis)
+Nuevo contador
+Aún no hay contadores. Cree uno abajo.
+Contar desde la fecha
+Todas las regiones
+Superficie
+Fronteras
+Capital
+{n} países y territorios
+Moneda
+Idiomas
+Prefijo telefónico
+Población
+Región
+Datos: world-countries (ODbL), country-json y countries-and-timezones (MIT). La población es aproximada y puede faltar.
+Zonas horarias
+Batería
+unas {h} h restantes al ritmo actual
+Nivel de batería no disponible en este dispositivo.
+Lista del kit de 72 horas
+Diario de la crisis
+Qué pasó, qué usó, qué decidió
+Terminar el modo crisis
+Elija lo que está viviendo. Esto inicia el contador de días, ahorra batería y abre la lista y la cronología.
+Abrir la guía del escenario
+Artículos por reponer
+El ahorro de batería está activo: sin animaciones ni actualizaciones.
+Resumen de la crisis
+Duró {d} días {h} h. {n} entradas en el diario.
+Cronología
+Añadir contacto
+Contactos de emergencia
+Punto de encuentro fuera del barrio
+Horarios de contacto
+Nombre
+Punto de encuentro cerca de casa
+Persona de contacto fuera de la ciudad
+Teléfono
+Grados, minutos, segundos
+Día de los Difuntos
+Nuestra Señora de Aparecida
+Día de la Conciencia Negra
+Carnaval
+Navidad
+Corpus Christi
+Pascua
+Viernes Santo
+Día de la Independencia
+Día del Trabajo
+Año Nuevo
+Proclamación de la República
+Tiradentes
+Apartamento
+Casa
+Comunicación
+Documentos y dinero
+Energía y luz
+Comida
+Salud
+Refugio y abrigo
+Agua
+Copiado
+Copiar artículos que faltan
+Días
+Pilas de repuesto
+Manta
+Dinero en billetes pequeños
+Muda de ropa
+Copias de documentos
+Artículos para personas mayores
+Botiquín de primeros auxilios
+Linterna
+Comida no perecedera
+Artículos de higiene
+Artículos para niños
+Medicación personal
+Comida y agua para mascotas
+Batería externa
+Potabilización de agua (pastillas o filtro)
+Radio de pilas o manivela
+Agua potable
+Silbato
+Personas
+{p}% preparado
+Cantidades provisionales para planificar. Necesitan revisión profesional.
+L
+comidas
+uds.
+kit
+su perfil incluye personas mayores
+su perfil incluye niños
+su perfil incluye mascotas
+Edad: {d} días
+El momento de las fases es aproximado (unos ±1 día).
+Cuarto creciente
+Luna llena
+Iluminada
+Cuarto menguante
+Luna nueva
+Próxima luna llena
+Próxima luna nueva
+Menguante
+Gibosa menguante
+Creciente
+Gibosa creciente
+Parpadear la pantalla
+Escriba un mensaje
+Alfabeto fonético internacional
+Reproducir sonido
+Deletreado con el alfabeto fonético
+Código Morse y alfabeto de deletreo
+Añadir nota
+Escriba una nota o lista de recursos
+Notas
+¿Niños, personas mayores, mascotas?
+Empezar
+Paso {n} de {total}
+¿Cuántas personas?
+Plan familiar
+Personas mayores
+Tipo de vivienda
+Niños
+Personas
+Mascotas
+Enorme
+Leve
+Grande
+Menor
+Moderado
+Fuerte
+África
+América
+Antártida
+Asia
+Europa
+Oceanía
+Informar de un error en esta guía
+Guardado en este dispositivo. No se envía a ningún sitio.
+Los informes se quedan en este dispositivo. Cópielos para enviarlos al equipo de contenido cuando quiera.
+¿Qué está mal o poco claro?
+Informes de error guardados ({n})
+Comunicación
+Documentos y dinero
+Energía y luz
+Comida
+Salud
+Conocimiento
+Refugio y abrigo
+Agua
+Una orientación sobre qué hacer a continuación, nunca un juicio. Usa su lista del kit, el plan familiar y las guías vitales que abrió.
+Siguiente paso más útil
+Abrir
+Puntuación de preparación
+Los pesos son un punto de partida y pueden cambiar tras las pruebas.
+Otoño
+Primavera
+Verano
+Invierno
+Editar perfil local
+Sugerido para usted
+¿Por qué veo esto?
+Alba civil
+Crepúsculo civil
+Elegir un país
+Duración del día
+Luna
+Mediodía solar
+Los horarios se muestran en {tz}. Un país solo da un punto central aproximado.
+Hoy el sol no se pone.
+Hoy el sol no sale.
+Amanecer
+Atardecer
+Sol
+Usar GPS
+Escala de viento de Beaufort
+Hervir el agua para desinfectar
+De las guías de agua de esta app (necesita revisión).
+Código Morse
+Magnitud de terremotos
+Escalas públicas estándar, mostradas como referencia. Necesitan verificación con fuentes oficiales.
+Números romanos
+Categorías de huracán (Saffir-Simpson)
+Índice UV
+Mínimo
+Pro
+Estándar
+Diminuto
+Se acabó el tiempo
+Iniciar
+Detener
+Cronómetro
+Temporizador
+Extremo
+Alto
+Bajo
+Moderado
+Muy alto
+Leer los pasos en voz alta
+Dosis de cloro
+Para agua clara. Filtre antes el agua turbia. Use lejía pura, sin aditivos.
+Cloro en el producto (%)
+gotas (aprox.)
+Esfuerzo físico intenso
+Clima caluroso
+Introduzca valores mayores que cero.
+¿Cuánta agua necesito?
+Valores provisionales para planificar. Necesitan revisión profesional. Prefiera las instrucciones de la etiqueta del producto.
+Objetivo (mg/L)
+Calculadoras de agua
+Volumen de agua (L)
+Mezcle y espere {n} minutos antes de beber.
+vive en un apartamento
+es el escenario más común
+es verano donde usted está
+es invierno donde usted está
+Países
+Ecuador
+{n} Estados independientes
+{n} sin litoral
+Más grandes por superficie
+Líneas imaginarias
+Círculos polares
+Más poblados
+Más pequeños por superficie
+Calculado con los datos de países de esta app (aproximado).
+El mundo en cifras
+{n} países y territorios
+Trópicos (Cáncer y Capricornio)
+Ecuatorial
+Monzónico tropical
+Sabana tropical
+Desierto cálido
+Semiárido (estepa)
+Subtropical húmedo
+Mediterráneo
+Oceánico
+Continental húmedo
+Subártico
+Tundra
+Casquete de hielo
+Zonas climáticas
+Resumen cualitativo de 12 zonas amplias. Necesita revisión.
+Ejemplos

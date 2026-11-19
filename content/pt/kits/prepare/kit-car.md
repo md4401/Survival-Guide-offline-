@@ -7,7 +7,7 @@ vital: false
 status: draft
 needsReview: true
 title: "Kit do carro"
-summary: ""
+summary: "Use o checklist interativo em Preparar."
 minutes: 0
 now: []
 materials: []
@@ -16,6 +16,7 @@ mistakes: []
 review:
   date: 2026-11-19
   level: draft
-  source: pending
+  source: "A verificar: OMS / Cruz Vermelha / Defesa Civil (fonte ainda não registrada)"
 tags: []
 ---
+- As quantidades são provisórias até a revisão.
