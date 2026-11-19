@@ -142,6 +142,9 @@ try {
     check('scenario cards start with the most urgent (house fire)', (await page.textContent('ul.grid2 li')).toLowerCase().includes('fire'));
     await go('guides', 'input[type=search]'); await wait(800); const total = await page.$$eval('section.stack h2', (e) => e.length);
     check('guides page groups guides by category', total >= 8, `(${total})`);
+    check('guides page has the mental health category', (await page.textContent('main')).includes('Mental health'));
+    await go('guide/mental.calm', 'ol.steps li'); check('new guides open in Developer mode', true);
+    await go('guides', 'input[type=search]'); await wait(500);
     await page.fill('input[type=search]', 'tsunami'); await page.waitForSelector('a[href="#/guide/disaster.tsunami"]'); check('guides filter finds the tsunami guide', (await page.$$eval('ul.list li', (e) => e.length)) === 1);
     await page.fill('input[type=search]', 'zzzzzz'); await page.waitForSelector('text=No guide matches'); check('guides filter shows an empty state', true);
     await go('settings', 'select'); await page.uncheck('input[type=checkbox] >> nth=2');

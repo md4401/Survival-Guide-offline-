@@ -48,4 +48,6 @@
 - Forecast fetch is untested against the live API
 - The 20 newest guides (and the 13 from G6) are drafts: they need sources and professional review (especially first aid and poisoning wording) before being published
 - Total content is now 47 guides and 8 scenarios, far below the 600 articles / 40+ scenarios in the content map
+- 84 guides and 8 scenarios exist; all new ones are drafts. First aid, poisoning, head injury, child fever, pregnancy/baby and mental health guides especially need review by a qualified professional before publication
+- The mental health guides only give calming and routine tips and point to helplines; local helpline numbers are not included yet
 
