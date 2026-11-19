@@ -1,7 +1,9 @@
 @import './tokens.css';
 *, *::before, *::after { box-sizing: border-box; }
 html { font-size: 100%; }
-body { margin: 0; background: var(--bg); color: var(--text); font: var(--fs)/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+/* Safe areas: env() on new WebViews, or the variables Capacitor injects on older Android WebViews (status bar / gesture bar / notch). */
+:root { --sat: max(env(safe-area-inset-top, 0px), var(--safe-area-inset-top, 0px)); --sab: max(env(safe-area-inset-bottom, 0px), var(--safe-area-inset-bottom, 0px)); --sal: max(env(safe-area-inset-left, 0px), var(--safe-area-inset-left, 0px)); --sar: max(env(safe-area-inset-right, 0px), var(--safe-area-inset-right, 0px)); }
+body { margin: 0; padding-inline: var(--sal) var(--sar); background: var(--bg); color: var(--text); font: var(--fs)/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
 #app { min-block-size: 100dvh; display: flex; flex-direction: column; }
 /* No heavy animation; none at all in battery mode or reduced-motion. */
 :root[data-battery='1'] *, :root[data-battery='1'] *::before { animation: none !important; transition: none !important; }
@@ -15,7 +17,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .btn-danger { background: var(--danger); color: #fff; border-color: transparent; font-weight: 700; }
 .btn-block { inline-size: 100%; }
 input, select, textarea { min-block-size: var(--tap); padding-inline: .75rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
-main { flex: 1; padding: 1rem; padding-block-end: calc(var(--tap) * 2 + 1rem); max-inline-size: 48rem; inline-size: 100%; margin-inline: auto; }
+main { flex: 1; padding: 1rem; padding-block-end: calc(var(--tap) * 2 + 1rem + var(--sab)); max-inline-size: 48rem; inline-size: 100%; margin-inline: auto; }
+a.btn.card, button.btn.card { display: flex; inline-size: 100%; box-sizing: border-box; }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; margin-block-end: var(--gap); }
 .stack > * + * { margin-block-start: var(--gap); }
 .row { display: flex; gap: var(--gap); flex-wrap: wrap; align-items: center; }
@@ -27,9 +30,9 @@ main { flex: 1; padding: 1rem; padding-block-end: calc(var(--tap) * 2 + 1rem); m
 ol.steps { padding-inline-start: 1.5rem; } ol.steps li { margin-block: .6rem; font-size: 1.1em; }
 .list { list-style: none; padding: 0; margin: 0; } .list li + li { margin-block-start: .5rem; }
 .list a, .list button { inline-size: 100%; justify-content: flex-start; text-align: start; }
-.topbar { position: sticky; inset-block-start: 0; z-index: 5; display: flex; gap: .5rem; align-items: center; padding: .5rem 1rem; background: var(--bg); border-block-end: 1px solid var(--border); }
+.topbar { position: sticky; inset-block-start: 0; z-index: 5; display: flex; gap: .5rem; align-items: center; padding: .5rem 1rem; padding-block-start: calc(.5rem + var(--sat)); background: var(--bg); border-block-end: 1px solid var(--border); }
 .topbar .brand { flex: 1; font-weight: 700; color: var(--text); text-decoration: none; min-block-size: var(--tap); display: flex; align-items: center; }
-.tabbar { position: fixed; inset-inline: 0; inset-block-end: 0; z-index: 5; display: grid; grid-template-columns: repeat(5, 1fr); background: var(--surface); border-block-start: 1px solid var(--border); padding-block-end: env(safe-area-inset-bottom); }
+.tabbar { position: fixed; inset-inline: 0; inset-block-end: 0; z-index: 5; display: grid; grid-template-columns: repeat(5, 1fr); background: var(--surface); border-block-start: 1px solid var(--border); padding-block-end: var(--sab); inset-inline: var(--sal) var(--sar); }
 .tabbar a { min-block-size: calc(var(--tap) + 8px); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: .75em; color: var(--muted); text-decoration: none; }
 .tabbar a[aria-current='page'] { color: var(--accent); font-weight: 700; }
 .help-btn { min-block-size: 9rem; font-size: 1.6em; font-weight: 800; border-radius: 24px; }
