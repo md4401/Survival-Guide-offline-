@@ -102,7 +102,7 @@ try {
   await go('plans', 'section.card'); check('plans page lists free and premium features', (await page.textContent('main')).includes('Always free (vital)') && (await page.textContent('main')).includes('Nearby messages'));
   await go('legal/privacy', 'main'); check('privacy policy covers nearby messages', (await page.textContent('main')).includes('Nearby messages'));
   await go('legal/terms', 'main'); check('terms cover premium and messages', (await page.textContent('main')).includes('Free and Premium') && (await page.textContent('main')).includes('best effort'));
-  await go('messages', 'main'); check('messages hub offline', (await page.textContent('main')).includes('Everyone nearby'));
+  await go('messages', 'main'); await page.waitForSelector('text=Everyone nearby'); check('messages hub offline', true);
   // AI assistant (no model installed): vital → direct guide path, blocked topics, guide fallback, offline download refused
   await go('assistant', 'input');
   await page.fill('input[aria-label]', 'how many mg of ibuprofen can I take'); await page.click('button.btn-danger');
