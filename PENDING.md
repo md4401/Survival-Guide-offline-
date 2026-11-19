@@ -1,7 +1,8 @@
 # PENDING
 
 ## Content / data (blocking for a public release)
-- Write and have professionals review all guides: 8 scenarios, water, first aid, kits are still empty drafts (hidden outside Developer mode); register real sources for the 2 example guides
+- Professional review of all guides: the 8 scenarios, water, first aid and kit drafts now have text (`scripts/fill-drafts.py`) but stay drafts, hidden outside Developer mode, until reviewed; register real sources for them and for the 2 example guides (then set `status: published`)
+- Scenario `timeline` sections (10 min … 30 days) are not written
 - Emergency numbers: only the spec examples are "sample"; the other ~190 countries are unverified community data → verify against official sources
 - Climate: 3 sample cities (target 44) → needs a source; tables, holidays, kit quantities, water-need and chlorine parameters need review
 - Country population is missing for 14 territories

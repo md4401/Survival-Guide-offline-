@@ -32,7 +32,7 @@ src/interfaces/          license (Ed25519, offline), voice reading, pack updater
 src/ai/                  optional assistant: model catalog, download manager, anchored-answer logic (guards, retrieval, verification)
 android/ ios/            Capacitor native projects (not built here)
 ```
-- **Content** is data, not code. Drafts (`status: draft`) are hidden unless *Developer mode* is on (Settings). The 2 complete example guides (campsite, water filter) are published with a visible "Needs review" badge. Everything else is an empty draft: no medical or safety facts were invented.
+- **Content** is data, not code. Drafts (`status: draft`) are hidden unless *Developer mode* is on (Settings). The 2 complete example guides (campsite, water filter) are published with a visible "Needs review" badge. The other 22 guides are drafts with conservative text from public guidance, flagged "needs review" and hidden unless Developer mode is on (DECISIONS #31).
 - **Offline**: service worker precaches the whole shell and both language packs; user data in IndexedDB.
 - **Accessibility/UX**: dark theme by default, high-contrast and night-red themes, adjustable font, 48 px targets, no heavy animation (none in battery mode), CSS logical properties.
 - **Native**: `capacitor.config.ts` is ready; run `npx cap add android|ios` + `npx cap sync` (not generated here).
