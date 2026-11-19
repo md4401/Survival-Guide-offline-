@@ -257,7 +257,7 @@
   "gps.sms": "Enviar por SMS",
   "gps.time": "Hora",
   "gps.title": "Minhas coordenadas",
-  "guide.draft": "Rascunho: conteúdo ainda não revisado.",
+  "guide.draft": "Rascunho: ainda não revisado por um profissional. Use como orientação geral e, em emergência, ligue para o número de emergência local.",
   "guide.empty": "Ainda sem passos escritos.",
   "guide.level": "Dificuldade {n} de 5",
   "guide.mistakes": "Erros comuns",
@@ -1131,5 +1131,16 @@
   "media.cam.denied": "O acesso à câmera foi negado.",
   "media.settings": "Permita em Ajustes do Android > Apps > este app > Permissões e tente de novo.",
   "media.nodevice": "Nenhum microfone ou câmera foi encontrado neste aparelho.",
-  "media.busy": "O microfone ou a câmera está em uso por outro app. Feche-o e tente de novo."
+  "media.busy": "O microfone ou a câmera está em uso por outro app. Feche-o e tente de novo.",
+  "list.draftnote": "Itens marcados como Rascunho ainda não foram revisados por um profissional. Em emergência, ligue para o número de emergência local.",
+  "ai.err.detail": "Detalhe técnico",
+  "ai.test": "Testar conexão com os servidores de download",
+  "cat.fire": "Fogo",
+  "cat.tools": "Ferramentas e técnicas",
+  "cat.urban": "Segurança urbana",
+  "cat.travel": "Viagem e transporte",
+  "cat.nature": "Natureza e animais",
+  "cat.security": "Segurança pessoal",
+  "cat.energy": "Energia",
+  "cat.health": "Saúde e cuidados"
 }

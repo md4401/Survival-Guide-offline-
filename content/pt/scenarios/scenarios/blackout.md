@@ -45,7 +45,7 @@ review:
   date: 2026-11-19
   level: draft
   source: "A verificar: OMS / Cruz Vermelha / Defesa Civil (fonte ainda não registrada)"
-tags: []
+tags: [apagão, "falta de luz", "sem luz", "queda de energia", "sem energia"]
 ---
 - Veja como estão vizinhos idosos ou doentes.
 - Tenha um rádio de pilha ou manivela para notícias.

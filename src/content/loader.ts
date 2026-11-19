@@ -13,9 +13,11 @@ const loaders: Record<string, () => Promise<{ default: Pack }>> = {
 };
 const cache = new Map<string, Guide[]>();
 
-/** Pure rule: show a language's own guides if any are visible; otherwise English with a notice (machine-translated drafts are never shown to users). */
+/** Pure rule: English and Portuguese are written by hand, so their drafts are shown to everyone (each draft carries a clear "not reviewed" notice).
+ *  Machine-translated languages stay hidden from users until a native speaker reviews them: they get the English guides with a notice. */
 export function pickVisible(own: Guide[], dev: boolean, lang: string): { guides: Guide[]; useEnglish: boolean } {
-  const visible = dev ? own : own.filter((g) => g.status === 'published');
+  const handWritten = lang === 'en' || lang === 'pt';
+  const visible = dev || handWritten ? own : own.filter((g) => g.status === 'published');
   return { guides: visible, useEnglish: lang !== 'en' && visible.length === 0 };
 }
 

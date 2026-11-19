@@ -44,6 +44,6 @@ review:
   date: 2026-11-19
   level: draft
   source: "A verificar: OMS / Cruz Vermelha / Defesa Civil (fonte ainda não registrada)"
-tags: []
+tags: [tempestade, trovoada, raio, relâmpago, "vento forte"]
 ---
 - Um carro fechado é abrigo relativamente seguro: evite tocar nas partes metálicas.

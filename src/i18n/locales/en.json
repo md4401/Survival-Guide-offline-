@@ -257,7 +257,7 @@
   "gps.sms": "Send by SMS",
   "gps.time": "Time",
   "gps.title": "My coordinates",
-  "guide.draft": "Draft: content not reviewed yet.",
+  "guide.draft": "Draft: not yet reviewed by a professional. Use it as general guidance, and in an emergency call your local emergency number.",
   "guide.empty": "No steps written yet.",
   "guide.level": "Difficulty {n} of 5",
   "guide.mistakes": "Common mistakes",
@@ -1131,5 +1131,16 @@
   "media.cam.denied": "Camera access was denied.",
   "media.settings": "Allow it in Android Settings > Apps > this app > Permissions, then try again.",
   "media.nodevice": "No microphone or camera was found on this device.",
-  "media.busy": "The microphone or camera is being used by another app. Close it and try again."
+  "media.busy": "The microphone or camera is being used by another app. Close it and try again.",
+  "list.draftnote": "Items marked Draft have not been reviewed by a professional yet. In an emergency call your local emergency number.",
+  "ai.err.detail": "Technical detail",
+  "ai.test": "Test connection to download servers",
+  "cat.fire": "Fire",
+  "cat.tools": "Tools and skills",
+  "cat.urban": "Urban safety",
+  "cat.travel": "Travel and transport",
+  "cat.nature": "Nature and animals",
+  "cat.security": "Security",
+  "cat.energy": "Energy and power",
+  "cat.health": "Health care"
 }

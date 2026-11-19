@@ -45,7 +45,7 @@ review:
   date: 2026-11-19
   level: draft
   source: "To verify: WHO / Red Cross / civil-defense guidance (source not yet registered)"
-tags: []
+tags: [blackout, "power outage", "power cut", "no light", "no electricity"]
 ---
 - Check on neighbors who are older or ill.
 - Keep a battery or crank radio for news.

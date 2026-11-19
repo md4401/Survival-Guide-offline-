@@ -11,7 +11,7 @@ describe('language fallback rule', () => {
     expect(pickVisible([g('a', 'draft')], true, 'es')).toMatchObject({ useEnglish: false, guides: [{ id: 'a' }] });
   });
   it('a language with published guides keeps its own; English never falls back', () => {
-    expect(pickVisible([g('a', 'published'), g('b', 'draft')], false, 'pt').guides.map((x) => x.id)).toEqual(['a']);
+    expect(pickVisible([g('a', 'published'), g('b', 'draft')], false, 'pt').guides.map((x) => x.id)).toEqual(['a', 'b']);
     expect(pickVisible([], false, 'en').useEnglish).toBe(false);
   });
 });
