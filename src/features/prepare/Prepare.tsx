@@ -13,6 +13,7 @@ export function Prepare() {
         <a class="btn tool" href={href('prepare', 'energy')}>🔋 {t('prepare.energy')}</a>
         <a class="btn tool" href={href('inventory')}>📦 {t('prepare.inventory')}</a>
         <a class="btn tool" href={href('prepare', 'docs')}>🗂 {t('prepare.docs')}</a>
+        <a class="btn tool" href={href('learn')}>🎓 {t('learn.title')}</a>
         <a class="btn tool" href={href('prepare', 'score')}>✅ {t('score.title')}</a>
         <a class="btn tool" href={href('prepare', 'water')}>💧 {t('water.title')}</a>
         <a class="btn tool" href={href('prepare', 'family')}>👪 {t('prepare.family')}</a>

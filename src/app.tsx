@@ -53,6 +53,7 @@ import { Energy } from './features/prepare/Energy';
 import { Inventory } from './features/prepare/Inventory';
 import { Documents } from './features/prepare/Documents';
 import { Plan72 } from './features/prepare/Plan72';
+import { Learn, Quiz, Trees, KnowledgeMap, Drill } from './features/learn/Learn';
 import { t } from './i18n';
 
 export function App() {
@@ -85,6 +86,7 @@ export function App() {
     case 'prepare': view = arg === 'kit' ? <Kit kit={arg2 ?? '72h'} /> : arg === 'family' ? <Family /> : arg === 'water' ? <Water /> : arg === 'stock' ? <Stock /> : arg === 'energy' ? <Energy /> : arg === 'docs' ? <Documents /> : arg === 'plan72' ? <Plan72 /> : arg === 'score' ? <Readiness /> : <Prepare />; break;
     case 'tools': view = arg === 'converter' ? <Converter /> : arg === 'distance' ? <Distance /> : arg === 'level' ? <Level /> : arg === 'morse' ? <Morse /> : arg === 'notes' ? <Notes /> : <Timer />; break;
     case 'assistant': view = arg === 'models' ? <Models /> : <Assistant />; break;
+    case 'learn': view = arg === 'quiz' ? <Quiz /> : arg === 'trees' ? <Trees id={arg2} /> : arg === 'map' ? <KnowledgeMap /> : arg === 'drill' ? <Drill /> : <Learn />; break;
     case 'crisis': view = <Crisis />; break;
     case 'onboarding': view = <Onboarding />; break;
     case 'world': {
