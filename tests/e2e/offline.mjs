@@ -64,6 +64,29 @@ try {
   await go('search', 'input[type=search]'); await page.fill('input[type=search]', 'watr'); await page.waitForSelector('ul.list a');
   check('search tolerates typos offline', (await page.textContent('ul.list')).toLowerCase().includes('water'));
   check('no uncaught errors', errors.length === 0, errors.join('|'));
+  // Part A screens, offline
+  await go('tools/morse', 'textarea'); await page.fill('textarea', 'SOS');
+  check('morse converter', (await page.textContent('.big-num')).includes('... --- ...'));
+  check('phonetic spelling', (await page.textContent('main')).includes('Sierra Oscar Sierra'));
+  await go('compass', 'button.help-btn'); await page.click('button.help-btn');
+  await page.waitForSelector('.danger-box[role=alert]', { timeout: 6000 }); check('compass explains when there is no sensor', true);
+  await go('world/zones', 'details.card'); check('12 climate zones', (await page.$$eval('details.card', (e) => e.length)) === 12);
+  await go('world/cmap', 'svg circle'); check('climate map plots countries', (await page.$$eval('svg circle', (e) => e.length)) > 200);
+  await go('world/numbers', 'section.card'); await page.waitForSelector('text=250 countries and territories'); check('world in numbers', true);
+  await go('guide/water.diy-filter', 'ol.steps li');
+  await page.click('button:has-text("Report an error")'); await page.fill('textarea', 'step 3 unclear'); await page.click('button.btn-danger');
+  await page.waitForSelector('[role=status]:has-text("Saved on this device")'); check('error report saved offline', true);
+  await go('settings', 'input[type=password]');
+  await page.waitForSelector('text=Saved error reports (1)'); check('report listed in settings', true);
+  await page.fill('input[type=password]', 'segredo123');
+  const [dl] = await Promise.all([page.waitForEvent('download'), page.click('button:has-text("Export backup")')]);
+  const path = await dl.path(); check('backup downloaded', !!path);
+  await page.click('button:has-text("🗑")'); await page.waitForSelector('text=Saved error reports (0)');
+  await page.setInputFiles('input[type=file]', path);
+  await page.waitForSelector('[role=status]:has-text("Backup restored")'); await page.waitForSelector('text=Saved error reports (1)');
+  check('backup import restores data', true);
+  await page.fill('input[type=password]', 'wrong-pass'); await page.setInputFiles('input[type=file]', path);
+  await page.waitForSelector('[role=status]:has-text("Wrong password")'); check('wrong password refused', true);
   // AI assistant (no model installed): vital → direct guide path, blocked topics, guide fallback, offline download refused
   await go('assistant', 'input');
   await page.fill('input[aria-label]', 'how many mg of ibuprofen can I take'); await page.click('button.btn-danger');
@@ -93,7 +116,7 @@ try {
   // Accessibility: touch targets >= 48 px on key screens
   for (const h of ['', 'triage', 'emergency', 'guide/water.diy-filter', 'prepare', 'world', 'settings']) {
     await go(h, 'main');
-    const small = await page.$$eval('a, button, select, input:not([type=checkbox]):not([type=range])', (els) =>
+    const small = await page.$$eval('a, button, select, input:not([type=checkbox]):not([type=range]):not([type=file])', (els) =>
       els.filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && (r.height < 47.5 || r.width < 47.5); })
         .map((e) => `${e.tagName}:${(e.textContent || e.getAttribute('aria-label') || '').trim().slice(0, 20)}`));
     check(`touch targets ≥48px on #/${h}`, small.length === 0, small.join(', '));

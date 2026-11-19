@@ -13,6 +13,7 @@ export function Emergency() {
         <a class="btn tool" href={href('torch')}>🔦 {t('home.torch')}</a>
         <a class="btn tool" href={href('whistle')}>📣 {t('home.whistle')}</a>
         <a class="btn tool" href={href('gps')}>📍 {t('home.gps')}</a>
+        <a class="btn tool" href={href('compass')}>🧭 {t('compass.title')}</a>
       </div>
     </main>
   );

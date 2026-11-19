@@ -7,6 +7,7 @@ import { db } from '../../db/dexie';
 import { getSettings, useSettings } from '../../db/settings';
 import { FLAGS } from '../../flags';
 import { voiceReader } from '../../interfaces/tts';
+import { addReport } from '../../lib/reports';
 
 const getSettingsDev = () => getSettings().dev;
 const getLocale = () => getSettings().locale;
@@ -28,6 +29,18 @@ export function FavButton({ id }: { id: string }) {
     try { if (on) await db.favorites.delete(id); else await db.favorites.put({ id, at: Date.now() }); setOn(!on); } catch { /* storage unavailable */ }
   };
   return <button onClick={toggle} aria-pressed={on} aria-label={t('fav.toggle')}>{on ? '★' : '☆'}</button>;
+}
+
+function ReportBox({ g }: { g: Guide }) {
+  const [open, setOpen] = useState(false); const [text, setText] = useState(''); const [done, setDone] = useState(false);
+  if (done) return <p class="muted" role="status">{t('report.done')}</p>;
+  if (!open) return <button onClick={() => setOpen(true)}>{t('report.button')}</button>;
+  return (
+    <div class="card stack">
+      <textarea rows={3} value={text} onInput={(e) => setText((e.target as HTMLTextAreaElement).value)} placeholder={t('report.placeholder')} aria-label={t('report.placeholder')} style="inline-size:100%" />
+      <div class="row"><button class="btn-danger" onClick={async () => { if (text.trim()) { await addReport({ guideId: g.id, lang: getSettings().locale, text }); setDone(true); } }}>{t('common.save')}</button><button onClick={() => setOpen(false)}>{t('common.close')}</button></div>
+    </div>
+  );
 }
 
 export function GuideView({ id }: { id: string }) {
@@ -81,6 +94,7 @@ export function GuideView({ id }: { id: string }) {
           <ul class="list">{g.related.map((r) => <li><a class="btn" href={href('guide', r)}>{titles[r] ?? r}</a></li>)}</ul>
         </section>
       )}
+      <ReportBox g={g} />
       <p class="muted">{t('review.disclaimer')}</p>
     </main>
   );

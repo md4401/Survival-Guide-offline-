@@ -2,6 +2,7 @@ import { updateSettings, useSettings } from '../../db/settings';
 import { ALL_LANGS, MVP_LANGS, t } from '../../i18n';
 import type { Lang } from '../../content/types';
 import { href } from '../../router';
+import { Data } from './Data';
 
 export function Settings() {
   const s = useSettings();
@@ -28,6 +29,7 @@ export function Settings() {
       <label class="row"><input type="checkbox" checked={s.dev} onChange={(e) => updateSettings({ dev: (e.target as HTMLInputElement).checked })} /><span>{t('settings.dev')}</span></label>
       <a class="btn" href={href('onboarding')}>{t('settings.profile')}</a>
       <a class="btn" href={href('assistant', 'models')}>{t('ai.title')} ({t('ai.optional')})</a>
+      <Data />
       <p class="muted">{t('settings.privacy')}</p>
     </main>
   );

@@ -31,6 +31,11 @@ import { Crisis } from './features/crisis/Crisis';
 import { Water } from './features/prepare/Water';
 import { Assistant } from './features/assistant/Assistant';
 import { Models } from './features/assistant/Models';
+import { Morse } from './features/tools/Morse';
+import { Compass } from './features/emergency/Compass';
+import { ClimateZones } from './features/almanac/ClimateZones';
+import { ClimateMap } from './features/almanac/ClimateMap';
+import { WorldNumbers } from './features/almanac/WorldNumbers';
 import { t } from './i18n';
 
 export function App() {
@@ -44,6 +49,7 @@ export function App() {
     case 'numbers': view = <Numbers />; break;
     case 'torch': view = <Torch />; break;
     case 'whistle': view = <Whistle />; break;
+    case 'compass': view = <Compass />; break;
     case 'gps': view = <Gps />; break;
     case 'search': view = <Search />; break;
     case 'settings': view = <Settings />; break;
@@ -51,12 +57,12 @@ export function App() {
     case 'scenarios': view = <ListPage kind="scenario" titleKey="list.scenarios" />; break;
     case 'guides': view = <ListPage kind="guide" titleKey="list.guides" />; break;
     case 'prepare': view = arg === 'kit' ? <Kit kit={arg2 ?? '72h'} /> : arg === 'family' ? <Family /> : arg === 'water' ? <Water /> : <Prepare />; break;
-    case 'tools': view = arg === 'converter' ? <Converter /> : arg === 'notes' ? <Notes /> : <Timer />; break;
+    case 'tools': view = arg === 'converter' ? <Converter /> : arg === 'morse' ? <Morse /> : arg === 'notes' ? <Notes /> : <Timer />; break;
     case 'assistant': view = arg === 'models' ? <Models /> : <Assistant />; break;
     case 'crisis': view = <Crisis />; break;
     case 'onboarding': view = <Onboarding />; break;
     case 'world': {
-      const W: Record<string, any> = { clock: Clock, counter: Counter, sun: SunMoon, calendar: CalendarPage, countries: Countries, climate: Climate, tables: Tables };
+      const W: Record<string, any> = { clock: Clock, counter: Counter, sun: SunMoon, calendar: CalendarPage, countries: Countries, climate: Climate, tables: Tables, zones: ClimateZones, cmap: ClimateMap, numbers: WorldNumbers };
       const V = arg ? W[arg] : World;
       view = V ? <V /> : <World />; break;
     }
