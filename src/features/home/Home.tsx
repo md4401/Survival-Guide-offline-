@@ -3,7 +3,9 @@ import { href } from '../../router';
 import { useEffect, useState } from 'preact/hooks';
 import { loadGuides } from '../../content/loader';
 import { useUserLists } from '../guides/Search';
-import { useSettings } from '../../db/settings';
+import { useSettings, getSettings } from '../../db/settings';
+import { pick } from '../../lib/l10n';
+import { factOfDay } from '../../lib/library';
 import type { Guide } from '../../content/types';
 import { getKV, db } from '../../db/dexie';
 import { usePremium } from '../../components/PremiumGate';
@@ -32,6 +34,7 @@ export function Home() {
     <main class="stack">
       <a class="btn btn-danger btn-block help-btn" href={href('triage')}>{t('home.help')}</a>
       <a class="btn btn-block" href={href('crisis')}>{crisis ? `${t('crisis.active')}: ${t('counter.day', { n: dayNumber(crisis.start, Date.now()) })}` : t('crisis.living')}</a>
+      <a class="btn card" href={href('library')}>💡 {pick(factOfDay().text, getSettings().locale)}</a>
       {due > 0 && <a class="btn card" href={href('inventory')}>⏰ {t('home.due', { n: due })}</a>}
       <p class="muted">{t('home.tagline')}</p>
       {!st.onboarded && <a class="btn card" href={href('onboarding')}>{t('onb.banner')}</a>}

@@ -8,6 +8,9 @@ import { getSettings, useSettings } from '../../db/settings';
 import { FLAGS } from '../../flags';
 import { voiceReader } from '../../interfaces/tts';
 import { addReport } from '../../lib/reports';
+import { findTerms } from '../../lib/library';
+import { pick } from '../../lib/l10n';
+import { usePremium } from '../../components/PremiumGate';
 
 const getSettingsDev = () => getSettings().dev;
 const getLocale = () => getSettings().locale;
@@ -40,6 +43,25 @@ function ReportBox({ g }: { g: Guide }) {
       <textarea rows={3} value={text} onInput={(e) => setText((e.target as HTMLTextAreaElement).value)} placeholder={t('report.placeholder')} aria-label={t('report.placeholder')} style="inline-size:100%" />
       <div class="row"><button class="btn-danger" onClick={async () => { if (text.trim()) { await addReport({ guideId: g.id, lang: getSettings().locale, text }); setDone(true); } }}>{t('common.save')}</button><button onClick={() => setOpen(false)}>{t('common.close')}</button></div>
     </div>
+  );
+}
+
+function Terms({ g }: { g: Guide }) {
+  const loc = getLocale(); const text = [g.summary, ...g.now, ...g.understand, ...g.mistakes].join(' . ');
+  const terms = findTerms(text, loc); if (!terms.length) return null;
+  return <section><h2>{t('guide.terms')}</h2><ul class="list">{terms.map((x) => <li><details><summary><b>{pick(x.term, loc)}</b></summary><p>{pick(x.def, loc)}</p></details></li>)}</ul></section>;
+}
+function Notes({ g }: { g: Guide }) {
+  const ok = usePremium(); const [rows, setRows] = useState<Array<{ id?: number; text: string; note: string }>>([]); const [note, setNote] = useState('');
+  const load = () => db.highlights.where('guide').equals(g.id).toArray().then(setRows).catch(() => {});
+  useEffect(() => { if (ok) void load(); }, [g.id, ok]);
+  if (!ok) return null;
+  const add = async () => { const sel = String(window.getSelection?.() ?? '').trim(); if (!sel && !note.trim()) return; await db.highlights.add({ guide: g.id, text: sel, note: note.trim(), at: Date.now() }); setNote(''); void load(); };
+  return (
+    <section class="card stack"><h2>{t('hl.title')}</h2><p class="muted">{t('hl.help')}</p>
+      <textarea rows={2} value={note} onInput={(e) => setNote((e.target as HTMLTextAreaElement).value)} placeholder={t('hl.note')} aria-label={t('hl.note')} />
+      <button class="btn" onClick={add}>{t('hl.add')}</button>
+      <ul class="list">{rows.map((r) => <li class="row"><span style="flex:1">{r.text && <mark>{r.text}</mark>} {r.note}</span><button class="btn" aria-label={t('common.delete')} onClick={async () => { await db.highlights.delete(r.id!); void load(); }}>✕</button></li>)}</ul></section>
   );
 }
 
@@ -94,6 +116,8 @@ export function GuideView({ id }: { id: string }) {
           <ul class="list">{g.related.map((r) => <li><a class="btn" href={href('guide', r)}>{titles[r] ?? r}</a></li>)}</ul>
         </section>
       )}
+      <Terms g={g} />
+      <Notes g={g} />
       <ReportBox g={g} />
       <p class="muted">{t('review.disclaimer')}</p>
     </main>
