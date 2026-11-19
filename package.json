@@ -1,0 +1,38 @@
+{
+  "name": "survival-guide-offline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm run content && vite",
+    "content": "tsx scripts/build-countries.ts && tsx scripts/build-content.ts",
+    "validate": "tsx scripts/validate-content.ts",
+    "check:i18n": "tsx scripts/check-i18n.ts",
+    "build": "npm run validate && npm run check:i18n && npm run content && vite build",
+    "preview": "vite preview",
+    "size": "tsx scripts/size-report.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "dexie": "^4.4.7",
+    "minisearch": "^7.2.0",
+    "preact": "^11.2.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.6.2",
+    "@capacitor/core": "^8.6.2",
+    "@capacitor/geolocation": "^8.2.5",
+    "@capacitor/haptics": "^8.0.2",
+    "@preact/preset-vite": "^2.10.6",
+    "@types/node": "^26.6.6",
+    "fake-indexeddb": "^6.2.8",
+    "gray-matter": "^4.0.3",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "vite-plugin-pwa": "^2.0.0",
+    "vitest": "^5.1.1",
+    "world-countries": "^5.1.0"
+  }
+}

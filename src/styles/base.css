@@ -1,0 +1,29 @@
+@import './tokens.css';
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 100%; }
+body { margin: 0; background: var(--bg); color: var(--text); font: var(--fs)/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+#app { min-block-size: 100dvh; display: flex; flex-direction: column; }
+/* No heavy animation; none at all in battery mode or reduced-motion. */
+:root[data-battery='1'] *, :root[data-battery='1'] *::before { animation: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+h1 { font-size: 1.5em; margin-block: 0 .5em; } h2 { font-size: 1.2em; margin-block: 1.2em .4em; }
+a { color: var(--accent); }
+button, .btn, input, select, textarea { font: inherit; color: inherit; }
+button, .btn { min-block-size: var(--tap); min-inline-size: var(--tap); padding-inline: 1rem; border: 1px solid var(--border);
+  background: var(--surface-2); border-radius: var(--radius); display: inline-flex; align-items: center; justify-content: center; gap: .5rem; cursor: pointer; text-decoration: none; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.btn-danger { background: var(--danger); color: #fff; border-color: transparent; font-weight: 700; }
+.btn-block { inline-size: 100%; }
+input, select, textarea { min-block-size: var(--tap); padding-inline: .75rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+main { flex: 1; padding: 1rem; padding-block-end: calc(var(--tap) * 2 + 1rem); max-inline-size: 48rem; inline-size: 100%; margin-inline: auto; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; margin-block-end: var(--gap); }
+.stack > * + * { margin-block-start: var(--gap); }
+.row { display: flex; gap: var(--gap); flex-wrap: wrap; align-items: center; }
+.muted { color: var(--muted); }
+.badge { display: inline-block; padding: .1rem .6rem; border-radius: 99px; background: var(--surface-2); border: 1px solid var(--border); font-size: .85em; }
+.badge-warn { border-color: var(--accent); color: var(--accent); }
+.danger-box { border-inline-start: 6px solid var(--danger); background: var(--danger-bg); padding: .75rem 1rem; border-radius: 8px; }
+.sr-only { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+ol.steps { padding-inline-start: 1.5rem; } ol.steps li { margin-block: .6rem; font-size: 1.1em; }
+.list { list-style: none; padding: 0; margin: 0; } .list li + li { margin-block-start: .5rem; }
+.list a, .list button { inline-size: 100%; justify-content: flex-start; text-align: start; }
