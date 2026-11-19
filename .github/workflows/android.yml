@@ -48,10 +48,13 @@ jobs:
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: ./gradlew --no-daemon assembleRelease bundleRelease
-      - name: Show APK info
+      - name: Inspect the APK (package, SDK levels, permissions, signature)
         run: |
-          ls -la android/app/build/outputs/apk/*/ || true
-          "$ANDROID_HOME"/build-tools/*/aapt2 dump badging android/app/build/outputs/apk/debug/app-debug.apk | grep -E "package:|sdkVersion|application-label:|uses-permission" | head -12 || true
+          BT="$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)"
+          APK=android/app/build/outputs/apk/debug/app-debug.apk
+          ls -la android/app/build/outputs/apk/*/
+          "$BT/aapt2" dump badging "$APK" | grep -E "^package:|^sdkVersion|^targetSdkVersion|^application-label:|^uses-permission:" 
+          "$BT/apksigner" verify --verbose "$APK" | head -5
       - uses: actions/upload-artifact@v4
         with:
           name: survival-guide-apk
