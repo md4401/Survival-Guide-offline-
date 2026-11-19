@@ -54,40 +54,40 @@
 | Flashlight, strobe and SOS Morse | **Free** | yes | yes |  |
 | Whistle and alarm | **Free** | yes | yes |  |
 | Share GPS coordinates | **Free** | yes | yes |  |
-| Visual signalling screen | **Free** | yes | planned |  |
-| Full emergency medical card | **Premium** |  | planned | full medical card with allergies, medicines and contacts |
-| Silent mode | **Premium** |  | planned |  |
+| Visual signalling screen | **Free** | yes | yes |  |
+| Full emergency medical card | **Premium** |  | yes | full medical card with allergies, medicines and contacts |
+| Silent mode | **Premium** |  | yes |  |
 
 ### Family plan
 | Feature | Plan | Vital | Built | Note |
 |---|---|---|---|---|
 | Family plan: contacts and meeting point | **Free** | yes | yes | contacts and meeting points |
-| Full family plan, routes and PDF | **Premium** |  | planned | evacuation routes, roles, children rules, medical file, PDF |
+| Full family plan, routes and PDF | **Premium** |  | yes | evacuation routes, roles, children rules, medical file, PDF |
 
 ### First aid
 | Feature | Plan | Vital | Built | Note |
 |---|---|---|---|---|
 | Life-saving first aid | **Free** | yes | yes |  |
-| Extended first-aid library and decision trees | Free + Premium |  | planned | decision trees, children/older adults/pregnancy adaptations are premium |
+| Extended first-aid library and decision trees | Free + Premium |  | yes | decision trees, children/older adults/pregnancy adaptations are premium |
 
 ### Food
 | Feature | Plan | Vital | Built | Note |
 |---|---|---|---|---|
-| Food basics: rationing, keeping, cooking | **Free** | yes | planned |  |
+| Food basics: rationing, keeping, cooking | **Free** | yes | yes |  |
 | Wild plants, fishing, crisis garden | **Premium** |  | planned | wild plants, fishing, crisis garden |
 
 ### Learn
 | Feature | Plan | Vital | Built | Note |
 |---|---|---|---|---|
-| Intro lessons | **Free** |  | planned |  |
-| Full tracks, drills and certificate | **Premium** |  | planned | full tracks, crisis drills, certificate |
+| Intro lessons | **Free** |  | yes |  |
+| Full tracks, drills and certificate | **Premium** |  | yes | full tracks, crisis drills, certificate |
 
 ### Navigation
 | Feature | Plan | Vital | Built | Note |
 |---|---|---|---|---|
 | Compass | **Free** | yes | yes |  |
 | Offline maps | **Premium** |  | planned |  |
-| Return trail | **Premium** |  | planned |  |
+| Return trail | **Premium** |  | yes |  |
 | Altimeter and barometer | **Premium** |  | planned |  |
 
 ### Prepare
@@ -95,7 +95,7 @@
 |---|---|---|---|---|
 | 72 h and car kits with checklist and calculator | **Free** |  | yes | 72 h kit and car kit with checklist and people × days calculator |
 | Readiness score | Free + Premium |  | yes | score and next step free; detailed breakdown per profile premium |
-| Inventory with expiry reminders | **Premium** |  | planned | items with quantity, expiry date and reminders |
+| Inventory with expiry reminders | **Premium** |  | yes | items with quantity, expiry date and reminders |
 | Kits by profile and region | **Premium** |  | planned |  |
 
 ### Scenarios
@@ -109,7 +109,7 @@
 ### Shelter and fire
 | Feature | Plan | Vital | Built | Note |
 |---|---|---|---|---|
-| Shelter, fire and temperature | **Free** | yes | planned |  |
+| Shelter, fire and temperature | **Free** | yes | yes |  |
 | Knots with illustrations | **Premium** |  | planned |  |
 
 ### System
@@ -119,7 +119,7 @@
 | Dark/red themes, font size, accessibility | **Free** | yes | yes |  |
 | All languages | **Free** | yes | yes | all languages are free; only review status differs |
 | Encrypted backup and restore | Free + Premium |  | yes | encrypted file backup free; scheduled reminders premium |
-| PDF to print | **Premium** |  | planned |  |
+| PDF to print | **Premium** |  | yes |  |
 | Optional account to sync devices | **Premium** |  | planned | optional account, only to sync devices/family |
 | No ads, no upgrade prompts in emergencies | **Free** | yes | yes | no upgrade prompt in Emergency or Crisis, no ads ever |
 
