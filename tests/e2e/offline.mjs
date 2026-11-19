@@ -118,6 +118,22 @@ try {
   await page.click('section.card button:has-text("Download")');
   await page.waitForSelector('[role=alert]:has-text("offline")');
   check('model download is refused while offline, nothing starts', true);
+  // G0-G6: every new route renders offline without errors; Premium routes are gated for users and open in Developer mode
+  {
+    const before = errors.length;
+    for (const h of ['signal', 'tools/distance', 'tools/level', 'prepare/stock', 'prepare/energy', 'prepare/docs', 'prepare/plan72', 'prepare/family', 'learn', 'learn/quiz', 'learn/trees', 'learn/trees/collapse', 'learn/map', 'library', 'library/myths', 'library/facts', 'library/cases', 'library/diy', 'library/glossary', 'library/phrases', 'library/find', 'library/scales', 'system']) {
+      await go(h, 'main'); check(`#/${h} renders offline`, (await page.textContent('main')).trim().length > 20);
+    }
+    await go('library/scales', 'main'); check('heat index calculator works', (await page.textContent('main')).includes('°C'));
+    await go('learn/quiz', 'main'); await page.click('main section button >> nth=0'); check('quiz gives feedback', (await page.textContent('main')).length > 40);
+    const gated = ['trail', 'medcard', 'silent', 'inventory', 'learn/drill'];
+    for (const h of gated) { await go(h, 'main'); check(`#/${h} is gated for normal users`, (await page.textContent('main')).includes('not available yet')); }
+    await go('settings', 'select'); await page.check('input[type=checkbox] >> nth=2');
+    for (const h of ['guide/comms.signals', 'guide/firstaid.triage', 'guide/shelter.fire']) { await go(h, 'ol.steps li'); check(`${h} (draft) renders in Developer mode`, true); }
+    for (const h of gated) { await go(h, 'main'); check(`#/${h} opens in Developer mode`, !(await page.textContent('main')).includes('not available yet')); }
+    await go('settings', 'select'); await page.uncheck('input[type=checkbox] >> nth=2');
+    check('no uncaught errors on the new routes', errors.length === before, errors.slice(before).join('|'));
+  }
   // Low-end device simulation: CPU 6x slower, offline cold start → help → first step
   {
     const lp = await ctx.newPage(); const cdp = await ctx.newCDPSession(lp);
@@ -130,7 +146,7 @@ try {
     await lp.close();
   }
   // Accessibility: touch targets >= 48 px on key screens
-  for (const h of ['', 'triage', 'emergency', 'guide/water.diy-filter', 'prepare', 'world', 'settings', 'messages', 'messages/sync', 'plans', 'world/climate']) {
+  for (const h of ['', 'triage', 'emergency', 'guide/water.diy-filter', 'prepare', 'world', 'settings', 'messages', 'messages/sync', 'plans', 'world/climate', 'learn', 'library', 'library/phrases', 'system', 'signal', 'prepare/stock']) {
     await go(h, 'main');
     const small = await page.$$eval('a, button, select, input:not([type=checkbox]):not([type=range]):not([type=file])', (els) =>
       els.filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && (r.height < 47.5 || r.width < 47.5); })

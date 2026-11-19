@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { t } from '../../i18n';
 import { href } from '../../router';
+import { getGuide } from '../../content/loader';
 import { GROUND_SIGNALS, SIGNAL_COLORS } from '../../data/signals';
 
 export function Signal() {
   const [ack, setAck] = useState(false); const [on, setOn] = useState(false); const [ci, setCi] = useState(0); const [fast, setFast] = useState(false);
   const [lit, setLit] = useState(false); const wake = useRef<any>(null);
+  const [hasGuide, setHasGuide] = useState(false);
+  useEffect(() => { getGuide('comms.signals').then((g) => setHasGuide(!!g)).catch(() => {}); }, []);
   useEffect(() => {
     if (!on) return;
     let id = 0; (async () => { try { wake.current = await (navigator as any).wakeLock?.request('screen'); } catch { /* optional */ } })();
@@ -25,7 +28,7 @@ export function Signal() {
       <section class="card stack"><h2>{t('signal.ground')}</h2><p class="muted">{t('signal.ground.hint')}</p>
         <ul class="list">{GROUND_SIGNALS.map((g) => <li class="row card"><span class="big-num" style="min-inline-size:3rem;text-align:center">{g.mark}</span><span>{t(`signal.g.${g.id}`)}</span></li>)}</ul>
         <p>{t('signal.three')}</p><p class="muted">{t('signal.review')}</p>
-        <a class="btn" href={href('guide', 'comms.signals')}>{t('signal.mirror')}</a></section>
+        {hasGuide && <a class="btn" href={href('guide', 'comms.signals')}>{t('signal.mirror')}</a>}</section>
     </main>
   );
 }
