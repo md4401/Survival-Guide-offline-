@@ -64,6 +64,20 @@ try {
   await go('search', 'input[type=search]'); await page.fill('input[type=search]', 'watr'); await page.waitForSelector('ul.list a');
   check('search tolerates typos offline', (await page.textContent('ul.list')).toLowerCase().includes('water'));
   check('no uncaught errors', errors.length === 0, errors.join('|'));
+  // Accessibility: touch targets >= 48 px on key screens
+  for (const h of ['', 'triage', 'emergency', 'guide/water.diy-filter', 'prepare', 'world', 'settings']) {
+    await go(h, 'main');
+    const small = await page.$$eval('a, button, select, input:not([type=checkbox]):not([type=range])', (els) =>
+      els.filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && (r.height < 47.5 || r.width < 47.5); })
+        .map((e) => `${e.tagName}:${(e.textContent || e.getAttribute('aria-label') || '').trim().slice(0, 20)}`));
+    check(`touch targets ≥48px on #/${h}`, small.length === 0, small.join(', '));
+  }
+  // RTL: switching to Arabic flips direction (strings fall back to English until translated)
+  await go('settings', 'select');
+  await page.selectOption('select', 'ar');
+  check('Arabic sets dir=rtl', (await page.getAttribute('html', 'dir')) === 'rtl');
+  await page.selectOption('select', 'pt');
+  check('Portuguese sets dir=ltr and UI text', (await page.getAttribute('html', 'dir')) === 'ltr' && (await page.textContent('h1')).includes('Configurações'));
   await browser.close();
 } catch (e) { console.error(e); ok = false; }
 srv.kill();
