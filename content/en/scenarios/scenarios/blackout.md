@@ -22,6 +22,25 @@ mistakes:
   - "Using candles unattended."
   - "Cooking or heating indoors with fuel burners."
   - "Opening the fridge repeatedly."
+timeline:
+  "10min":
+    - "Check the breaker and ask neighbors."
+    - "Use flashlights. Keep the fridge closed."
+  "1h":
+    - "Unplug sensitive devices."
+    - "Note the time the power went out."
+  "24h":
+    - "Eat perishable food first."
+    - "Check on older or ill neighbors."
+  "72h":
+    - "Ration water and phone battery."
+    - "Listen to the radio at set times."
+  "7d":
+    - "Keep a routine: water, food, sleep."
+    - "Ask authorities about shelters or supply points."
+  "30d":
+    - "Use community or official supply points."
+    - "Plan water treatment for the long term."
 review:
   date: 2026-11-19
   level: draft

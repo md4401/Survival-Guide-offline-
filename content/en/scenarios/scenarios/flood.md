@@ -22,6 +22,25 @@ mistakes:
   - "Driving into flooded roads."
   - "Touching electrical items while wet."
   - "Waiting to see if the water rises."
+timeline:
+  "10min":
+    - "Move to higher ground now."
+    - "Do not walk or drive through floodwater."
+  "1h":
+    - "Switch off power if safe and dry."
+    - "Take documents, medicine and water."
+  "24h":
+    - "Return only after the official all-clear."
+    - "Keep away from floodwater."
+  "72h":
+    - "Assume tap water is unsafe until told otherwise."
+    - "Treat water before drinking."
+  "7d":
+    - "Clean with gloves and a mask."
+    - "Discard food touched by floodwater."
+  "30d":
+    - "Have the electrics checked before restoring power."
+    - "Report damage to claim aid."
 review:
   date: 2026-11-19
   level: draft

@@ -22,6 +22,24 @@ mistakes:
   - "Exercício pesado ao meio-dia."
   - "Esperar ter sede para beber."
   - "Deixar alguém em carro parado."
+timeline:
+  "10min":
+    - "Vá para o cômodo mais fresco."
+    - "Beba água."
+  "1h":
+    - "Feche cortinas nas janelas com sol."
+    - "Resfrie a pele com panos úmidos."
+  "24h":
+    - "Evite esforço ao meio-dia."
+    - "Veja como estão idosos e crianças."
+  "72h":
+    - "Continue bebendo com regularidade."
+    - "Confusão ou desmaio: ligue para a emergência."
+  "7d":
+    - "Planeje lugares mais frescos para ir."
+    - "Tenha água para vários dias."
+  "30d":
+    - "Prepare sombra e ventilação para o próximo calor."
 review:
   date: 2026-11-19
   level: draft

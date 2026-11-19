@@ -22,6 +22,24 @@ mistakes:
   - "Ficar sob árvore isolada."
   - "Ficar em campo aberto ou na água."
   - "Dirigir por vias alagadas."
+timeline:
+  "10min":
+    - "Entre em casa. Fique longe das janelas."
+    - "Desligue eletrônicos da tomada."
+  "1h":
+    - "Fique dentro até 30 minutos após o último trovão."
+    - "Evite usar a tubulação e a água."
+  "24h":
+    - "Saia só quando o vento diminuir."
+    - "Fique longe de fios caídos."
+  "72h":
+    - "Avise as autoridades sobre perigos."
+    - "Use luvas na limpeza."
+  "7d":
+    - "Fotografe os danos para os reparos."
+    - "Veja como estão os vizinhos."
+  "30d":
+    - "Conserte e prenda objetos soltos antes da próxima tempestade."
 review:
   date: 2026-11-19
   level: draft

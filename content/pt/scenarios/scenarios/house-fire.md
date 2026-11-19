@@ -22,6 +22,25 @@ mistakes:
   - "Voltar para dentro."
   - "Se esconder em armário ou embaixo da cama."
   - "Abrir uma porta quente."
+timeline:
+  "10min":
+    - "Saia agora. Não volte."
+    - "Ligue para a emergência de fora."
+  "1h":
+    - "Conte todos no ponto de encontro."
+    - "Avise os bombeiros se alguém puder estar dentro."
+  "24h":
+    - "Procure atendimento por fumaça ou queimaduras."
+    - "Arranje um lugar para ficar."
+  "72h":
+    - "Contate a seguradora ou serviços de apoio."
+    - "Reponha documentos e remédios."
+  "7d":
+    - "Não volte a entrar até ser liberado."
+    - "Organize uma limpeza segura."
+  "30d":
+    - "Instale detectores de fumaça que funcionem."
+    - "Pratique um plano de fuga."
 review:
   date: 2026-11-19
   level: draft

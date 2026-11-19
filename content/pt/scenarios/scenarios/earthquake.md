@@ -22,6 +22,24 @@ mistakes:
   - "Correr para fora durante o tremor."
   - "Ficar no vão da porta."
   - "Usar elevadores."
+timeline:
+  "10min":
+    - "Abaixe, proteja-se e segure até parar."
+    - "Depois verifique se há feridos."
+  "1h":
+    - "Espere réplicas."
+    - "Saia se sentir cheiro de gás ou ver danos."
+  "24h":
+    - "Fique longe de prédios danificados."
+    - "Use mensagens de texto, não ligações."
+  "72h":
+    - "Mantenha estoques de água e comida."
+    - "Siga as atualizações oficiais pelo rádio."
+  "7d":
+    - "Peça vistoria antes de voltar a entrar."
+    - "Fixe móveis pesados."
+  "30d":
+    - "Revise o plano da família e o kit."
 review:
   date: 2026-11-19
   level: draft

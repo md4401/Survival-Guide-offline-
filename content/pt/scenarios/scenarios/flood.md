@@ -22,6 +22,25 @@ mistakes:
   - "Dirigir em vias alagadas."
   - "Mexer em itens elétricos molhado."
   - "Esperar para ver se a água sobe."
+timeline:
+  "10min":
+    - "Vá agora para um local alto."
+    - "Não caminhe nem dirija pela água da enchente."
+  "1h":
+    - "Desligue a energia se seguro e seco."
+    - "Leve documentos, remédios e água."
+  "24h":
+    - "Volte só após a liberação oficial."
+    - "Fique longe da água da enchente."
+  "72h":
+    - "Considere a água da torneira insegura até haver aviso."
+    - "Trate a água antes de beber."
+  "7d":
+    - "Limpe com luvas e máscara."
+    - "Descarte alimentos que tocaram a água da enchente."
+  "30d":
+    - "Peça revisão elétrica antes de religar a energia."
+    - "Registre os danos para pedir ajuda."
 review:
   date: 2026-11-19
   level: draft

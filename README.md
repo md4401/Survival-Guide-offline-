@@ -16,6 +16,8 @@ npm run verify       # build + unit tests + size budget + offline E2E
 | `npm run check:css` | fails on physical `left/right` CSS (RTL safety) |
 | `npm test` | Vitest: clock, ISO week, day counter, sun/moon, seasons, calendar/holidays, content validation, search, morse/coords, units, kits, access rules, i18n |
 | `npm run build` | validate + i18n + css checks, content packs, typecheck, production build with service worker |
+| `npm run eval:ai` | offline evaluation of the assistant's guards and retrieval (60 questions en/pt) |
+| `npm run shots` | store screenshots (en/pt/ar) into `store/` |
 | `npm run size` | core size vs the 50 MB budget (currently ~0.3 MB) |
 | `npm run test:e2e` | Playwright in **airplane mode**: cold start offline, icon → first emergency step in 3 taps, all main screens, IndexedDB persistence, search, 48 px touch targets, RTL switch |
 
@@ -44,6 +46,7 @@ android/ ios/            Capacitor native projects (not built here)
 - [x] F4 Almanac: clock + manual offset + zones, day counter, sun/moon/seasons, calendar + BR holidays + alt calendars, 250 countries, climate sample, tables
 - [x] F5 kits + checklist + calculator, family plan, timer/stopwatch, converter, notes, onboarding/profile, Premium/AI/voice/update interfaces
 - [x] F6 offline E2E, size budget, RTL and touch-target checks
+- [x] F9 readiness score, scenario timelines (en/pt drafts), About/privacy page + legal drafts, CI workflow, store screenshots, AI offline evaluation (`npm run eval:ai`), 508/580 UI keys in es/fr/ar/hi/zh
 - [x] F8 Morse + phonetic alphabet, compass, climate zones + latitude-band map, world in numbers, encrypted backup/restore, offline error reports; 24 guides in all 7 languages (non-en/pt as drafts, hidden from users)
 - [x] F7 Crisis mode, water/chlorine calculators, rule-based suggestions, real population/time-zone/emergency data, partial es/fr/ar/hi/zh, PNG icons + update prompt, Android/iOS projects, offline license / voice / pack updater (flagged off), optional AI assistant
 

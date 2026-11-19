@@ -34,9 +34,10 @@ export function toExcerpt(g: Guide): Excerpt {
   return { id: g.id, title: g.title, text };
 }
 /** Top guides (published only) for the question, via the same offline index as search. */
-export function retrieve(index: MiniSearch, guides: Guide[], locale: string, q: string, k = 4): Excerpt[] {
-  const byId = new Map(guides.filter((g) => g.status === 'published').map((g) => [g.id, g]));
-  return search(index, locale, q).filter((h) => byId.has(h.id)).slice(0, k).map((h) => toExcerpt(byId.get(h.id)!));
+export function retrieve(index: MiniSearch, guides: Guide[], locale: string, q: string, k = 4, includeDrafts = false): Excerpt[] {
+  const byId = new Map(guides.filter((g) => includeDrafts || g.status === 'published').map((g) => [g.id, g]));
+  // typo-only matches (exact=false) are too weak to ground an answer
+  return search(index, locale, q).filter((h) => h.exact && byId.has(h.id)).slice(0, k).map((h) => toExcerpt(byId.get(h.id)!));
 }
 
 const LANG_NAME: Record<string, string> = { en: 'English', pt: 'Portuguese', es: 'Spanish', fr: 'French', ar: 'Arabic', hi: 'Hindi', zh: 'Chinese' };
@@ -79,12 +80,14 @@ export type Result =
 export interface AskDeps {
   index: MiniSearch; guides: Guide[]; locale: string; generate: null | ((messages: Array<{ role: string; content: string }>, onToken: (t: string) => void) => Promise<string>);
   onToken?: (t: string) => void; noThink?: boolean;
+  /** evaluation only: let drafts be used as context so the sets can run before guides are published */
+  includeDrafts?: boolean;
 }
 export async function ask(q: string, d: AskDeps): Promise<Result> {
   const intent = classify(q);
   if (intent.kind === 'vital') return { kind: 'vital', guideId: intent.guideId };
   if (intent.kind === 'blocked') return { kind: 'blocked', topic: intent.topic };
-  const ex = retrieve(d.index, d.guides, d.locale, q);
+  const ex = retrieve(d.index, d.guides, d.locale, q, 4, d.includeDrafts);
   if (!ex.length) return { kind: 'noresult' };
   if (!d.generate) return { kind: 'guides', excerpts: ex, reason: 'no-model' };
   try {

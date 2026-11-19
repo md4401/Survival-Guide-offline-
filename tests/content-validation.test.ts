@@ -20,6 +20,9 @@ describe('content validation', () => {
   it('machine-translated languages contain only drafts flagged for review', () => {
     for (const l of MACHINE_LANGS) for (const { raw } of loadRaw(l)) { expect(raw.status, `${l}:${raw.id}`).toBe('draft'); expect(raw.needsReview).toBe(true); }
   });
+  it('the 8 scenarios carry a 6-stage timeline in en and pt', () => {
+    for (const l of ['en', 'pt']) for (const { raw } of loadRaw(l).filter((x) => x.raw.kind === 'scenario')) expect(Object.keys(raw.timeline ?? {}), `${l}:${raw.id}`).toEqual(['10min', '1h', '24h', '72h', '7d', '30d']);
+  });
   it('Chinese word counting is character based', () => { expect(wordCount('请立即拨打急救电话', 'zh')).toBe(5); expect(wordCount('call now please', 'en')).toBe(3); });
   it('the 8 MVP scenarios exist', () => {
     const ids = loadRaw('en').map((i) => i.raw.id);

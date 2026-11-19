@@ -6,7 +6,7 @@ describe('i18n', () => {
     expect(Object.keys(LOCALES.pt).sort()).toEqual(Object.keys(LOCALES.en).sort());
   });
   it('falls back to English for stub locales, never to an empty string', () => {
-    expect(translate('ar', 'kit.item.water')).toBe(LOCALES.en['kit.item.water']);
+    expect(translate('ar', 'ai.eval.run')).toBe(LOCALES.en['ai.eval.run']);
     expect(translate('ar', 'nav.home')).not.toBe(LOCALES.en['nav.home']);
   });
   it('interpolates params', () => {

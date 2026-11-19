@@ -22,6 +22,24 @@ mistakes:
   - "Standing under an isolated tree."
   - "Staying on open ground or water."
   - "Driving through flooded roads."
+timeline:
+  "10min":
+    - "Go indoors. Stay away from windows."
+    - "Unplug electronics."
+  "1h":
+    - "Stay inside until 30 minutes after the last thunder."
+    - "Avoid plumbing and water."
+  "24h":
+    - "Go out only when the wind has dropped."
+    - "Stay away from downed power lines."
+  "72h":
+    - "Report hazards to the authorities."
+    - "Wear gloves when cleaning up."
+  "7d":
+    - "Photograph damage for repairs."
+    - "Check on neighbors."
+  "30d":
+    - "Repair and secure loose items before the next storm."
 review:
   date: 2026-11-19
   level: draft

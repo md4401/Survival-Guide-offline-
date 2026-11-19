@@ -22,6 +22,25 @@ mistakes:
   - "Going back inside."
   - "Hiding in a closet or under a bed."
   - "Opening a hot door."
+timeline:
+  "10min":
+    - "Get out now. Do not go back."
+    - "Call emergency services from outside."
+  "1h":
+    - "Count everyone at the meeting point."
+    - "Tell firefighters if anyone may be inside."
+  "24h":
+    - "Seek medical care for smoke or burns."
+    - "Find a place to stay."
+  "72h":
+    - "Contact your insurer or aid services."
+    - "Replace documents and medicines."
+  "7d":
+    - "Do not re-enter until declared safe."
+    - "Arrange safe clean-up."
+  "30d":
+    - "Install working smoke alarms."
+    - "Practice an escape plan."
 review:
   date: 2026-11-19
   level: draft

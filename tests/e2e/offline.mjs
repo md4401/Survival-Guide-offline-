@@ -95,6 +95,9 @@ try {
   await go('guide/water.diy-filter', 'ol.steps li');
   check('developer mode shows the Spanish draft', (await page.textContent('h1')).includes('filtro de agua casero') && (await page.textContent('main')).includes('Borrador'));
   await go('settings', 'select'); await page.uncheck('input[type=checkbox] >> nth=2'); await page.selectOption('select', 'en');
+  // Readiness score, About page
+  await go('prepare/score', 'progress'); check('readiness score page', (await page.textContent('main')).includes('/100'));
+  await go('about', 'section.card'); check('about/privacy page', (await page.textContent('main')).includes('Everything you save'));
   // AI assistant (no model installed): vital → direct guide path, blocked topics, guide fallback, offline download refused
   await go('assistant', 'input');
   await page.fill('input[aria-label]', 'how many mg of ibuprofen can I take'); await page.click('button.btn-danger');

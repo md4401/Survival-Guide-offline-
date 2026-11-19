@@ -22,6 +22,24 @@ mistakes:
   - "Running outside during shaking."
   - "Standing in a doorway."
   - "Using elevators."
+timeline:
+  "10min":
+    - "Drop, cover and hold on until it stops."
+    - "Then check for injuries."
+  "1h":
+    - "Expect aftershocks."
+    - "Leave if you smell gas or see damage."
+  "24h":
+    - "Stay out of damaged buildings."
+    - "Use text messages, not calls."
+  "72h":
+    - "Keep water and food supplies."
+    - "Follow official updates by radio."
+  "7d":
+    - "Have buildings checked before re-entering."
+    - "Secure heavy furniture."
+  "30d":
+    - "Review your family plan and kit."
 review:
   date: 2026-11-19
   level: draft

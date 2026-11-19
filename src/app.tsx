@@ -36,6 +36,8 @@ import { Compass } from './features/emergency/Compass';
 import { ClimateZones } from './features/almanac/ClimateZones';
 import { ClimateMap } from './features/almanac/ClimateMap';
 import { WorldNumbers } from './features/almanac/WorldNumbers';
+import { Readiness } from './features/prepare/Readiness';
+import { About } from './features/settings/About';
 import { t } from './i18n';
 
 export function App() {
@@ -52,11 +54,12 @@ export function App() {
     case 'compass': view = <Compass />; break;
     case 'gps': view = <Gps />; break;
     case 'search': view = <Search />; break;
+    case 'about': view = <About />; break;
     case 'settings': view = <Settings />; break;
     case 'guide': view = <GuideView id={arg ?? ''} />; break;
     case 'scenarios': view = <ListPage kind="scenario" titleKey="list.scenarios" />; break;
     case 'guides': view = <ListPage kind="guide" titleKey="list.guides" />; break;
-    case 'prepare': view = arg === 'kit' ? <Kit kit={arg2 ?? '72h'} /> : arg === 'family' ? <Family /> : arg === 'water' ? <Water /> : <Prepare />; break;
+    case 'prepare': view = arg === 'kit' ? <Kit kit={arg2 ?? '72h'} /> : arg === 'family' ? <Family /> : arg === 'water' ? <Water /> : arg === 'score' ? <Readiness /> : <Prepare />; break;
     case 'tools': view = arg === 'converter' ? <Converter /> : arg === 'morse' ? <Morse /> : arg === 'notes' ? <Notes /> : <Timer />; break;
     case 'assistant': view = arg === 'models' ? <Models /> : <Assistant />; break;
     case 'crisis': view = <Crisis />; break;

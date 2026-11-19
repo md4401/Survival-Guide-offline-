@@ -11,7 +11,7 @@
 - Verify the model repo ids / sizes in `src/ai/models.ts` and test download + generation on a real device (the build sandbox cannot reach Hugging Face)
 - Runtime is loaded from jsDelivr (pinned 3.8.1, no SRI possible for dynamic import): consider self-hosting it as a second optional download
 - iOS WKWebView has no service worker, so the cached runtime may not work offline there; WebGPU/WASM speed and memory on low-end phones unmeasured
-- Spec quality gates not done: ~200-question test set per language, hallucination tests, human review of samples, time-to-first-token and battery measurements
+- Quality gates still open: run Developer mode → Assistant → "Run evaluation" on a real model (hallucination/citation/number checks, time to first word), enlarge the 60-question set to ~200 per language, human review of samples, battery measurements
 - Gemma may require accepting a license on Hugging Face
 
 ## Languages
@@ -24,4 +24,6 @@
 - Compass needs a real-device test; backup UI tested only in headless Chromium
 - Error reports have no server (endpoint `null`)
 - Readiness score, learn/quizzes, offline maps, regional risk rules: out of MVP scope
-- Not done by choice: scenario `timeline` text, the ~290 UI keys still missing in es/fr/ar/hi/zh, AI evaluation set, CI, store assets, privacy policy/terms
+- Not translated: scenario `timeline` text in es/fr/ar/hi/zh; 72 UI keys (AI screens, climate-zone descriptions) in those languages
+- Legal: `docs/PRIVACY.md` / `docs/TERMS.md` are drafts for a lawyer (publisher identity, governing law, liability)
+- Store: screenshots exist in `store/` (en/pt/ar, phone size); need icons/feature graphic/listing text and store accounts

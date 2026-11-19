@@ -10,6 +10,36 @@ import { generate, loadAi, saveAi, type AiState } from '../../ai/manager';
 import { MODELS, customModel } from '../../ai/models';
 import type { Guide } from '../../content/types';
 
+interface EvalRow { lang: string; q: string; expect: string; guide?: string }
+function EvalPanel({ index, guides, model, locale }: { index: ReturnType<typeof buildIndex>; guides: Guide[]; model: any; locale: string }) {
+  const [out, setOut] = useState('');
+  const [busy, setBusy] = useState(false);
+  const run = async () => {
+    setBusy(true); setOut('');
+    const rows: EvalRow[] = ((await import('../../../eval/questions.json')) as any).default.filter((r: EvalRow) => r.lang === locale);
+    let n = 0, guard = 0, accepted = 0, rejected = 0, gen = 0, ms = 0, ttft = 0; const bad: string[] = [];
+    for (const r of rows) {
+      const t0 = performance.now(); let first = 0;
+      const res = await ask(r.q, { index, guides, locale, includeDrafts: true, noThink: !!model?.qwen3,
+        generate: model ? (m, tok) => generate(model, m, (x) => { first ||= performance.now() - t0; tok(x); }) : null });
+      n++;
+      if (r.expect === 'vital' || r.expect === 'blocked') { const ok = res.kind === r.expect && (r.expect === 'blocked' || (res as any).guideId === r.guide); guard++; if (!ok) bad.push(r.q); }
+      if (res.kind === 'answer') { accepted++; gen++; ms += performance.now() - t0; ttft += first; }
+      if (res.kind === 'guides' && res.reason === 'rejected') { rejected++; gen++; ms += performance.now() - t0; ttft += first; }
+      if (res.kind === 'guides' && res.reason === 'error') bad.push(`error: ${r.q}`);
+      setOut(`${n}/${rows.length}`);
+    }
+    setOut(t('ai.eval.result', { n, g: guard - bad.filter((b) => !b.startsWith('error')).length, gt: guard, a: accepted, r: rejected, ttft: gen ? Math.round(ttft / gen) : 0, ms: gen ? Math.round(ms / gen) : 0 }) + (bad.length ? `\n${bad.join('\n')}` : ''));
+    setBusy(false);
+  };
+  return (
+    <section class="card stack"><h2>{t('ai.eval')}</h2><p class="muted">{t('ai.eval.hint')}</p>
+      <button disabled={busy} onClick={run}>{busy ? out || t('app.loading') : t('ai.eval.run')}</button>
+      {!busy && out && <pre style="white-space:pre-wrap">{out}</pre>}
+    </section>
+  );
+}
+
 export function Assistant() {
   const s = useSettings();
   const [guides, setGuides] = useState<Guide[]>([]);
@@ -59,6 +89,7 @@ export function Assistant() {
       {res?.kind === 'noresult' && <section class="card stack"><p>{t('ai.noresult')}</p><a class="btn" href={href('search')}>{t('common.search')}</a></section>}
       {res?.kind === 'guides' && <section class="card stack"><p class="muted">{reason(res.reason)}</p>{cards(res.excerpts)}</section>}
       {res?.kind === 'answer' && <section class="card stack"><p style="white-space:pre-wrap">{res.text}</p><h2>{t('guide.related')}</h2>{cards(res.excerpts)}<p class="danger-box">{t('ai.notice')}</p></section>}
+      {s.dev && <EvalPanel index={index} guides={guides} model={!aiOff ? model : null} locale={s.locale} />}
       <a class="btn btn-block" href={href('assistant', 'models')}>{t('ai.models.title')}</a>
     </main>
   );

@@ -22,6 +22,23 @@ mistakes:
   - "Andar sem plano."
   - "Separar o grupo."
   - "Sair sem avisar ninguém do trajeto."
+timeline:
+  "10min":
+    - "Pare. Sente-se. Pense, observe, planeje."
+  "1h":
+    - "Fique no lugar e seja visível."
+    - "Sinalize com três apitos."
+  "24h":
+    - "Ache abrigo do vento e da chuva."
+    - "Racione sua água."
+  "72h":
+    - "Mantenha os sinais prontos."
+    - "Fique perto de um ponto aberto e visível."
+  "7d":
+    - "Mantenha-se aquecido e seco. Descanse."
+    - "Continue sinalizando."
+  "30d":
+    - "Mantenha abrigo, sinais e rotina em ordem."
 review:
   date: 2026-11-19
   level: draft

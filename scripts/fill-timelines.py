@@ -1,0 +1,41 @@
+# Adds a `timeline` (10min, 1h, 24h, 72h, 7d, 30d) to the 8 scenario DRAFTS in en/pt. Conservative, public-guidance based; still needs professional review.
+import glob, json, re
+ST = ['10min', '1h', '24h', '72h', '7d', '30d']
+TL = {
+'scenario.blackout': {
+ 'en': [['Check the breaker and ask neighbors.', 'Use flashlights. Keep the fridge closed.'], ['Unplug sensitive devices.', 'Note the time the power went out.'], ['Eat perishable food first.', 'Check on older or ill neighbors.'], ['Ration water and phone battery.', 'Listen to the radio at set times.'], ['Keep a routine: water, food, sleep.', 'Ask authorities about shelters or supply points.'], ['Use community or official supply points.', 'Plan water treatment for the long term.']],
+ 'pt': [['Verifique o disjuntor e pergunte aos vizinhos.', 'Use lanternas. Mantenha a geladeira fechada.'], ['Desligue aparelhos sensíveis da tomada.', 'Anote a hora em que a energia caiu.'], ['Consuma primeiro os alimentos perecíveis.', 'Veja como estão vizinhos idosos ou doentes.'], ['Racione água e bateria do celular.', 'Ouça o rádio em horários definidos.'], ['Mantenha uma rotina: água, comida, sono.', 'Pergunte às autoridades sobre abrigos ou pontos de apoio.'], ['Use pontos de apoio comunitários ou oficiais.', 'Planeje o tratamento de água a longo prazo.']]},
+'scenario.storm': {
+ 'en': [['Go indoors. Stay away from windows.', 'Unplug electronics.'], ['Stay inside until 30 minutes after the last thunder.', 'Avoid plumbing and water.'], ['Go out only when the wind has dropped.', 'Stay away from downed power lines.'], ['Report hazards to the authorities.', 'Wear gloves when cleaning up.'], ['Photograph damage for repairs.', 'Check on neighbors.'], ['Repair and secure loose items before the next storm.']],
+ 'pt': [['Entre em casa. Fique longe das janelas.', 'Desligue eletrônicos da tomada.'], ['Fique dentro até 30 minutos após o último trovão.', 'Evite usar a tubulação e a água.'], ['Saia só quando o vento diminuir.', 'Fique longe de fios caídos.'], ['Avise as autoridades sobre perigos.', 'Use luvas na limpeza.'], ['Fotografe os danos para os reparos.', 'Veja como estão os vizinhos.'], ['Conserte e prenda objetos soltos antes da próxima tempestade.']]},
+'scenario.flood': {
+ 'en': [['Move to higher ground now.', 'Do not walk or drive through floodwater.'], ['Switch off power if safe and dry.', 'Take documents, medicine and water.'], ['Return only after the official all-clear.', 'Keep away from floodwater.'], ['Assume tap water is unsafe until told otherwise.', 'Treat water before drinking.'], ['Clean with gloves and a mask.', 'Discard food touched by floodwater.'], ['Have the electrics checked before restoring power.', 'Report damage to claim aid.']],
+ 'pt': [['Vá agora para um local alto.', 'Não caminhe nem dirija pela água da enchente.'], ['Desligue a energia se seguro e seco.', 'Leve documentos, remédios e água.'], ['Volte só após a liberação oficial.', 'Fique longe da água da enchente.'], ['Considere a água da torneira insegura até haver aviso.', 'Trate a água antes de beber.'], ['Limpe com luvas e máscara.', 'Descarte alimentos que tocaram a água da enchente.'], ['Peça revisão elétrica antes de religar a energia.', 'Registre os danos para pedir ajuda.']]},
+'scenario.house-fire': {
+ 'en': [['Get out now. Do not go back.', 'Call emergency services from outside.'], ['Count everyone at the meeting point.', 'Tell firefighters if anyone may be inside.'], ['Seek medical care for smoke or burns.', 'Find a place to stay.'], ['Contact your insurer or aid services.', 'Replace documents and medicines.'], ['Do not re-enter until declared safe.', 'Arrange safe clean-up.'], ['Install working smoke alarms.', 'Practice an escape plan.']],
+ 'pt': [['Saia agora. Não volte.', 'Ligue para a emergência de fora.'], ['Conte todos no ponto de encontro.', 'Avise os bombeiros se alguém puder estar dentro.'], ['Procure atendimento por fumaça ou queimaduras.', 'Arranje um lugar para ficar.'], ['Contate a seguradora ou serviços de apoio.', 'Reponha documentos e remédios.'], ['Não volte a entrar até ser liberado.', 'Organize uma limpeza segura.'], ['Instale detectores de fumaça que funcionem.', 'Pratique um plano de fuga.']]},
+'scenario.heatwave': {
+ 'en': [['Move to the coolest room.', 'Drink water.'], ['Close curtains on sunny windows.', 'Cool skin with damp cloths.'], ['Avoid effort at midday.', 'Check on older neighbors and children.'], ['Keep drinking regularly.', 'Confusion or fainting: call emergency services.'], ['Plan cooler places to go.', 'Keep a water supply for several days.'], ['Prepare shade and ventilation for the next heat.']],
+ 'pt': [['Vá para o cômodo mais fresco.', 'Beba água.'], ['Feche cortinas nas janelas com sol.', 'Resfrie a pele com panos úmidos.'], ['Evite esforço ao meio-dia.', 'Veja como estão idosos e crianças.'], ['Continue bebendo com regularidade.', 'Confusão ou desmaio: ligue para a emergência.'], ['Planeje lugares mais frescos para ir.', 'Tenha água para vários dias.'], ['Prepare sombra e ventilação para o próximo calor.']]},
+'scenario.coldwave': {
+ 'en': [['Add layers and a hat.', 'Pick one room to keep warm.'], ['Block drafts. Keep clothes dry.', 'Never use grills or outdoor heaters indoors.'], ['Drink warm fluids and eat regularly.', 'Check on older neighbors.'], ['Watch for shivering or confusion.', 'Use blankets and one warm room.'], ['Ration heat sources safely.', 'Keep supplies for several days.'], ['Insulate windows and doors before the next cold wave.']],
+ 'pt': [['Vista camadas e touca.', 'Escolha um cômodo para manter aquecido.'], ['Vede frestas. Mantenha a roupa seca.', 'Nunca use churrasqueira ou aquecedor externo dentro de casa.'], ['Beba líquidos mornos e coma com regularidade.', 'Veja como estão vizinhos idosos.'], ['Observe tremores ou confusão.', 'Use cobertores e um cômodo aquecido.'], ['Racione as fontes de calor com segurança.', 'Mantenha suprimentos para vários dias.'], ['Isole janelas e portas antes da próxima onda de frio.']]},
+'scenario.earthquake': {
+ 'en': [['Drop, cover and hold on until it stops.', 'Then check for injuries.'], ['Expect aftershocks.', 'Leave if you smell gas or see damage.'], ['Stay out of damaged buildings.', 'Use text messages, not calls.'], ['Keep water and food supplies.', 'Follow official updates by radio.'], ['Have buildings checked before re-entering.', 'Secure heavy furniture.'], ['Review your family plan and kit.']],
+ 'pt': [['Abaixe, proteja-se e segure até parar.', 'Depois verifique se há feridos.'], ['Espere réplicas.', 'Saia se sentir cheiro de gás ou ver danos.'], ['Fique longe de prédios danificados.', 'Use mensagens de texto, não ligações.'], ['Mantenha estoques de água e comida.', 'Siga as atualizações oficiais pelo rádio.'], ['Peça vistoria antes de voltar a entrar.', 'Fixe móveis pesados.'], ['Revise o plano da família e o kit.']]},
+'scenario.lost': {
+ 'en': [['Stop. Sit down. Think, observe, plan.'], ['Stay put and make yourself visible.', 'Signal with three whistle blasts.'], ['Find shelter from wind and rain.', 'Ration your water.'], ['Keep signals ready.', 'Stay near an open, visible spot.'], ['Keep warm and dry. Rest.', 'Keep signaling.'], ['Keep your shelter, signals and routine in order.']],
+ 'pt': [['Pare. Sente-se. Pense, observe, planeje.'], ['Fique no lugar e seja visível.', 'Sinalize com três apitos.'], ['Ache abrigo do vento e da chuva.', 'Racione sua água.'], ['Mantenha os sinais prontos.', 'Fique perto de um ponto aberto e visível.'], ['Mantenha-se aquecido e seco. Descanse.', 'Continue sinalizando.'], ['Mantenha abrigo, sinais e rotina em ordem.']]},
+}
+n = 0
+for f in glob.glob('content/*/scenarios/**/*.md', recursive=True):
+    lang = f.split('/')[1]
+    if lang not in ('en', 'pt'): continue
+    raw = open(f, encoding='utf8').read()
+    m = re.search(r'^id: (\S+)$', raw, re.M)
+    if not m or m.group(1) not in TL or '\ntimeline:' in raw: continue
+    rows = TL[m.group(1)][lang]
+    block = 'timeline:\n' + ''.join(f'  "{st}":\n' + ''.join(f'    - {json.dumps(x, ensure_ascii=False)}\n' for x in steps) for st, steps in zip(ST, rows))
+    raw = raw.replace('review:\n', block + 'review:\n', 1)
+    open(f, 'w', encoding='utf8').write(raw); n += 1
+print('timelines added', n)
