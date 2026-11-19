@@ -26,7 +26,7 @@ review:
   date: 2026-11-19
   level: draft
   source: "To verify: WHO / Red Cross / civil-defense guidance (source not yet registered)"
-tags: []
+tags: [disinfect, boil, boiling, chlorine, sodis, treat]
 ---
 - Solar disinfection (SODIS): clear PET bottle in strong sun for about 6 hours, or 2 days if cloudy.
 - Use the chlorine calculator under Prepare and the product label.
