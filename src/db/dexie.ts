@@ -9,6 +9,8 @@ export interface PackRow { id: string; lang: string; version: string; sha256: st
 export interface MeshRow { id: string; ch: string; from: string; ts: number; json: string; mine: number }
 export interface InvItem { id?: number; name: string; qty: number; unit: string; where: string; expires: string; kcal?: number }
 export interface Highlight { id?: number; guide: string; text: string; note: string; at: number }
+export interface Recording { id?: number; name: string; at: number; ms: number; mime: string; blob: Blob }
+export interface EventRow { id?: number; title: string; at: number; note: string; repeat: 'none' | 'daily' | 'weekly' | 'yearly' }
 export interface KV { key: string; value: unknown }
 
 class AppDB extends Dexie {
@@ -22,6 +24,8 @@ class AppDB extends Dexie {
   meshMsgs!: Table<MeshRow, string>;
   inventory!: Table<InvItem, number>;
   highlights!: Table<Highlight, number>;
+  recordings!: Table<Recording, number>;
+  events!: Table<EventRow, number>;
   constructor() {
     super('survival-guide');
     this.version(1).stores({
@@ -31,6 +35,7 @@ class AppDB extends Dexie {
     this.version(2).stores({ packs: 'id, lang' });
     this.version(3).stores({ meshMsgs: 'id, ch, ts, from' });
     this.version(4).stores({ inventory: '++id, expires, name', highlights: '++id, guide, at' });
+    this.version(5).stores({ recordings: '++id, at', events: '++id, at' });
   }
 }
 /** All user data lives only here, on the device. Nothing is ever sent anywhere. */

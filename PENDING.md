@@ -50,4 +50,6 @@
 - Total content is now 47 guides and 8 scenarios, far below the 600 articles / 40+ scenarios in the content map
 - 84 guides and 8 scenarios exist; all new ones are drafts. First aid, poisoning, head injury, child fever, pregnancy/baby and mental health guides especially need review by a qualified professional before publication
 - The mental health guides only give calming and routine tips and point to helplines; local helpline numbers are not included yet
+- Toolbox: test the recorder, QR camera scan, sound meter and metal detector on real phones (permissions, Android WebView support for `Magnetometer`, iOS has no web magnetometer); the Android build now requests RECORD_AUDIO
+- Sound meter is not calibrated; compare with a reference meter before trusting the numbers
 

@@ -149,6 +149,20 @@ try {
     await page.fill('input[type=search]', 'zzzzzz'); await page.waitForSelector('text=No guide matches'); check('guides filter shows an empty state', true);
     await go('settings', 'select'); await page.uncheck('input[type=checkbox] >> nth=2');
   }
+  // J: toolbox hub and new tools
+  {
+    const before = errors.length;
+    await go('tools', 'a[data-tool]'); const nTools = await page.$$eval('a[data-tool]', (e) => e.length); check('toolbox hub lists 15 tools', nTools === 15, `(${nTools})`);
+    await go('tools/calculator', 'input'); await page.fill('input', '2+3×4'); await page.click('button:has-text("=")'); await page.waitForSelector('.big-num:has-text("14")'); check('calculator: 2+3×4 = 14', true);
+    await page.fill('input', '1/0'); await page.click('button:has-text("=")'); await page.waitForSelector('[role=alert]:has-text("divide by zero")'); check('calculator refuses division by zero', true);
+    await go('tools/agenda', 'input'); await page.fill('input >> nth=0', 'Dentist'); await page.click('button:has-text("Add event")'); await page.waitForSelector('text=Dentist');
+    await page.reload(); await page.waitForSelector('text=Dentist'); check('agenda event persists offline', true);
+    await page.click('button[aria-label="Delete"]'); await wait(300);
+    for (const h of ['tools/recorder', 'tools/qrscan', 'tools/decibel', 'tools/metal', 'compass', 'tools/level', 'world/clock', 'world/calendar']) { await go(h, 'main'); check(`#/${h} renders offline`, (await page.textContent('main')).trim().length > 20); }
+    await go('tools/notes', 'textarea'); check('notes open offline', true);
+    await go('tools/metal', 'main'); check('metal detector explains missing sensor without fake data', (await page.textContent('main')).includes('cannot find coins') || (await page.textContent('main')).includes('magnetic sensor'));
+    check('no uncaught errors in the toolbox', errors.length === before, errors.slice(before).join('|'));
+  }
   // Low-end device simulation: CPU 6x slower, offline cold start → help → first step
   {
     const lp = await ctx.newPage(); const cdp = await ctx.newCDPSession(lp);
@@ -161,7 +175,7 @@ try {
     await lp.close();
   }
   // Accessibility: touch targets >= 48 px on key screens
-  for (const h of ['', 'triage', 'emergency', 'guide/water.diy-filter', 'prepare', 'world', 'settings', 'messages', 'messages/sync', 'plans', 'world/climate', 'scenarios', 'guides', 'learn', 'library', 'library/phrases', 'system', 'signal', 'prepare/stock']) {
+  for (const h of ['', 'triage', 'emergency', 'guide/water.diy-filter', 'prepare', 'world', 'settings', 'messages', 'messages/sync', 'plans', 'world/climate', 'tools', 'tools/calculator', 'tools/agenda', 'tools/recorder', 'scenarios', 'guides', 'learn', 'library', 'library/phrases', 'system', 'signal', 'prepare/stock']) {
     await go(h, 'main');
     const small = await page.$$eval('a, button, select, input:not([type=checkbox]):not([type=range]):not([type=file])', (els) =>
       els.filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && (r.height < 47.5 || r.width < 47.5); })

@@ -34,7 +34,7 @@ export const FEATURES: Feature[] = [
   // AI
   F('aiAssistant', 'ai', 'free', true, false, 'ask and summarise from reviewed guides; the user picks any model size'), F('aiPlan', 'ai', 'premium', false, false, 'personalised 72 h plan, tutor, quiz, emergency phrases'), F('voice', 'ai', 'premium', true, false, 'read steps aloud, offline voices'),
   // Tools and system
-  F('timerConverterNotes', 'tools', 'free', true), F('searchFavorites', 'system', 'free', true), F('themesAccessibility', 'system', 'free', true, true), F('languages', 'system', 'free', true, true, 'all languages are free; only review status differs'),
+  F('timerConverterNotes', 'tools', 'free', true), F('toolbox', 'tools', 'free', true, false, 'calculator, audio recorder, QR reader, agenda, sound level meter, metal detector (magnetic sensor), compass, level, clock, calendar, notes'), F('searchFavorites', 'system', 'free', true), F('themesAccessibility', 'system', 'free', true, true), F('languages', 'system', 'free', true, true, 'all languages are free; only review status differs'),
   F('backup', 'system', 'both', true, false, 'encrypted file backup free; scheduled reminders premium'), F('pdfExport', 'system', 'premium', true), F('accountSync', 'system', 'premium', false, false, 'optional account, only to sync devices/family'), F('noUpgradeNags', 'system', 'free', true, true, 'no upgrade prompt in Emergency or Crisis, no ads ever'),
 ];
 

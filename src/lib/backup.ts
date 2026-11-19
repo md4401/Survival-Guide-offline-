@@ -2,7 +2,7 @@
 import { db } from '../db/dexie';
 
 const ITER = 210000;
-const TABLES = ['favorites', 'history', 'counters', 'checklists', 'notes', 'kv', 'inventory', 'highlights'] as const;
+const TABLES = ['favorites', 'history', 'counters', 'checklists', 'notes', 'kv', 'inventory', 'highlights', 'events'] as const;
 const EXCLUDE_KV = new Set(['ai']); // model install state refers to this device's cache
 const enc = new TextEncoder();
 const b64 = (u: Uint8Array) => { let s = ''; for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode(...u.subarray(i, i + 0x8000)); return btoa(s); };
