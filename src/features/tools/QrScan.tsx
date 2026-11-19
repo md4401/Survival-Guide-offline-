@@ -14,7 +14,7 @@ export function QrScan() {
   const kind = text ? classify(text) : null;
   return (
     <main class="stack"><h1>{t('qrscan.title')}</h1><p class="muted">{t('qrscan.privacy')}</p>
-      {cam ? <><QrScanner onText={(s) => { setText(s); setCam(false); }} onError={() => { setCam(false); setMsg(t('qrscan.denied')); }} /><button class="btn" onClick={() => setCam(false)}>{t('common.close')}</button></> : <button class="btn-block help-btn" onClick={() => { setMsg(''); setCam(true); }}>📷 {t('qrscan.start')}</button>}
+      {cam ? <><QrScanner onText={(s) => { setText(s); setCam(false); }} onError={() => { setCam(false); setMsg(`${t('media.cam.denied')} ${t('media.settings')}`); }} /><button class="btn" onClick={() => setCam(false)}>{t('common.close')}</button></> : <button class="btn-block help-btn" onClick={() => { setMsg(''); setCam(true); }}>📷 {t('qrscan.start')}</button>}
       <label class="btn">🖼 {t('qrscan.image')}<input type="file" accept="image/*" hidden onChange={async (e) => { const f = (e.target as HTMLInputElement).files?.[0]; if (!f) return; try { const r = await decodeFile(f); if (r) { setText(r); setMsg(''); } else setMsg(t('qrscan.none')); } catch { setMsg(t('qrscan.none')); } }} /></label>
       {msg && <p class="danger-box" role="alert">{msg}</p>}
       {text && <section class="card stack"><h2>{t('qrscan.result')}</h2><p dir="auto" style="word-break:break-all;white-space:pre-wrap">{text}</p>

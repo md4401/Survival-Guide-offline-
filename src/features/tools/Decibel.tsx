@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { t } from '../../i18n';
+import { mediaMessage } from '../../lib/media';
 import { rms, toDb, bandOf, Stats } from '../../lib/audioLevel';
 import { getKV, setKV } from '../../db/dexie';
 
@@ -15,7 +16,7 @@ export function Decibel() {
       const buf = new Float32Array(an.fftSize); stats.current.reset();
       const id = setInterval(() => { an.getFloatTimeDomainData(buf); const v = toDb(rms(buf), offRef.current); stats.current.add(v); setDb(v); setHist((h) => [...h.slice(-59), v]); force((n) => n + 1); }, 200);
       stop.current = () => { clearInterval(id); stream.getTracks().forEach((x) => x.stop()); void ctx.close(); setOn(false); }; setOn(true);
-    } catch { setMsg(t('spl.denied')); }
+    } catch (e) { setMsg(mediaMessage(e, 'mic')); }
   };
   const band = bandOf(db); const s = stats.current;
   return (
