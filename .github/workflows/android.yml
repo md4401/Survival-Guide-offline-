@@ -16,7 +16,7 @@ jobs:
         with: { node-version: 22, cache: npm }
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: 21 }
-      - name: Android SDK (preinstalled on the runner): licenses and platform 36
+      - name: "Android SDK (preinstalled on the runner) - licenses and platform 36"
         run: |
           SDKM="$(ls -d "$ANDROID_HOME"/cmdline-tools/*/bin/sdkmanager | head -1)"
           yes | "$SDKM" --licenses > /dev/null || true
