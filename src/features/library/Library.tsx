@@ -17,14 +17,14 @@ export function Library() {
     <main class="stack"><h1>{t('lib.title')}</h1>
       <section class="card stack"><h2>{t('lib.today')}</h2><p>{pick(f.text, loc)}</p></section>
       <div class="grid2">
-        <a class="btn tool" href={href('library', 'find')}>🔎 {t('lib.find')}</a>
-        <a class="btn tool" href={href('library', 'myths')}>🧐 {t('lib.myths')}</a>
-        <a class="btn tool" href={href('library', 'facts')}>💡 {t('lib.facts')}</a>
-        <a class="btn tool" href={href('library', 'cases')}>📖 {t('lib.cases')}</a>
-        <a class="btn tool" href={href('library', 'diy')}>🛠 {t('lib.diy')}</a>
-        <a class="btn tool" href={href('library', 'glossary')}>📚 {t('lib.glossary')}</a>
-        <a class="btn tool" href={href('library', 'phrases')}>🗣 {t('lib.phrases')}</a>
-        <a class="btn tool" href={href('library', 'scales')}>📊 {t('lib.scales')}</a>
+        <a class="btn tool" href={href('library', 'find')}><span class="ico" aria-hidden="true">🔎</span><span>{t('lib.find')}</span></a>
+        <a class="btn tool" href={href('library', 'myths')}><span class="ico" aria-hidden="true">🧐</span><span>{t('lib.myths')}</span></a>
+        <a class="btn tool" href={href('library', 'facts')}><span class="ico" aria-hidden="true">💡</span><span>{t('lib.facts')}</span></a>
+        <a class="btn tool" href={href('library', 'cases')}><span class="ico" aria-hidden="true">📖</span><span>{t('lib.cases')}</span></a>
+        <a class="btn tool" href={href('library', 'diy')}><span class="ico" aria-hidden="true">🛠</span><span>{t('lib.diy')}</span></a>
+        <a class="btn tool" href={href('library', 'glossary')}><span class="ico" aria-hidden="true">📚</span><span>{t('lib.glossary')}</span></a>
+        <a class="btn tool" href={href('library', 'phrases')}><span class="ico" aria-hidden="true">🗣</span><span>{t('lib.phrases')}</span></a>
+        <a class="btn tool" href={href('library', 'scales')}><span class="ico" aria-hidden="true">📊</span><span>{t('lib.scales')}</span></a>
       </div></main>
   );
 }

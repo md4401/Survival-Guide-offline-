@@ -11,6 +11,6 @@ const ITEMS: Array<[string, string, string[], string]> = [
 export function ToolsHub() {
   return (
     <main class="stack"><h1>{t('tools.title')}</h1><p class="muted">{t('tools.intro')}</p>
-      <div class="grid2">{ITEMS.map(([i, k, r, id]) => <a class="btn tool" data-tool={id} href={href(r[0], r[1])}>{i} {t(k)}</a>)}</div></main>
+      <div class="grid2">{ITEMS.map(([i, k, r, id]) => <a class="btn tool" data-tool={id} href={href(r[0], r[1])}><span class="ico" aria-hidden="true">{i}</span><span>{t(k)}</span></a>)}</div></main>
   );
 }

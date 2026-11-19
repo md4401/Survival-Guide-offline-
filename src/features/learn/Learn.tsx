@@ -30,10 +30,10 @@ export function Learn() {
         <label class="row"><span style="flex:1">{t('learn.goal')}</span><input type="number" min="1" max="14" value={s.goal} style="width:5rem" onInput={(e) => save({ ...s, goal: Math.max(1, Math.min(14, Number((e.target as HTMLInputElement).value) || 1)) })} /></label>
         <p class="muted">{t('learn.calm')}</p></section>
       <div class="grid2">
-        <a class="btn tool" href={href('learn', 'quiz')}>❓ {t('learn.quiz')}</a>
-        <a class="btn tool" href={href('learn', 'trees')}>🌳 {t('learn.trees')}</a>
-        <a class="btn tool" href={href('learn', 'map')}>🗺 {t('learn.map')}</a>
-        <a class="btn tool" href={href('learn', 'drill')}>🚨 {t('learn.drill')}</a>
+        <a class="btn tool" href={href('learn', 'quiz')}><span class="ico" aria-hidden="true">❓</span><span>{t('learn.quiz')}</span></a>
+        <a class="btn tool" href={href('learn', 'trees')}><span class="ico" aria-hidden="true">🌳</span><span>{t('learn.trees')}</span></a>
+        <a class="btn tool" href={href('learn', 'map')}><span class="ico" aria-hidden="true">🗺</span><span>{t('learn.map')}</span></a>
+        <a class="btn tool" href={href('learn', 'drill')}><span class="ico" aria-hidden="true">🚨</span><span>{t('learn.drill')}</span></a>
       </div></main>
   );
 }
