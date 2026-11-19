@@ -53,6 +53,7 @@ import { Energy } from './features/prepare/Energy';
 import { Inventory } from './features/prepare/Inventory';
 import { Documents } from './features/prepare/Documents';
 import { Plan72 } from './features/prepare/Plan72';
+import { System } from './features/settings/System';
 import { Library, Myths, Facts, Cases, Diy, Glossary, Phrases, Find, Scales } from './features/library/Library';
 import { Learn, Quiz, Trees, KnowledgeMap, Drill } from './features/learn/Learn';
 import { t } from './i18n';
@@ -80,6 +81,7 @@ export function App() {
     case 'plans': view = <Plans />; break;
     case 'legal': view = <Legal doc={arg === 'terms' ? 'terms' : 'privacy'} />; break;
     case 'about': view = <About />; break;
+    case 'system': view = <System />; break;
     case 'settings': view = <Settings />; break;
     case 'guide': view = <GuideView id={arg ?? ''} />; break;
     case 'scenarios': view = <ListPage kind="scenario" titleKey="list.scenarios" />; break;

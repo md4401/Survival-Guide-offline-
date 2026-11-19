@@ -26,6 +26,7 @@ export function Settings() {
       </label>
       <label class="row"><input type="checkbox" checked={s.hour12} onChange={(e) => updateSettings({ hour12: (e.target as HTMLInputElement).checked })} /><span>{t('settings.hour12')}</span></label>
       <label class="row"><input type="checkbox" checked={s.battery} onChange={(e) => updateSettings({ battery: (e.target as HTMLInputElement).checked })} /><span>{t('settings.battery')}</span></label>
+      <a class="btn" href={href('system')}>{t('sys.title')}</a>
       <label class="row"><input type="checkbox" checked={s.dev} onChange={(e) => updateSettings({ dev: (e.target as HTMLInputElement).checked })} /><span>{t('settings.dev')}</span></label>
       <a class="btn" href={href('onboarding')}>{t('settings.profile')}</a>
       <a class="btn" href={href('assistant', 'models')}>{t('ai.title')} ({t('ai.optional')})</a>

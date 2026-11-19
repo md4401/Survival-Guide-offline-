@@ -1,3 +1,4 @@
+import { addReport } from '../../lib/reports';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 import { t } from '../../i18n';
 import { href } from '../../router';
@@ -37,6 +38,20 @@ function EvalPanel({ index, guides, model, locale }: { index: ReturnType<typeof 
       <button disabled={busy} onClick={run}>{busy ? out || t('app.loading') : t('ai.eval.run')}</button>
       {!busy && out && <pre style="white-space:pre-wrap">{out}</pre>}
     </section>
+  );
+}
+
+function Extras({ q, text, ids, guides }: { q: string; text: string; ids: string[]; guides: Guide[] }) {
+  const [sum, setSum] = useState<string[] | null>(null); const [sent, setSent] = useState(false);
+  const top = guides.find((g) => g.id === ids[0]);
+  return (
+    <div class="stack">
+      <div class="row">
+        {top && top.now.length > 0 && <button class="btn" onClick={() => setSum(top.now.slice(0, 5))}>{t('ai.summary')}</button>}
+        <button class="btn" disabled={sent} onClick={async () => { await addReport({ guideId: ids[0] ?? 'assistant', lang: getSettings().locale, text: `Q: ${q}\nA: ${text}` }); setSent(true); }}>{sent ? t('ai.reported') : t('ai.report')}</button>
+      </div>
+      {sum && <ol class="steps">{sum.map((x) => <li>{x}</li>)}</ol>}
+    </div>
   );
 }
 
@@ -87,8 +102,8 @@ export function Assistant() {
       )}
       {res?.kind === 'blocked' && <section class="card stack"><p class="danger-box">{t(`ai.blocked.${res.topic}`)}</p><a class="btn" href={href('guides')}>{t('list.guides')}</a><a class="btn" href={href('emergency')}>{t('nav.emergency')}</a></section>}
       {res?.kind === 'noresult' && <section class="card stack"><p>{t('ai.noresult')}</p><a class="btn" href={href('search')}>{t('common.search')}</a></section>}
-      {res?.kind === 'guides' && <section class="card stack"><p class="muted">{reason(res.reason)}</p>{cards(res.excerpts)}</section>}
-      {res?.kind === 'answer' && <section class="card stack"><p style="white-space:pre-wrap">{res.text}</p><h2>{t('guide.related')}</h2>{cards(res.excerpts)}<p class="danger-box">{t('ai.notice')}</p></section>}
+      {res?.kind === 'guides' && <section class="card stack"><p class="muted">{reason(res.reason)}</p>{cards(res.excerpts)}<Extras q={q} text={res.reason} ids={res.excerpts.map((e) => e.id)} guides={guides} /></section>}
+      {res?.kind === 'answer' && <section class="card stack"><p style="white-space:pre-wrap">{res.text}</p><h2>{t('guide.related')}</h2>{cards(res.excerpts)}<p class="danger-box">{t('ai.notice')}</p><Extras q={q} text={res.text} ids={res.excerpts.map((e) => e.id)} guides={guides} /></section>}
       {s.dev && <EvalPanel index={index} guides={guides} model={!aiOff ? model : null} locale={s.locale} />}
       <a class="btn btn-block" href={href('assistant', 'models')}>{t('ai.models.title')}</a>
     </main>
