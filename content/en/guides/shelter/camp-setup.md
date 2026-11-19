@@ -22,7 +22,7 @@ now:
   - Cook and store food 30 metres or more from the tent.
   - Dig the toilet 60 metres or more from water and trails.
   - Before sleeping, keep flashlight and shoes in the same place.
-materials: [tent, stakes, ground-tarp, sleeping-bag, flashlight, water-container, small-shovel, trash-bags]
+materials: [Tent, Stakes and ropes, Ground tarp, Sleeping bag, Flashlight, Water container, Small shovel, Trash bags]
 related: [water.diy-filter]
 mistakes:
   - Pitching at sunset, with no time to fix problems.

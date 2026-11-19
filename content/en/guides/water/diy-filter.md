@@ -20,7 +20,7 @@ now:
   - Pour dirty water slowly. Collect the filtered water.
   - Disinfect: boil 1 minute, or 3 minutes above 2,000 m.
   - Store in a clean, covered container.
-materials: [pet-bottle, scissors, clean-cloth, charcoal, fine-sand, coarse-sand, gravel, clean-container, pot, chlorine-tablets]
+materials: [2 L PET bottle, Scissors or knife, Clean cloth or coffee filter, Wood charcoal (no additives), Fine sand (washed), Coarse sand (washed), Gravel, Clean container, Pot and fire, Chlorine tablets]
 related: []
 mistakes:
   - Assuming water is safe just because it looks clear.

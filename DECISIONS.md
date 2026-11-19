@@ -14,3 +14,6 @@ Where the spec (v1.1) conflicts or is silent, the simplest option was chosen and
 | 8 | Locale stubs | es/fr/ar/hi/zh locale files exist but are empty; they fall back to English per key. `ar` switches `dir="rtl"`. |
 | 9 | Settings persistence | Single `kv` row in IndexedDB (Dexie). No localStorage, no network. |
 | 10 | Premium | `FLAGS.premium=false`; only interfaces under `src/interfaces/`. Vital content can never be `plan: premium` (validator enforces). |
+| 11 | Triage | Spec asks 3 questions in ≤3 taps from the icon. Implemented as **one** question ("What is happening?", life-threatening options first) so icon → help → situation = 3 taps. "Where are you?" is not asked. If the target guide is an unpublished draft, the app shows emergency numbers and an explicit "under review" notice instead of inventing content. |
+| 12 | Emergency numbers | Only the numbers printed in the spec (BR, EU 112, US/CA 911, GB 999, AU 000, BR mental health 188). Flagged as sample/needs review; other countries show "look up local number". |
+| 13 | GPS / flashlight | Web APIs (Geolocation, camera torch via `getUserMedia`, Wake Lock) work in the PWA and the Capacitor WebView. If the device has no camera torch, a full-screen light with adjustable brightness is used. Native Capacitor plugins are a later optimization. |

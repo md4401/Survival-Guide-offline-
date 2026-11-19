@@ -12,7 +12,8 @@
     "preview": "vite preview",
     "size": "tsx scripts/size-report.ts",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "node tests/e2e/offline.mjs"
   },
   "dependencies": {
     "dexie": "^4.4.7",

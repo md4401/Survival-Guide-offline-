@@ -17,3 +17,5 @@ Markdown with frontmatter in `content/{lang}/…` (id, category, plan, vital, re
 
 ## Status
 - [x] F1 base, i18n, content pipeline
+- [x] F2 home, triage (3 taps), emergency numbers, flashlight/strobe/SOS Morse, whistle, GPS coordinates
+- E2E offline test: `npm run build && npm run test:e2e`
