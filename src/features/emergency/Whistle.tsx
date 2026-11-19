@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { t } from '../../i18n';
+import { getSettings } from '../../db/settings';
 
 export function Whistle() {
   const [on, setOn] = useState(false);
@@ -11,6 +12,7 @@ export function Whistle() {
   useEffect(() => stop, []);
 
   const start = () => {
+    if (getSettings().silent) return;
     const AC = window.AudioContext ?? (window as any).webkitAudioContext;
     const c: AudioContext = new AC(); ctx.current = c;
     const osc = c.createOscillator(); osc.type = 'square'; osc.frequency.value = 3000;

@@ -37,3 +37,13 @@
 
 ## Premium (planned, see docs/PREMIUM.md)
 - Decide prices, stores, payment methods, license/pack server, public key; family sync; legal review of purchase and refund terms
+
+
+## Gap closure G0–G6 (built as drafts)
+- All new library, quiz and decision-tree content is draft and needs sources and professional review; the quiz and trees only route to existing guides
+- New UI strings are complete in en+pt only; es/fr/ar/hi/zh fall back to English for them. The 13 new guides have no steps in es/fr/ar/hi/zh
+- Phrasebook: machine-assisted text in 7 languages; needs native-speaker review. No audio
+- Not built: semaphore alphabet and traffic-light tables (could not verify the content), child-style explanation button in the assistant (needs a downloaded model), offline maps, altimeter/barometer, official alerts, account sync, billing, 600 articles / 40+ scenarios / 1,500 glossary terms
+- Step counter, level and return trail need testing on real phones (sensor quality varies); local notifications only work in the Android build
+- Forecast fetch is untested against the live API
+

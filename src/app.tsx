@@ -42,6 +42,20 @@ import { MessagesHub, Thread } from './features/messages/Messages';
 import { Sync } from './features/messages/Sync';
 import { Plans } from './features/settings/Plans';
 import { Legal } from './features/settings/Legal';
+import { Signal } from './features/emergency/Signal';
+import { Trail } from './features/emergency/Trail';
+import { MedCard } from './features/emergency/MedCard';
+import { Silent } from './features/emergency/Silent';
+import { Distance } from './features/tools/Distance';
+import { Level } from './features/tools/Level';
+import { Stock } from './features/prepare/Stock';
+import { Energy } from './features/prepare/Energy';
+import { Inventory } from './features/prepare/Inventory';
+import { Documents } from './features/prepare/Documents';
+import { Plan72 } from './features/prepare/Plan72';
+import { System } from './features/settings/System';
+import { Library, Myths, Facts, Cases, Diy, Glossary, Phrases, Find, Scales } from './features/library/Library';
+import { Learn, Quiz, Trees, KnowledgeMap, Drill } from './features/learn/Learn';
 import { t } from './i18n';
 
 export function App() {
@@ -56,19 +70,27 @@ export function App() {
     case 'torch': view = <Torch />; break;
     case 'whistle': view = <Whistle />; break;
     case 'messages': view = arg === 'sync' ? <Sync /> : arg === 'c' ? <Thread id={arg2 ?? 'public'} /> : <MessagesHub />; break;
+    case 'signal': view = <Signal />; break;
+    case 'trail': view = <Trail />; break;
+    case 'medcard': view = <MedCard />; break;
+    case 'silent': view = <Silent />; break;
+    case 'inventory': view = <Inventory />; break;
     case 'compass': view = <Compass />; break;
     case 'gps': view = <Gps />; break;
     case 'search': view = <Search />; break;
     case 'plans': view = <Plans />; break;
     case 'legal': view = <Legal doc={arg === 'terms' ? 'terms' : 'privacy'} />; break;
     case 'about': view = <About />; break;
+    case 'system': view = <System />; break;
     case 'settings': view = <Settings />; break;
     case 'guide': view = <GuideView id={arg ?? ''} />; break;
     case 'scenarios': view = <ListPage kind="scenario" titleKey="list.scenarios" />; break;
     case 'guides': view = <ListPage kind="guide" titleKey="list.guides" />; break;
-    case 'prepare': view = arg === 'kit' ? <Kit kit={arg2 ?? '72h'} /> : arg === 'family' ? <Family /> : arg === 'water' ? <Water /> : arg === 'score' ? <Readiness /> : <Prepare />; break;
-    case 'tools': view = arg === 'converter' ? <Converter /> : arg === 'morse' ? <Morse /> : arg === 'notes' ? <Notes /> : <Timer />; break;
+    case 'prepare': view = arg === 'kit' ? <Kit kit={arg2 ?? '72h'} /> : arg === 'family' ? <Family /> : arg === 'water' ? <Water /> : arg === 'stock' ? <Stock /> : arg === 'energy' ? <Energy /> : arg === 'docs' ? <Documents /> : arg === 'plan72' ? <Plan72 /> : arg === 'score' ? <Readiness /> : <Prepare />; break;
+    case 'tools': view = arg === 'converter' ? <Converter /> : arg === 'distance' ? <Distance /> : arg === 'level' ? <Level /> : arg === 'morse' ? <Morse /> : arg === 'notes' ? <Notes /> : <Timer />; break;
     case 'assistant': view = arg === 'models' ? <Models /> : <Assistant />; break;
+    case 'learn': view = arg === 'quiz' ? <Quiz /> : arg === 'trees' ? <Trees id={arg2} /> : arg === 'map' ? <KnowledgeMap /> : arg === 'drill' ? <Drill /> : <Learn />; break;
+    case 'library': { const V: Record<string, any> = { myths: Myths, facts: Facts, cases: Cases, diy: Diy, glossary: Glossary, phrases: Phrases, find: Find, scales: Scales }; const C = arg ? V[arg] : Library; view = C ? <C /> : <Library />; break; }
     case 'crisis': view = <Crisis />; break;
     case 'onboarding': view = <Onboarding />; break;
     case 'world': {

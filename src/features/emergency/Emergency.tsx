@@ -14,6 +14,7 @@ export function Emergency() {
         <a class="btn tool" href={href('whistle')}>📣 {t('home.whistle')}</a>
         <a class="btn tool" href={href('gps')}>📍 {t('home.gps')}</a>
         <a class="btn tool" href={href('messages')}>💬 {t('home.messages')}</a>
+        <a class="btn tool" href={href('signal')}>🚨 {t('signal.title')}</a>
         <a class="btn tool" href={href('compass')}>🧭 {t('compass.title')}</a>
       </div>
     </main>

@@ -44,3 +44,4 @@ table.cal td.today { background: var(--accent); color: #000; font-weight: 700; }
 table.cal td.hol { color: var(--danger); font-weight: 700; }
 details summary { min-block-size: var(--tap); display: flex; align-items: center; cursor: pointer; }
 [dir='rtl'] .flip { display: inline-block; transform: scaleX(-1); }
+@media print { .topbar, .tabbar, .no-print, button, select { display: none !important; } body { background: #fff; color: #000; } main { padding: 0; max-inline-size: none; } .card { border-color: #999; } }
