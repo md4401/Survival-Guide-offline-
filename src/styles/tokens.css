@@ -3,9 +3,12 @@
 :root {
   --font-scale: 1;
   --neon: #edff00; --on-neon: #0a0a0a;
-  --bg: #0a0a0a; --surface: #141414; --surface-2: #1f1f1d; --text: #f4f4ee; --muted: #a8a8a0;
+  --bg: #0a0a0a; --surface: #141414; --surface-2: #1f1f1d; --text: #f4f4ee; --muted: #b6b6ae;
   --accent: #edff00; --danger: #ff3b30; --on-danger: #0a0a0a; --danger-bg: #2b0f0d; --ok: #b6f500;
   --border: #34342f; --border-strong: #70706a;
+  /* Glass: translucent surface + blur. Contrast is tested on the surface composited over --bg. */
+  --glass-bg: rgba(255, 255, 255, .09); --glass-border: rgba(255, 255, 255, .26); --glass-hi: rgba(255, 255, 255, .38); --glass-shadow: 0 8px 22px rgba(0, 0, 0, .4); --bar-bg: rgba(10, 10, 10, .74); --blur: 16px;
+  --glow-a: rgba(237, 255, 0, .16); --glow-b: rgba(237, 255, 0, .07);
   --tap: 48px; --radius: 10px; --gap: 12px;
   --font-display: 'Anton', 'Arial Narrow', Impact, system-ui, sans-serif;
   --fs: calc(1rem * var(--font-scale));
@@ -15,10 +18,16 @@
   --bg: #f2f2ec; --surface: #ffffff; --surface-2: #e6e6de; --text: #0a0a0a; --muted: #4a4a44;
   --accent: #3f4d00; --danger: #c4160a; --on-danger: #ffffff; --danger-bg: #ffe3e0; --ok: #2f6b00;
   --border: #bdbdb2; --border-strong: #6c6c62; color-scheme: light;
+  --glass-bg: rgba(255, 255, 255, .62); --glass-border: rgba(10, 10, 10, .22); --glass-hi: rgba(255, 255, 255, .95); --glass-shadow: 0 8px 22px rgba(10, 10, 10, .14); --bar-bg: rgba(242, 242, 236, .8);
+  --glow-a: rgba(237, 255, 0, .55); --glow-b: rgba(237, 255, 0, .25);
 }
 /* Night-vision theme: red only. */
 :root[data-theme='red'] {
-  --bg: #000; --surface: #1a0000; --surface-2: #2a0000; --text: #ff4a4a; --muted: #de4343;
+  --bg: #000; --surface: #1a0000; --surface-2: #2a0000; --text: #ff4a4a; --muted: #f05555;
   --neon: #ff4a4a; --on-neon: #000; --accent: #ff6a6a; --danger: #ff4a4a; --on-danger: #000; --danger-bg: #2a0000; --ok: #ff4a4a;
   --border: #550000; --border-strong: #b80000;
+  --glass-bg: rgba(48, 0, 0, .7); --glass-border: rgba(255, 74, 74, .45); --glass-hi: rgba(255, 74, 74, .5); --glass-shadow: none; --bar-bg: rgba(0, 0, 0, .88); --glow-a: transparent; --glow-b: transparent;
 }
+/* Less transparency/blur when the system asks for it, in battery mode, or where backdrop-filter is missing. */
+@media (prefers-reduced-transparency: reduce) { :root { --blur: 0px; --glass-bg: var(--surface-2); --bar-bg: var(--bg); } }
+:root[data-battery='1'] { --blur: 0px; --glass-bg: var(--surface-2); --bar-bg: var(--bg); --glow-a: transparent; --glow-b: transparent; }
