@@ -87,6 +87,14 @@ try {
   check('backup import restores data', true);
   await page.fill('input[type=password]', 'wrong-pass'); await page.setInputFiles('input[type=file]', path);
   await page.waitForSelector('[role=status]:has-text("Wrong password")'); check('wrong password refused', true);
+  // Part B: machine-translated guides are drafts: hidden from users (English + notice), visible in Developer mode
+  await go('settings', 'select'); await page.selectOption('select', 'es');
+  await go('guide/water.diy-filter', 'ol.steps li');
+  check('Spanish user still gets the published English guide, with a notice', (await page.textContent('h1')).includes('homemade water filter') && (await page.textContent('main')).includes('Aún no disponible en su idioma'));
+  await go('settings', 'select'); await page.check('input[type=checkbox] >> nth=2');
+  await go('guide/water.diy-filter', 'ol.steps li');
+  check('developer mode shows the Spanish draft', (await page.textContent('h1')).includes('filtro de agua casero') && (await page.textContent('main')).includes('Borrador'));
+  await go('settings', 'select'); await page.uncheck('input[type=checkbox] >> nth=2'); await page.selectOption('select', 'en');
   // AI assistant (no model installed): vital → direct guide path, blocked topics, guide fallback, offline download refused
   await go('assistant', 'input');
   await page.fill('input[aria-label]', 'how many mg of ibuprofen can I take'); await page.click('button.btn-danger');

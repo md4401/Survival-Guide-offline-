@@ -5,7 +5,9 @@ import type { Guide } from '../../src/content/types';
 
 export const ROOT = path.resolve(import.meta.dirname, '../..');
 export const CONTENT = path.join(ROOT, 'content');
-export const LANGS = ['en', 'pt'] as const;
+export const LANGS = ['en', 'pt', 'es', 'fr', 'ar', 'hi', 'zh'] as const;
+/** Languages whose guides are machine-translated drafts: never publishable until a native speaker reviews them. */
+export const MACHINE_LANGS = ['es', 'fr', 'ar', 'hi', 'zh'] as const;
 
 export function walk(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];

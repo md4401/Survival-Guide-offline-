@@ -1,9 +1,11 @@
-import { loadRaw, LANGS, ROOT } from './lib/content';
+import { loadRaw, LANGS, MACHINE_LANGS, ROOT } from './lib/content';
 
 export interface Issue { file: string; msg: string }
 const REQUIRED = ['id', 'category', 'plan', 'vital', 'title', 'review', 'materials', 'related'];
 const LEVELS = ['professional', 'official', 'common', 'draft'];
 export const MAX_WORDS = 12;
+/** Word count; Chinese has no spaces, so ~2 characters per word. */
+export const wordCount = (s: string, lang: string) => (lang === 'zh' ? Math.ceil([...s.replace(/\s/g, '')].length / 2) : s.trim().split(/\s+/).length);
 export const MAX_STEPS = 10; // spec §4 says 5, but both spec example guides have 8-10 (see DECISIONS.md)
 
 export function validateAll(langs: readonly string[] = LANGS): Issue[] {
@@ -31,16 +33,17 @@ export function validateAll(langs: readonly string[] = LANGS): Issue[] {
       if (published && steps.length === 0) bad('published guide needs at least one step in "now"');
       if (steps.length > MAX_STEPS) bad(`"now" has ${steps.length} steps (max ${MAX_STEPS})`);
       steps.forEach((s, i) => {
-        const n = String(s).trim().split(/\s+/).length;
+        const n = wordCount(String(s), lang);
         if (n > MAX_WORDS) bad(`step ${i + 1} has ${n} words (max ${MAX_WORDS}): "${s}"`);
       });
       for (const [stage, list] of Object.entries<string[]>(raw.timeline ?? {})) {
         if (!['10min', '1h', '24h', '72h', '7d', '30d'].includes(stage)) bad(`invalid timeline stage: ${stage}`);
         (list ?? []).forEach((s, i) => {
-          const n = String(s).trim().split(/\s+/).length;
+          const n = wordCount(String(s), lang);
           if (n > MAX_WORDS) bad(`timeline ${stage} step ${i + 1} has ${n} words (max ${MAX_WORDS}): "${s}"`);
         });
       }
+      if ((MACHINE_LANGS as readonly string[]).includes(lang) && (published || !raw.needsReview)) bad('machine-translated guides must stay draft + needsReview until a native speaker reviews them');
       if (!published && !raw.needsReview) bad('draft must set needsReview: true');
       void body;
     }

@@ -44,6 +44,7 @@ android/ ios/            Capacitor native projects (not built here)
 - [x] F4 Almanac: clock + manual offset + zones, day counter, sun/moon/seasons, calendar + BR holidays + alt calendars, 250 countries, climate sample, tables
 - [x] F5 kits + checklist + calculator, family plan, timer/stopwatch, converter, notes, onboarding/profile, Premium/AI/voice/update interfaces
 - [x] F6 offline E2E, size budget, RTL and touch-target checks
+- [x] F8 Morse + phonetic alphabet, compass, climate zones + latitude-band map, world in numbers, encrypted backup/restore, offline error reports; 24 guides in all 7 languages (non-en/pt as drafts, hidden from users)
 - [x] F7 Crisis mode, water/chlorine calculators, rule-based suggestions, real population/time-zone/emergency data, partial es/fr/ar/hi/zh, PNG icons + update prompt, Android/iOS projects, offline license / voice / pack updater (flagged off), optional AI assistant
 
 ## Optional AI assistant (separate download)

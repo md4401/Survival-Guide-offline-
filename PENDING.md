@@ -15,10 +15,13 @@
 - Gemma may require accepting a license on Hugging Face
 
 ## Languages
-- es/fr/ar/hi/zh: ~170 essential keys machine-translated → native review; remaining keys fall back to English; no guide content in those languages; Arabic needs a visual pass on every screen
+- es/fr/ar/hi/zh: ~170 essential UI keys (and the 24 guides, as drafts) are machine-translated → native-speaker review before anything is published; remaining UI keys fall back to English; Arabic needs a visual pass on every screen
 
 ## Product / engineering
 - Build and run android/ and ios/ (Android Studio / Xcode); test torch, GPS, wake lock, battery API on real phones; test on a low-end Android with low battery
 - Premium: bundle the public key, purchase/restore flow and a pack server; license, pack updater and voice are implemented but off
 - Native torch/geolocation plugins (optional), store assets/screenshots, privacy policy and terms (legal review)
-- Readiness score, learn/quizzes, maps, regional risk rules: out of MVP scope
+- Compass needs a real-device test; backup UI tested only in headless Chromium
+- Error reports have no server (endpoint `null`)
+- Readiness score, learn/quizzes, offline maps, regional risk rules: out of MVP scope
+- Not done by choice: scenario `timeline` text, the ~290 UI keys still missing in es/fr/ar/hi/zh, AI evaluation set, CI, store assets, privacy policy/terms
