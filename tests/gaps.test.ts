@@ -2,7 +2,7 @@ import 'fake-indexeddb/auto';
 import { describe, it, expect } from 'vitest';
 import { spell, PHONETIC } from '../src/data/phonetic';
 import { headingToCardinal, headingFromEvent, normDeg } from '../src/lib/compass';
-import { bandFor, BANDS, ZONES } from '../src/data/climateZones';
+import { decode, groupOf, ALL_CLASSES } from '../src/lib/koppen';
 import { exportBackup, importBackup, BackupError } from '../src/lib/backup';
 import { addReport, listReports, removeReport, flushReports, reportsText } from '../src/lib/reports';
 import { db, setKV, getKV } from '../src/db/dexie';
@@ -26,10 +26,24 @@ describe('compass', () => {
     expect(headingFromEvent({ alpha: null })).toBeNull(); expect(headingFromEvent({ alpha: 10, absolute: false })).toBeNull();
   });
 });
-describe('climate bands/zones', () => {
-  it('bands by latitude, symmetric in both hemispheres', () => {
-    expect([0, 23, 24, 34, 40, 60, 66, 67, 90].map(bandFor)).toEqual(['tropical', 'tropical', 'subtropical', 'subtropical', 'temperate', 'subpolar', 'subpolar', 'polar', 'polar']);
-    expect(bandFor(-30)).toBe(bandFor(30)); expect(BANDS).toHaveLength(5); expect(ZONES).toHaveLength(12);
+describe('Köppen decoding', () => {
+  it('decodes the 30 dataset classes and rejects invalid ones', () => {
+    expect(ALL_CLASSES).toHaveLength(30);
+    for (const c of ALL_CLASSES) expect(decode(c), c).not.toBeNull();
+    expect(decode('Cfb')).toMatchObject({ group: 'C', precip: 'f', temp: 'b', keys: ['kg.C', 'kp.C.f', 'kt.C.b'] });
+    expect(decode('BWh')?.keys).toEqual(['kg.B', 'kp.B.W', 'kt.B.h']); expect(decode('ET')?.keys).toEqual(['kg.E', 'kp.E.T']);
+    for (const bad of ['', 'X', 'Cf', 'Afb', 'BWb', 'Ewa', 'cfb']) expect(decode(bad), bad).toBeNull();
+    expect(groupOf('Dfc')).toBe('D');
+  });
+});
+describe('generated climate data', () => {
+  it('covers (almost) every country and known cities have the right class', async () => {
+    const c = (await import('../src/generated/climate.json')).default as any;
+    expect(Object.values(c.countries).filter((x: any) => x.classes.length).length).toBeGreaterThanOrEqual(240);
+    expect(c.cities.length).toBeGreaterThan(1000);
+    const cls = (name: string, cc: string) => c.cities.find((x: any[]) => x[0] === name && x[1] === cc)?.[5];
+    expect(cls('London', 'GB')).toBe('Cfb'); expect(cls('São Paulo', 'BR')).toBe('Cfa'); expect(cls('Cairo', 'EG')).toBe('BWh');
+    expect(c.cities.every((x: any[]) => decode(x[5]))).toBe(true);
   });
 });
 describe('encrypted backup', () => {

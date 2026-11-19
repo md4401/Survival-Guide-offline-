@@ -16,6 +16,8 @@ npm run verify       # build + unit tests + size budget + offline E2E
 | `npm run check:css` | fails on physical `left/right` CSS (RTL safety) |
 | `npm test` | Vitest: clock, ISO week, day counter, sun/moon, seasons, calendar/holidays, content validation, search, morse/coords, units, kits, access rules, i18n |
 | `npm run build` | validate + i18n + css checks, content packs, typecheck, production build with service worker |
+| `npm run test:e2e:messages` | two isolated "devices" exchanging messages: bundle, private channel, WebRTC live link |
+| `npm run plans` | regenerates `docs/PREMIUM.md` from the plan matrix |
 | `npm run eval:ai` | offline evaluation of the assistant's guards and retrieval (60 questions en/pt) |
 | `npm run shots` | store screenshots (en/pt/ar) into `store/` |
 | `npm run size` | core size vs the 50 MB budget (currently ~0.3 MB) |
@@ -29,6 +31,7 @@ src/i18n/                key-based strings (en, pt full; es/fr/ar/hi/zh stubs fa
 src/content/             loader (lazy per-language pack), access rule (vital never gated), types
 src/db/                  Dexie (favorites, history, counters, checklists, notes, kv/settings): device only
 src/features/            home, triage, emergency (numbers, flashlight/strobe/SOS, whistle, GPS), guides, search, almanac, prepare, tools, settings
+src/lib/mesh/            offline messaging: crypto, protocol, gossip sync, bundles/QR, WebRTC pairing, hub
 src/lib/                 astro (sun/moon/seasons), clock, calendar, morse, coords, units: pure and unit-tested
 src/interfaces/          license (Ed25519, offline), voice reading, pack updater: implemented, behind flags (off)
 src/ai/                  optional assistant: model catalog, download manager, anchored-answer logic (guards, retrieval, verification)
@@ -46,6 +49,7 @@ android/ ios/            Capacitor native projects (not built here)
 - [x] F4 Almanac: clock + manual offset + zones, day counter, sun/moon/seasons, calendar + BR holidays + alt calendars, 250 countries, climate sample, tables
 - [x] F5 kits + checklist + calculator, family plan, timer/stopwatch, converter, notes, onboarding/profile, Premium/AI/voice/update interfaces
 - [x] F6 offline E2E, size budget, RTL and touch-target checks
+- [x] F10 Premium plan (`docs/PREMIUM.md` + `src/data/plans.ts`), full privacy policy and terms (in-app + `docs/`), Köppen climate for 246 countries and 1125 cities with a real-data map, offline nearby messaging (signed, encrypted channels, QR/text bundles, WebRTC live link)
 - [x] F9 readiness score, scenario timelines (en/pt drafts), About/privacy page + legal drafts, CI workflow, store screenshots, AI offline evaluation (`npm run eval:ai`), 508/580 UI keys in es/fr/ar/hi/zh
 - [x] F8 Morse + phonetic alphabet, compass, climate zones + latitude-band map, world in numbers, encrypted backup/restore, offline error reports; 24 guides in all 7 languages (non-en/pt as drafts, hidden from users)
 - [x] F7 Crisis mode, water/chlorine calculators, rule-based suggestions, real population/time-zone/emergency data, partial es/fr/ar/hi/zh, PNG icons + update prompt, Android/iOS projects, offline license / voice / pack updater (flagged off), optional AI assistant

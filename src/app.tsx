@@ -38,6 +38,10 @@ import { ClimateMap } from './features/almanac/ClimateMap';
 import { WorldNumbers } from './features/almanac/WorldNumbers';
 import { Readiness } from './features/prepare/Readiness';
 import { About } from './features/settings/About';
+import { MessagesHub, Thread } from './features/messages/Messages';
+import { Sync } from './features/messages/Sync';
+import { Plans } from './features/settings/Plans';
+import { Legal } from './features/settings/Legal';
 import { t } from './i18n';
 
 export function App() {
@@ -51,9 +55,12 @@ export function App() {
     case 'numbers': view = <Numbers />; break;
     case 'torch': view = <Torch />; break;
     case 'whistle': view = <Whistle />; break;
+    case 'messages': view = arg === 'sync' ? <Sync /> : arg === 'c' ? <Thread id={arg2 ?? 'public'} /> : <MessagesHub />; break;
     case 'compass': view = <Compass />; break;
     case 'gps': view = <Gps />; break;
     case 'search': view = <Search />; break;
+    case 'plans': view = <Plans />; break;
+    case 'legal': view = <Legal doc={arg === 'terms' ? 'terms' : 'privacy'} />; break;
     case 'about': view = <About />; break;
     case 'settings': view = <Settings />; break;
     case 'guide': view = <GuideView id={arg ?? ''} />; break;

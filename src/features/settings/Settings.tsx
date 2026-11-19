@@ -29,6 +29,7 @@ export function Settings() {
       <label class="row"><input type="checkbox" checked={s.dev} onChange={(e) => updateSettings({ dev: (e.target as HTMLInputElement).checked })} /><span>{t('settings.dev')}</span></label>
       <a class="btn" href={href('onboarding')}>{t('settings.profile')}</a>
       <a class="btn" href={href('assistant', 'models')}>{t('ai.title')} ({t('ai.optional')})</a>
+      <a class="btn" href={href('plans')}>{t('plans.title')}</a>
       <a class="btn" href={href('about')}>{t('about.title')}</a>
       <Data />
       <p class="muted">{t('settings.privacy')}</p>

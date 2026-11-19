@@ -36,6 +36,7 @@ export function Home() {
         <a class="btn tool" href={href('torch')}>🆘 {t('home.sos')}</a>
         <a class="btn tool" href={href('numbers')}>📞 {t('home.numbers')}</a>
         <a class="btn tool" href={href('gps')}>📍 {t('home.gps')}</a>
+        <a class="btn tool" href={href('messages')}>💬 {t('home.messages')}</a>
         {hasAi && <a class="btn tool" href={href('assistant')}>🤖 {t('ai.title')}</a>}
       </div>
       {(st.onboarded || st.loc) && <><h2>{t('suggest.title')}</h2><ul class="list">{sug.map((x) => <li><a class="btn" href={href('guide', SCENARIO_GUIDE[x.scenario as ScenarioKey])}><span style="flex:1">{t(`scenario.${x.scenario}`)}</span><span class="muted">{t('suggest.why')}: {t(x.reason)}</span></a></li>)}</ul></>}

@@ -49,7 +49,7 @@ try {
   await go('world/clock', '.big-num'); check('clock renders', /\d/.test(await page.textContent('.big-num')));
   await go('world/sun', 'h2'); check('sun/moon renders', (await page.textContent('main')).length > 100);
   await go('world/calendar', 'table.cal'); check('calendar renders', true);
-  await go('world/climate', 'table.cal'); check('climate renders', true);
+  await go('world/climate', 'table.cal'); await page.fill('input[type=search]', 'London'); await page.waitForSelector('text=Cfb'); check('climate: London is Cfb', true);
   await go('world/tables', 'table.cal'); check('tables render', true);
   await go('world/counter', 'h1'); check('counter renders', true);
   await go('prepare/kit/72h', 'input[type=checkbox]');
@@ -70,8 +70,8 @@ try {
   check('phonetic spelling', (await page.textContent('main')).includes('Sierra Oscar Sierra'));
   await go('compass', 'button.help-btn'); await page.click('button.help-btn');
   await page.waitForSelector('.danger-box[role=alert]', { timeout: 6000 }); check('compass explains when there is no sensor', true);
-  await go('world/zones', 'details.card'); check('12 climate zones', (await page.$$eval('details.card', (e) => e.length)) === 12);
-  await go('world/cmap', 'svg circle'); check('climate map plots countries', (await page.$$eval('svg circle', (e) => e.length)) > 200);
+  await go('world/zones', 'section.card'); check('Köppen legend with 30 classes', (await page.$$eval('section.card li', (e) => e.length)) === 30);
+  await go('world/cmap', 'svg circle'); check('climate map plots 1000+ cities', (await page.$$eval('svg circle', (e) => e.length)) > 1000);
   await go('world/numbers', 'section.card'); await page.waitForSelector('text=250 countries and territories'); check('world in numbers', true);
   await go('guide/water.diy-filter', 'ol.steps li');
   await page.click('button:has-text("Report an error")'); await page.fill('textarea', 'step 3 unclear'); await page.click('button.btn-danger');
@@ -98,6 +98,11 @@ try {
   // Readiness score, About page
   await go('prepare/score', 'progress'); check('readiness score page', (await page.textContent('main')).includes('/100'));
   await go('about', 'section.card'); check('about/privacy page', (await page.textContent('main')).includes('Everything you save'));
+  // Plans, legal pages, messages hub
+  await go('plans', 'section.card'); check('plans page lists free and premium features', (await page.textContent('main')).includes('Always free (vital)') && (await page.textContent('main')).includes('Nearby messages'));
+  await go('legal/privacy', 'main'); check('privacy policy covers nearby messages', (await page.textContent('main')).includes('Nearby messages'));
+  await go('legal/terms', 'main'); check('terms cover premium and messages', (await page.textContent('main')).includes('Free and Premium') && (await page.textContent('main')).includes('best effort'));
+  await go('messages', 'main'); check('messages hub offline', (await page.textContent('main')).includes('Everyone nearby'));
   // AI assistant (no model installed): vital → direct guide path, blocked topics, guide fallback, offline download refused
   await go('assistant', 'input');
   await page.fill('input[aria-label]', 'how many mg of ibuprofen can I take'); await page.click('button.btn-danger');
@@ -125,7 +130,7 @@ try {
     await lp.close();
   }
   // Accessibility: touch targets >= 48 px on key screens
-  for (const h of ['', 'triage', 'emergency', 'guide/water.diy-filter', 'prepare', 'world', 'settings']) {
+  for (const h of ['', 'triage', 'emergency', 'guide/water.diy-filter', 'prepare', 'world', 'settings', 'messages', 'messages/sync', 'plans', 'world/climate']) {
     await go(h, 'main');
     const small = await page.$$eval('a, button, select, input:not([type=checkbox]):not([type=range]):not([type=file])', (els) =>
       els.filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && (r.height < 47.5 || r.width < 47.5); })

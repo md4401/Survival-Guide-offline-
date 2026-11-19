@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'preact/hooks';
 import { t } from '../../i18n';
 import { useSettings } from '../../db/settings';
 import { regionName } from './shared';
+import { KoppenBadge, koppenText } from './Climate';
 
 interface C { cca2: string; cca3: string; region: string; subregion: string; capital: string | null; area: number; languages: string[]; currencies: string[]; borders: string[]; callingCode: string; name: string; population: number | null; timezones: string[] }
 const dn = (type: 'language' | 'currency', code: string, locale: string) => { try { return new Intl.DisplayNames([locale], { type }).of(code) ?? code; } catch { return code; } };
@@ -11,6 +12,8 @@ export function Countries() {
   const [all, setAll] = useState<C[]>([]);
   const [q, setQ] = useState('');
   const [region, setRegion] = useState('');
+  const [clim, setClim] = useState<Record<string, { c: string | null; classes: string[] }>>({});
+  useEffect(() => { import('../../generated/climate.json').then((m: any) => setClim(m.default.countries)); }, []);
   useEffect(() => { import('../../generated/countries.json').then((m: any) => setAll(m.default)); }, []);
   const by3 = useMemo(() => new Map(all.map((c) => [c.cca3, c])), [all]);
   const nm = (c: C) => regionName(c.cca2, s.locale);
@@ -38,6 +41,7 @@ export function Countries() {
             <li>{t('countries.area')}: {c.area ? `${nf.format(c.area)} km²` : '—'}</li>
             <li>{t('countries.population')}: {c.population != null ? new Intl.NumberFormat(s.locale, { notation: 'compact' }).format(c.population) : '—'}</li>
             <li>{t('countries.timezones')}: {c.timezones.join(', ') || '—'}</li>
+            <li>{t('countries.climate')}: {(clim[c.cca2]?.classes ?? []).length ? clim[c.cca2].classes.map((k) => <span><KoppenBadge code={k} /> </span>) : '—'}{clim[c.cca2]?.c ? <div class="muted">{koppenText(clim[c.cca2].c!)}</div> : null}</li>
             <li>{t('countries.languages')}: {c.languages.map((l) => dn('language', l, s.locale)).join(', ') || '—'}</li>
             <li>{t('countries.currency')}: {c.currencies.map((x) => `${dn('currency', x, s.locale)} (${x})`).join(', ') || '—'}</li>
             <li>{t('countries.phone')}: {c.callingCode || '—'}</li>
