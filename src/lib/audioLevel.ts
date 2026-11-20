@@ -11,3 +11,20 @@ export class Stats {
   get avg() { return this.n ? this.sum / this.n : 0; }
   reset() { this.min = Infinity; this.max = -Infinity; this.sum = 0; this.n = 0; }
 }
+
+export const DIAL_MIN = 20, DIAL_MAX = 120, DIAL_HALF_SWEEP = 70;
+const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
+/** Needle angle in degrees (0 = straight up) for a dial that runs from 20 to 120 dB over 140 degrees. */
+export const needleAngle = (db: number) => ((clamp(db, DIAL_MIN, DIAL_MAX) - DIAL_MIN) / (DIAL_MAX - DIAL_MIN)) * (2 * DIAL_HALF_SWEEP) - DIAL_HALF_SWEEP;
+/** Everyday sounds around each level (approximate, for orientation only). Names: i18n `spl.ex.<level>`. */
+export const SOUND_LEVELS = [20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120] as const;
+export const soundLevel = (db: number): number => { let r = SOUND_LEVELS[0] as number; for (const l of SOUND_LEVELS) if (db >= l) r = l; return r; };
+/** Colour of a level on the scale bar: calm blues and greens, then yellow and red from 85 dB. */
+export const levelColor = (db: number) => (db < 40 ? '#6aaee0' : db < 60 ? '#58b08a' : db < 75 ? '#9cd04a' : db < 85 ? '#e6c340' : db < 100 ? '#e8833a' : '#e5503f');
+/** Rolling window of readings (default the last 30 seconds) for the time graph. */
+export class Series {
+  pts: Array<{ t: number; v: number }> = [];
+  constructor(readonly windowMs = 30000) {}
+  add(t: number, v: number) { this.pts.push({ t, v }); const min = t - this.windowMs; while (this.pts.length && this.pts[0].t < min) this.pts.shift(); }
+  reset() { this.pts = []; }
+}
