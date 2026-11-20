@@ -17,6 +17,7 @@ public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         registerPlugin(MagnetometerPlugin.class);
+        registerPlugin(BlePlugin.class);
         applyLiveUpdate();
         super.onCreate(savedInstanceState);
     }

@@ -122,3 +122,35 @@ describe('geohash', () => {
   it('matches the reference example', () => { expect(gEnc(57.64911, 10.40744, 11)).toBe('u4pruydqqvj'); const d = gDec('ezs42'); expect(d.lat).toBeCloseTo(42.605, 2); expect(d.lon).toBeCloseTo(-5.603, 2); });
   it('levels nest as prefixes', () => { const c = channelsFor(-20.7, -45.8); expect(c.map((x) => x.hash.length)).toEqual([7, 6, 5, 4, 2]); expect(c[0].hash.startsWith(c[4].hash)).toBe(true); expect(isGeohash('6gzxbh6')).toBe(true); expect(isGeohash('6gzxa')).toBe(false); });
 });
+import { makeGeoEvent, verifyEvent, randomSecret, channelKey, pubkeyOf, geoOf, nickOf } from '../src/lib/nostr';
+import { RelayPool } from '../src/lib/relay';
+describe('location channels (nostr)', () => {
+  it('signs and verifies events, rejects tampering', () => {
+    const sk = channelKey(randomSecret(), '6gzxbh'); const e = makeGeoEvent(sk, '6gzxbh', 'hello', 'ana'); expect(verifyEvent(e)).toBe(true); expect(geoOf(e)).toBe('6gzxbh'); expect(nickOf(e)).toBe('ana'); expect(e.pubkey).toBe(pubkeyOf(sk));
+    expect(verifyEvent({ ...e, content: 'bye' })).toBe(false);
+  });
+  it('keys differ per channel', () => { const s = randomSecret(); expect(channelKey(s, 'a')).not.toBe(channelKey(s, 'b')); });
+  it('pool only passes valid events of subscribed channels, once', () => {
+    const got: string[] = []; const socks: any[] = [];
+    const pool = new RelayPool(['wss://x'], (e) => got.push(e.content), () => {}, () => { const s: any = { readyState: 1, sent: [] as string[], send(m: string) { this.sent.push(m); }, close() {} }; socks.push(s); return s; });
+    pool.connect(); pool.subscribe('6gzx'); expect(socks[0].sent[0]).toContain('"#g":["6gzx"]');
+    const sk = randomSecret(); const ok = makeGeoEvent(sk, '6gzx', 'hi', ''); const other = makeGeoEvent(sk, 'u4pr', 'no', ''); const bad = { ...ok, content: 'x' };
+    for (const e of [ok, ok, other, bad]) pool.handle(JSON.stringify(['EVENT', 'g-6gzx', e])); pool.handle('garbage');
+    expect(got).toEqual(['hi']);
+  });
+});
+import { chunk, Reassembler, BleChannel } from '../src/lib/mesh/ble';
+describe('bluetooth framing', () => {
+  it('splits and reassembles in any order', () => {
+    const data = Uint8Array.from({ length: 1000 }, (_, i) => i % 251); const parts = chunk(data, 7)!; expect(parts.length).toBe(Math.ceil(1000 / 176)); expect(parts.every((p) => p.length <= 180)).toBe(true);
+    const r = new Reassembler(); let out: Uint8Array | null = null; for (const p of [...parts].reverse()) out = r.add(p) ?? out; expect(Array.from(out!)).toEqual(Array.from(data));
+  });
+  it('rejects oversize frames, bad packets and duplicates', () => {
+    expect(chunk(new Uint8Array(176 * 255 + 1), 1)).toBeNull(); const r = new Reassembler(); expect(r.add(new Uint8Array([0, 1]))).toBeNull(); expect(r.add(new Uint8Array([0, 1, 5, 2, 9]))).toBeNull();
+    const p = chunk(new Uint8Array(400), 2)!; expect(r.add(p[0])).toBeNull(); expect(r.add(p[0])).toBeNull(); expect(r.add(p[1])).toBeNull(); expect(r.add(p[2])?.length).toBe(400);
+  });
+  it('channel carries text frames both ways', () => {
+    let b: BleChannel; const a = new BleChannel((p) => b.deliver(p)); b = new BleChannel(() => {}); const got: string[] = []; b.addEventListener('message', (e: any) => got.push(e.data));
+    const msg = JSON.stringify({ t: 'hello', name: 'ação ✓'.repeat(100) }); a.send(msg); expect(got).toEqual([msg]);
+  });
+});

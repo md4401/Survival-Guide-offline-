@@ -41,6 +41,7 @@ import { Readiness } from './features/prepare/Readiness';
 import { About } from './features/settings/About';
 import { MessagesHub, Thread } from './features/messages/Messages';
 import { Sync } from './features/messages/Sync';
+import { GeoChannels } from './features/messages/GeoChannels';
 import { Plans } from './features/settings/Plans';
 import { Legal } from './features/settings/Legal';
 import { Signal } from './features/emergency/Signal';
@@ -77,7 +78,7 @@ export function App() {
     case 'numbers': view = <Numbers />; break;
     case 'torch': view = <Torch />; break;
     case 'whistle': view = <Whistle />; break;
-    case 'messages': view = arg === 'sync' ? <Sync /> : arg === 'c' ? <Thread id={arg2 ?? 'public'} /> : <MessagesHub />; break;
+    case 'messages': view = arg === 'geo' ? <GeoChannels /> : arg === 'sync' ? <Sync /> : arg === 'c' ? <Thread id={arg2 ?? 'public'} /> : <MessagesHub />; break;
     case 'signal': view = <Signal />; break;
     case 'trail': view = <Trail />; break;
     case 'medcard': view = <MedCard />; break;
