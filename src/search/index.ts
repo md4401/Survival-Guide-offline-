@@ -7,9 +7,9 @@ export interface Hit { id: string; title: string; summary: string; score: number
 export function buildIndex(guides: Guide[]) {
   const ms = new MiniSearch<Guide & { text: string }>({
     fields: ['title', 'tags', 'summary', 'text'],
-    storeFields: ['title', 'summary'],
+    storeFields: ['title', 'summary', 'kind'],
     processTerm: (t) => norm(t),
-    searchOptions: { boost: { title: 3, tags: 2 }, prefix: (t: string) => t.length >= 3, fuzzy: (t: string) => (t.length >= 4 ? 0.2 : 0), combineWith: 'OR' },
+    searchOptions: { boost: { title: 3, tags: 2 }, boostDocument: (_id: string, _term: string, f?: Record<string, any>) => (f?.kind === 'scenario' ? 1.6 : 1), prefix: (t: string) => t.length >= 3, fuzzy: (t: string) => (t.length >= 4 ? 0.2 : 0), combineWith: 'OR' },
   });
   ms.addAll(guides.map((g) => ({ ...g, tags: g.tags.join(' ') as any, text: [...g.now, ...g.understand, ...g.materials, ...g.mistakes].join(' ') })));
   return ms;

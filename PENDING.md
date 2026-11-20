@@ -52,4 +52,12 @@
 - The mental health guides only give calming and routine tips and point to helplines; local helpline numbers are not included yet
 - Toolbox: test the recorder, QR camera scan, sound meter and metal detector on real phones (permissions, Android WebView support for `Magnetometer`, iOS has no web magnetometer); the Android build now requests RECORD_AUDIO
 - Sound meter is not calibrated; compare with a reference meter before trusting the numbers
+- All 299 guides and 33 scenarios are drafts shown to users with a notice: they still need sources and professional review (first aid, poisoning, stroke/heart signs, diabetes, asthma, radiation and chemical guides first)
+- Model download: confirm on a real phone (see the Test connection button on the models screen); if both CDNs fail, consider bundling the runtime script with the app
+
+## Updates without reinstalling
+- Install the next APK once (uninstall the old one first: its signing key differs). After that, updates install over it and most arrive by themselves
+- Live updates and the rollback guard are covered by unit tests and a local end-to-end download check, but not yet tried on a real phone; verify: Settings > App updates > Check now
+- `live-update.yml` and the `latest` release only run after a merge to `main`; enable nothing else in GitHub settings is needed
+- Offline AI after the model is downloaded relies on Cache Storage keeping the runtime script; confirm on a phone
 

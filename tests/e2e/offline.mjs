@@ -137,8 +137,7 @@ try {
   // H: redesigned Guides and Scenarios pages
   {
     await go('scenarios', 'main'); await page.waitForSelector('text=What is happening now?'); check('scenarios page renders with triage shortcut', (await page.textContent('main')).includes('What is happening now?') && !!(await page.$('a[href="#/triage"]')));
-    await go('settings', 'select'); await page.check('input[type=checkbox] >> nth=2');
-    await go('scenarios', 'ul.grid2'); check('scenarios page shows 8 cards in Developer mode', (await page.$$eval('ul.grid2 li', (e) => e.length)) === 8);
+    await go('scenarios', 'ul.grid2'); { const n = await page.$$eval('ul.grid2 li', (e) => e.length); check('scenarios page shows all 33 scenario cards', n === 33, `(${n})`); }
     check('scenario cards start with the most urgent (house fire)', (await page.textContent('ul.grid2 li')).toLowerCase().includes('fire'));
     await go('guides', 'input[type=search]'); await wait(800); const total = await page.$$eval('section.stack h2', (e) => e.length);
     check('guides page groups guides by category', total >= 8, `(${total})`);

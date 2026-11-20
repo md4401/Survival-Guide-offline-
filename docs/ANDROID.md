@@ -24,3 +24,8 @@ cd android && ./gradlew assembleDebug      # → app/build/outputs/apk/debug/app
 
 ## Known limits (see PENDING.md)
 Not yet tested on a real phone: torch via the WebView camera, QR scanning, geolocation prompts, WebRTC live links over a hotspot, and performance on low-end devices. Bluetooth/Nearby messaging needs a native plugin that is not included.
+
+## Updates
+- **Download the latest APK** (no login): https://github.com/md4401/Survival-Guide-offline-/releases/download/latest/survival-guide.apk. It is signed with a fixed key, so install it over the old one and your data stays.
+- **Most updates need no install:** after each merge to `main` the web part is published to the `live` branch and the app downloads it by itself (Settings > App updates). Only changes to native code need a new APK; then the app shows a download link.
+

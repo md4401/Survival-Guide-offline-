@@ -2,7 +2,7 @@ import { useEffect, useState } from 'preact/hooks';
 import { t } from '../../i18n';
 import { href } from '../../router';
 import { MODELS, customModel, isValidRepo, recommendedTier, type ModelInfo } from '../../ai/models';
-import { download, loadAi, precheck, remove, saveAi, Cancelled, type AiState, type Progress } from '../../ai/manager';
+import { download, loadAi, precheck, remove, saveAi, testConnection, errText, Cancelled, type AiState, type Progress, type HostCheck } from '../../ai/manager';
 
 const mb = (n: number) => (n >= 1024 * 1048576 ? `${(n / 1073741824).toFixed(1)} GB` : `${Math.round(n / 1048576)} MB`);
 const conn = () => (navigator as any).connection as { type?: string; saveData?: boolean } | undefined;
@@ -11,7 +11,7 @@ export function Models() {
   const [st, setSt] = useState<AiState | null>(null);
   const [busy, setBusy] = useState<{ id: string; p: Progress | null } | null>(null);
   const [confirm, setConfirm] = useState<{ m: ModelInfo; bytes: number; gated: boolean } | null>(null);
-  const [err, setErr] = useState('');
+  const [err, setErr] = useState(''); const [detail, setDetail] = useState(''); const [checks, setChecks] = useState<HostCheck[] | null>(null); const [testing, setTesting] = useState(false);
   const [mobileOk, setMobileOk] = useState(false);
   const [repo, setRepo] = useState('');
   let cancel = false;
@@ -21,7 +21,7 @@ export function Models() {
   const metered = conn()?.type === 'cellular' || !!conn()?.saveData;
 
   const start = async (m: ModelInfo) => {
-    setErr('');
+    setErr(''); setDetail('');
     if (metered && !mobileOk) { setErr(t('ai.err.mobile')); return; }
     const pre = await precheck(m);
     if (!pre.ok) { setErr(t(`ai.err.${pre.reason}`)); return; }
@@ -32,7 +32,7 @@ export function Models() {
     try {
       await download(m, (p) => setBusy({ id: m.id, p }), () => cancel);
       setSt(await loadAi());
-    } catch (e: any) { setErr(e instanceof Cancelled ? t('ai.cancelled') : t('ai.err.failed')); }
+    } catch (e: any) { setErr(e instanceof Cancelled ? t('ai.cancelled') : t('ai.err.failed')); setDetail(e instanceof Cancelled ? '' : errText(e)); }
     setBusy(null);
   };
   const del = async (m: { id: string; repo: string }) => { await remove(m); setSt(await loadAi()); };
@@ -47,6 +47,9 @@ export function Models() {
       <p class="muted">{ram ? t('ai.ram', { n: ram }) : t('ai.ram.unknown')} · {t('ai.recommended')}: {t(`tier.${rec}`)}</p>
       {metered && <label class="row"><input type="checkbox" checked={mobileOk} onChange={(e) => setMobileOk((e.target as HTMLInputElement).checked)} /><span>{t('ai.mobile')}</span></label>}
       {err && <p class="danger-box" role="alert">{err}</p>}
+      {detail && <p class="muted" dir="ltr" style="word-break:break-word">{t('ai.err.detail')}: {detail}</p>}
+      <button class="btn" disabled={testing || !!busy} onClick={async () => { setTesting(true); setChecks(await testConnection()); setTesting(false); }}>{testing ? t('app.loading') : t('ai.test')}</button>
+      {checks && <ul class="list">{checks.map((c) => <li class="row" dir="ltr"><span>{c.ok ? '✔' : '✖'}</span><span style="flex:1">{c.host}</span><span class="muted">{c.detail}</span></li>)}</ul>}
       {confirm && (
         <div class="card stack" role="alertdialog">
           <strong>{t('ai.confirm', { name: confirm.m.label, size: mb(confirm.bytes) })}</strong>

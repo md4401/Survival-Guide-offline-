@@ -1,6 +1,6 @@
 // Model manager: opt-in download, progress, cancel/resume (file-level), delete. Everything runs on the device; the only network use is the download itself.
 import { getKV, setKV } from '../db/dexie';
-import { HF_API, RUNTIME_URL, type ModelInfo } from './models';
+import { HF_API, RUNTIME_URLS, type ModelInfo } from './models';
 
 export interface AiState { installed: Record<string, { repo: string; label: string; at: number; dtype: string }>; active: string | null; enabledInCrisis: boolean }
 const DEFAULT: AiState = { installed: {}, active: null, enabledInCrisis: false };
@@ -13,13 +13,58 @@ export class Cancelled extends Error {}
 let tf: any = null;
 /** Test hook: inject a fake runtime instead of loading the CDN bundle. */
 export const __setRuntime = (x: any) => { tf = x; engineCache.clear(); };
-/** Loads the pinned runtime from the CDN on first use (cached by the service worker for offline use afterwards). */
+/** Short, readable reason for a failure, for the screen. */
+export const errText = (e: unknown) => { const x = e as { name?: string; message?: string }; return `${x?.name && x.name !== 'Error' ? x.name + ': ' : ''}${String(x?.message ?? e)}`.replace(/\s+/g, ' ').slice(0, 240); };
+const RT_CACHE = 'ai-runtime';
+async function cachedText(url: string): Promise<string | null> { try { const r = await (await caches.open(RT_CACHE)).match(url); return r ? await r.text() : null; } catch { return null; } }
+async function cacheText(url: string, text: string) { try { await (await caches.open(RT_CACHE)).put(url, new Response(text, { headers: { 'content-type': 'text/javascript' } })); } catch { /* cache unavailable */ } }
+async function importText(text: string): Promise<any> {
+  const blob = URL.createObjectURL(new Blob([text], { type: 'text/javascript' }));
+  try { return await import(/* @vite-ignore */ blob); } finally { URL.revokeObjectURL(blob); }
+}
+/** Imports the runtime script. Works offline once it has been downloaded: the Android app has no service worker, so the script text is kept in Cache Storage. */
+async function importModule(url: string): Promise<any> {
+  if (typeof navigator !== 'undefined' && !navigator.onLine) { const t = await cachedText(url); if (t) return importText(t); throw new Error('offline and not downloaded yet'); }
+  try {
+    const lib = await import(/* @vite-ignore */ url);
+    void cachedText(url).then(async (hit) => { if (!hit) { const r = await fetch(url); if (r.ok) await cacheText(url, await r.text()); } }).catch(() => {});
+    return lib;
+  } catch (direct) {
+    try {
+      const r = await fetch(url); if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const text = await r.text(); await cacheText(url, text); return await importText(text);
+    } catch (viaBlob) { const t = await cachedText(url); if (t) return importText(t); throw new Error(`${errText(direct)} | ${errText(viaBlob)}`); }
+  }
+}
+/** Loads the pinned runtime from a CDN on first use (cached by the service worker for offline use afterwards); tries each mirror in turn. */
 export async function runtime(): Promise<any> {
   if (!tf) {
-    tf = await import(/* @vite-ignore */ RUNTIME_URL);
-    tf.env.allowLocalModels = false; tf.env.useBrowserCache = true;
+    const errors: string[] = [];
+    for (const url of RUNTIME_URLS) {
+      try {
+        const lib = await importModule(url);
+        lib.env.allowLocalModels = false; lib.env.useBrowserCache = true; lib.env.useWasmCache = true;
+        try { lib.env.backends.onnx.wasm.wasmPaths = url.replace(/[^/]*$/, ''); } catch { /* keep the library default */ }
+        tf = lib; break;
+      } catch (e) { errors.push(`${new URL(url).host}: ${errText(e)}`); }
+    }
+    if (!tf) throw new Error(`runtime: ${errors.join(' || ')}`);
   }
   return tf;
+}
+
+export interface HostCheck { host: string; ok: boolean; detail: string }
+/** Checks that each host the download needs can be reached from this device (so a blocked network or DNS shows up clearly). */
+export async function testConnection(fetchFn: typeof fetch = fetch): Promise<HostCheck[]> {
+  const targets = [`${HF_API}HuggingFaceTB/SmolLM2-360M-Instruct`, ...RUNTIME_URLS];
+  return Promise.all(targets.map(async (url) => {
+    const host = new URL(url).host;
+    try {
+      const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 10000);
+      const r = await fetchFn(url, { method: 'GET', cache: 'no-store', signal: ctl.signal }); clearTimeout(timer);
+      return { host, ok: r.ok, detail: `HTTP ${r.status}` };
+    } catch (e) { return { host, ok: false, detail: errText(e) }; }
+  }));
 }
 
 export interface Precheck { ok: boolean; reason?: 'offline' | 'not-found' | 'gated' | 'space' | 'network'; bytes?: number; gated?: boolean }

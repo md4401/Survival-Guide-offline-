@@ -18,6 +18,7 @@ const Badges = ({ g }: { g: Guide }) => (
 function Scenarios({ items }: { items: Guide[] }) {
   return (
     <main class="stack"><h1>{t('list.scenarios')}</h1><p class="muted">{t('list.scenarios.intro')}</p>
+      {items.some((g) => g.status === 'draft') && <p class="danger-box">{t('list.draftnote')}</p>}
       <div class="grid2">
         <a class="btn btn-danger" href={href('triage')}>🆘 {t('plan72.a.triage')}</a>
         <a class="btn" href={href('crisis')}>🚨 {t('crisis.title')}</a>
@@ -47,6 +48,7 @@ export function ListPage({ kind, titleKey }: { kind: Kind; titleKey: string }) {
   return (
     <main class="stack"><h1>{t(titleKey)}</h1>
       {items.length === 0 ? <p class="muted">{t('list.empty')}</p> : <>
+        {items.some((g) => g.status === 'draft') && <p class="danger-box">{t('list.draftnote')}</p>}
         <input type="search" value={q} onInput={(e) => setQ((e.target as HTMLInputElement).value)} placeholder={t('list.filter')} aria-label={t('list.filter')} />
         <div class="row" style="flex-wrap:wrap">
           <button class={`btn${cat === '' ? ' primary' : ''}`} onClick={() => setCat('')}>{t('list.all')} ({items.length})</button>

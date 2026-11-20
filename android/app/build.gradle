@@ -18,6 +18,15 @@ android {
     }
     // Release signing only when a keystore is provided through environment variables (CI secrets); otherwise the release build stays unsigned.
     signingConfigs {
+        // Fixed key so every APK is signed the same way and Android installs updates over the previous version (no uninstall, no data loss).
+        // It is committed on purpose: this is a sideloaded personal app, not a store build (see DECISIONS.md #64).
+        updateKey {
+            storeFile file('update-key.p12')
+            storePassword 'survival-update'
+            keyAlias 'update'
+            keyPassword 'survival-update'
+            storeType 'pkcs12'
+        }
         if (System.getenv("ANDROID_KEYSTORE_PATH")) {
             release {
                 storeFile file(System.getenv("ANDROID_KEYSTORE_PATH"))
@@ -28,6 +37,9 @@ android {
         }
     }
     buildTypes {
+        debug {
+            signingConfig signingConfigs.updateKey
+        }
         release {
             if (System.getenv("ANDROID_KEYSTORE_PATH")) { signingConfig signingConfigs.release }
             minifyEnabled false

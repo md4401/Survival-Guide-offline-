@@ -44,6 +44,6 @@ review:
   date: 2026-11-19
   level: draft
   source: "To verify: WHO / Red Cross / civil-defense guidance (source not yet registered)"
-tags: []
+tags: [thunderstorm, lightning, thunder, storm, "strong wind"]
 ---
 - A closed car is a relatively safe shelter: avoid touching metal parts.
