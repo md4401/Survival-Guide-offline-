@@ -117,3 +117,8 @@ describe('notes helpers', () => {
     const h = new History('a'); h.push('ab'); h.push('abc'); expect(h.undo()).toBe('ab'); expect(h.undo()).toBe('a'); expect(h.undo()).toBeNull(); expect(h.redo()).toBe('ab'); h.push('x'); expect(h.canRedo).toBe(false); expect(h.canUndo).toBe(true);
   });
 });
+import { encode as gEnc, decode as gDec, channelsFor, isGeohash } from '../src/lib/geohash';
+describe('geohash', () => {
+  it('matches the reference example', () => { expect(gEnc(57.64911, 10.40744, 11)).toBe('u4pruydqqvj'); const d = gDec('ezs42'); expect(d.lat).toBeCloseTo(42.605, 2); expect(d.lon).toBeCloseTo(-5.603, 2); });
+  it('levels nest as prefixes', () => { const c = channelsFor(-20.7, -45.8); expect(c.map((x) => x.hash.length)).toEqual([7, 6, 5, 4, 2]); expect(c[0].hash.startsWith(c[4].hash)).toBe(true); expect(isGeohash('6gzxbh6')).toBe(true); expect(isGeohash('6gzxa')).toBe(false); });
+});
