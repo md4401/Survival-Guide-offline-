@@ -159,6 +159,7 @@ try {
     await page.click('button:has-text("Dentist")'); await page.click('button:text-is("Delete")'); await wait(300);
     for (const v of ['Week', 'Day', 'Year', 'Month']) { await page.click(`[role=tab]:text-is("${v}")`); } check('agenda has year/month/week/day views', true);
     for (const h of ['tools/recorder', 'tools/qrscan', 'tools/decibel', 'tools/metal', 'compass', 'tools/level', 'world/clock', 'world/calendar']) { await go(h, 'main'); check(`#/${h} renders offline`, (await page.textContent('main')).trim().length > 20); }
+    await go('messages/geo', 'button.primary'); check('location channels stay off until consent', (await page.textContent('main')).includes('Off until you agree') && await page.$('button:text-is("I understand, turn on")') !== null);
     await go('tools/notes', 'button[aria-label="Add note"]'); await page.click('button[aria-label="Add note"]'); await page.waitForSelector('textarea'); await page.fill('textarea', '[ ] milk'); check('notes editor opens offline', await page.$('button[aria-label="Undo"]') !== null);
     await go('tools/metal', 'main'); check('metal detector explains missing sensor without fake data', (await page.textContent('main')).includes('cannot find coins') || (await page.textContent('main')).includes('magnetic sensor'));
     check('no uncaught errors in the toolbox', errors.length === before, errors.slice(before).join('|'));

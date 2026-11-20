@@ -50,6 +50,7 @@ export function MessagesHub() {
         <li><a class="btn btn-block" href={href('messages', 'c', PUBLIC)}>📢 {t('msg.public')}</a><p class="muted">{t('msg.public.hint')}</p></li>
         {channels.map((c) => <li><a class="btn btn-block" href={href('messages', 'c', c.id)}>🔒 {c.name}</a></li>)}
       </ul>
+      <a class="btn btn-block" href={href('messages', 'geo')}>📍 {t('geo.title')}</a>
       <a class="btn btn-block btn-danger" href={href('messages', 'sync')}>🔄 {t('msg.sync')}</a>
       {err && <p class="danger-box" role="alert">{err}</p>}
       <section class="card stack"><h2>{t('msg.new')}</h2>
