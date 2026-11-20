@@ -1278,5 +1278,14 @@
   "geo.lvl.neighborhood": "Vizinhança",
   "geo.lvl.city": "Cidade",
   "geo.lvl.province": "Estado",
-  "geo.lvl.region": "Região"
+  "geo.lvl.region": "Região",
+  "ble.title": "Mesh Bluetooth",
+  "ble.hint": "Converse com celulares próximos sem internet. As mensagens saltam de celular em celular. Alcance típico de 10 a 50 m.",
+  "ble.start": "Ligar mesh Bluetooth",
+  "ble.stop": "Desligar",
+  "ble.peers": "{n} celulares ligados",
+  "ble.denied": "A permissão de Bluetooth foi negada.",
+  "ble.off": "Ligue o Bluetooth primeiro.",
+  "ble.unavailable": "Bluetooth indisponível neste celular.",
+  "ble.warn": "Funciona só com o app aberto. Os dois celulares precisam do app. Ainda pouco testado em aparelhos."
 }

@@ -1278,5 +1278,14 @@
   "geo.lvl.neighborhood": "Neighborhood",
   "geo.lvl.city": "City",
   "geo.lvl.province": "State",
-  "geo.lvl.region": "Region"
+  "geo.lvl.region": "Region",
+  "ble.title": "Bluetooth mesh",
+  "ble.hint": "Chat with phones nearby without internet. Messages hop from phone to phone. Typical range is 10 to 50 m.",
+  "ble.start": "Turn on Bluetooth mesh",
+  "ble.stop": "Turn off",
+  "ble.peers": "{n} phones linked",
+  "ble.denied": "Bluetooth permission was denied.",
+  "ble.off": "Turn Bluetooth on first.",
+  "ble.unavailable": "Bluetooth is not available on this phone.",
+  "ble.warn": "Works only while the app is open. Both phones need the app. Not tested on many phones yet."
 }

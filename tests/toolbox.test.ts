@@ -139,3 +139,18 @@ describe('location channels (nostr)', () => {
     expect(got).toEqual(['hi']);
   });
 });
+import { chunk, Reassembler, BleChannel } from '../src/lib/mesh/ble';
+describe('bluetooth framing', () => {
+  it('splits and reassembles in any order', () => {
+    const data = Uint8Array.from({ length: 1000 }, (_, i) => i % 251); const parts = chunk(data, 7)!; expect(parts.length).toBe(Math.ceil(1000 / 176)); expect(parts.every((p) => p.length <= 180)).toBe(true);
+    const r = new Reassembler(); let out: Uint8Array | null = null; for (const p of [...parts].reverse()) out = r.add(p) ?? out; expect(Array.from(out!)).toEqual(Array.from(data));
+  });
+  it('rejects oversize frames, bad packets and duplicates', () => {
+    expect(chunk(new Uint8Array(176 * 255 + 1), 1)).toBeNull(); const r = new Reassembler(); expect(r.add(new Uint8Array([0, 1]))).toBeNull(); expect(r.add(new Uint8Array([0, 1, 5, 2, 9]))).toBeNull();
+    const p = chunk(new Uint8Array(400), 2)!; expect(r.add(p[0])).toBeNull(); expect(r.add(p[0])).toBeNull(); expect(r.add(p[1])).toBeNull(); expect(r.add(p[2])?.length).toBe(400);
+  });
+  it('channel carries text frames both ways', () => {
+    let b: BleChannel; const a = new BleChannel((p) => b.deliver(p)); b = new BleChannel(() => {}); const got: string[] = []; b.addEventListener('message', (e: any) => got.push(e.data));
+    const msg = JSON.stringify({ t: 'hello', name: 'ação ✓'.repeat(100) }); a.send(msg); expect(got).toEqual([msg]);
+  });
+});
