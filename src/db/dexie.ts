@@ -4,13 +4,13 @@ export interface Fav { id: string; at: number }
 export interface Hist { id: string; at: number }
 export interface Counter { id?: number; name: string; start: number; type: 'up' | 'down' }
 export interface Check { key: string; done: boolean }
-export interface Note { id?: number; text: string; at: number }
+export interface Note { id?: number; text: string; at: number; title?: string; sketches?: string[]; images?: string[] }
 export interface PackRow { id: string; lang: string; version: string; sha256: string; bytes: number; json: string }
 export interface MeshRow { id: string; ch: string; from: string; ts: number; json: string; mine: number }
 export interface InvItem { id?: number; name: string; qty: number; unit: string; where: string; expires: string; kcal?: number }
 export interface Highlight { id?: number; guide: string; text: string; note: string; at: number }
 export interface Recording { id?: number; name: string; at: number; ms: number; mime: string; blob: Blob }
-export interface EventRow { id?: number; title: string; at: number; note: string; repeat: 'none' | 'daily' | 'weekly' | 'yearly' }
+export interface EventRow { id?: number; title: string; at: number; note: string; repeat: 'none' | 'daily' | 'weekly' | 'yearly'; dur?: number; allDay?: boolean }
 export interface KV { key: string; value: unknown }
 
 class AppDB extends Dexie {

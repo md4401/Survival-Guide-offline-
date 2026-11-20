@@ -5,6 +5,11 @@ function dms(v: number, pos: string, neg: string): string {
   const d = Math.floor(a); const mf = (a - d) * 60; const m = Math.floor(mf); const s = (mf - m) * 60;
   return `${d}°${String(m).padStart(2, '0')}'${s.toFixed(1).padStart(4, '0')}"${h}`;
 }
+/** Degrees, minutes and whole seconds with the hemisphere kept apart (so each language can label it): 22°31'12" S. */
+export function coordParts(lat: number, lon: number): { lat: { text: string; hem: 'N' | 'S' }; lon: { text: string; hem: 'E' | 'W' } } {
+  const f = (v: number) => { const total = Math.round(Math.abs(v) * 3600); const d = Math.floor(total / 3600); const m = Math.floor((total % 3600) / 60); return `${d}°${String(m).padStart(2, '0')}'${String(total % 60).padStart(2, '0')}"`; };
+  return { lat: { text: f(lat), hem: lat >= 0 ? 'N' : 'S' }, lon: { text: f(lon), hem: lon >= 0 ? 'E' : 'W' } };
+}
 export const formatDecimal = (f: Fix) => `${f.lat.toFixed(5)}, ${f.lon.toFixed(5)}`;
 export const formatDms = (f: Fix) => `${dms(f.lat, 'N', 'S')} ${dms(f.lon, 'E', 'W')}`;
 

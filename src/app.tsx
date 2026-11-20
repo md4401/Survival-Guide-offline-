@@ -25,6 +25,7 @@ import { Kit } from './features/prepare/Kit';
 import { Family } from './features/prepare/Family';
 import { Timer } from './features/tools/Timer';
 import { Converter } from './features/tools/Converter';
+import { CalcApp } from './features/tools/Calculator';
 import { Notes } from './features/tools/Notes';
 import { Onboarding } from './features/settings/Onboarding';
 import { Crisis } from './features/crisis/Crisis';
@@ -94,7 +95,7 @@ export function App() {
     case 'scenarios': view = <ListPage kind="scenario" titleKey="list.scenarios" />; break;
     case 'guides': view = <ListPage kind="guide" titleKey="list.guides" />; break;
     case 'prepare': view = arg === 'kit' ? <Kit kit={arg2 ?? '72h'} /> : arg === 'family' ? <Family /> : arg === 'water' ? <Water /> : arg === 'stock' ? <Stock /> : arg === 'energy' ? <Energy /> : arg === 'docs' ? <Documents /> : arg === 'plan72' ? <Plan72 /> : arg === 'score' ? <Readiness /> : <Prepare />; break;
-    case 'tools': view = arg === 'converter' ? <Converter /> : arg === 'distance' ? <Distance /> : arg === 'level' ? <Level /> : arg === 'morse' ? <Morse /> : arg === 'notes' ? <Notes /> : arg === 'calculator' ? <Calculator /> : arg === 'recorder' ? <Recorder /> : arg === 'qrscan' ? <QrScan /> : arg === 'agenda' ? <Agenda /> : arg === 'decibel' ? <Decibel /> : arg === 'metal' ? <MetalDetector /> : arg === 'timer' ? <Timer /> : <ToolsHub />; break;
+    case 'tools': view = arg === 'converter' ? <CalcApp tab="conv" /> : arg === 'distance' ? <Distance /> : arg === 'level' ? <Level /> : arg === 'morse' ? <Morse /> : arg === 'notes' ? <Notes /> : arg === 'calculator' ? <CalcApp tab="calc" /> : arg === 'recorder' ? <Recorder /> : arg === 'qrscan' ? <QrScan /> : arg === 'agenda' ? <Agenda /> : arg === 'decibel' ? <Decibel /> : arg === 'metal' ? <MetalDetector /> : arg === 'timer' ? <Timer /> : <ToolsHub />; break;
     case 'assistant': view = arg === 'models' ? <Models /> : <Assistant />; break;
     case 'learn': view = arg === 'quiz' ? <Quiz /> : arg === 'trees' ? <Trees id={arg2} /> : arg === 'map' ? <KnowledgeMap /> : arg === 'drill' ? <Drill /> : <Learn />; break;
     case 'library': { const V: Record<string, any> = { myths: Myths, facts: Facts, cases: Cases, diy: Diy, glossary: Glossary, phrases: Phrases, find: Find, scales: Scales }; const C = arg ? V[arg] : Library; view = C ? <C /> : <Library />; break; }

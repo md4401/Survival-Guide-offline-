@@ -57,7 +57,7 @@ try {
   await page.reload(); await page.waitForSelector('input[type=checkbox]');
   await wait(300);
   check('checklist persists offline (IndexedDB)', await page.$eval('input[type=checkbox]', (e) => e.checked));
-  await go('tools/converter', 'input'); check('converter renders', true);
+  await go('tools/converter', 'button.tool'); await page.click('button.tool'); await page.waitForSelector('input'); check('converter hub opens a converter', true);
   await go('tools/timer', '.big-num'); check('timer renders', true);
   await go('prepare/family', 'h1'); check('family plan renders', true);
   await go('onboarding', 'h1'); check('onboarding renders', true);
@@ -152,13 +152,14 @@ try {
   {
     const before = errors.length;
     await go('tools', 'a[data-tool]'); const nTools = await page.$$eval('a[data-tool]', (e) => e.length); check('toolbox hub lists 15 tools', nTools === 15, `(${nTools})`);
-    await go('tools/calculator', 'input'); await page.fill('input', '2+3×4'); await page.click('button:has-text("=")'); await page.waitForSelector('.big-num:has-text("14")'); check('calculator: 2+3×4 = 14', true);
-    await page.fill('input', '1/0'); await page.click('button:has-text("=")'); await page.waitForSelector('[role=alert]:has-text("divide by zero")'); check('calculator refuses division by zero', true);
-    await go('tools/agenda', 'input'); await page.fill('input >> nth=0', 'Dentist'); await page.click('button:has-text("Add event")'); await page.waitForSelector('text=Dentist');
+    await go('tools/calculator', 'input'); await page.fill('input', '2+3×4'); await page.click('button:text-is("=")'); await page.waitForSelector('.big-num:has-text("14")'); check('calculator: 2+3×4 = 14', true);
+    await page.fill('input', '1/0'); await page.click('button:text-is("=")'); await page.waitForSelector('[role=alert]:has-text("divide by zero")'); check('calculator refuses division by zero', true);
+    await go('tools/agenda', 'button[aria-label="Add event"]'); await page.click('button[aria-label="Add event"]'); await page.fill('input >> nth=0', 'Dentist'); await page.click('button:text-is("Save")'); await page.waitForSelector('text=Dentist');
     await page.reload(); await page.waitForSelector('text=Dentist'); check('agenda event persists offline', true);
-    await page.click('button[aria-label="Delete"]'); await wait(300);
+    await page.click('button:has-text("Dentist")'); await page.click('button:text-is("Delete")'); await wait(300);
+    for (const v of ['Week', 'Day', 'Year', 'Month']) { await page.click(`[role=tab]:text-is("${v}")`); } check('agenda has year/month/week/day views', true);
     for (const h of ['tools/recorder', 'tools/qrscan', 'tools/decibel', 'tools/metal', 'compass', 'tools/level', 'world/clock', 'world/calendar']) { await go(h, 'main'); check(`#/${h} renders offline`, (await page.textContent('main')).trim().length > 20); }
-    await go('tools/notes', 'textarea'); check('notes open offline', true);
+    await go('tools/notes', 'button[aria-label="Add note"]'); await page.click('button[aria-label="Add note"]'); await page.waitForSelector('textarea'); await page.fill('textarea', '[ ] milk'); check('notes editor opens offline', await page.$('button[aria-label="Undo"]') !== null);
     await go('tools/metal', 'main'); check('metal detector explains missing sensor without fake data', (await page.textContent('main')).includes('cannot find coins') || (await page.textContent('main')).includes('magnetic sensor'));
     check('no uncaught errors in the toolbox', errors.length === before, errors.slice(before).join('|'));
   }
