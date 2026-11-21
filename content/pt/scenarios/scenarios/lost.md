@@ -43,7 +43,7 @@ review:
   date: 2026-11-19
   level: draft
   source: "A verificar: OMS / Cruz Vermelha / Defesa Civil (fonte ainda não registrada)"
-tags: []
+tags: [perdido, mata, floresta, trilha, "perdido na mata", "estou perdido"]
 ---
 - Proteja-se de frio, calor e chuva antes de escurecer.
 - Racione a água. Evite beber água sem tratamento.

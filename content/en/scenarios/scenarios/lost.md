@@ -43,7 +43,7 @@ review:
   date: 2026-11-19
   level: draft
   source: "To verify: WHO / Red Cross / civil-defense guidance (source not yet registered)"
-tags: []
+tags: [lost, woods, forest, wilderness, trail, hiking, "lost in the woods", "I am lost"]
 ---
 - Protect yourself from cold, heat and rain before dark.
 - Ration water. Do not drink untreated water if you can avoid it.

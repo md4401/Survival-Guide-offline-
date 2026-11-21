@@ -26,6 +26,6 @@ review:
   date: 2026-11-19
   level: draft
   source: "A verificar: OMS / Cruz Vermelha / Defesa Civil (fonte ainda não registrada)"
-tags: []
+tags: [tremendo, frio, confuso, "exposição ao frio"]
 ---
 - Aqueça primeiro o tronco. Mova a pessoa com delicadeza.
