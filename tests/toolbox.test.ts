@@ -154,3 +154,11 @@ describe('bluetooth framing', () => {
     const msg = JSON.stringify({ t: 'hello', name: 'ação ✓'.repeat(100) }); a.send(msg); expect(got).toEqual([msg]);
   });
 });
+import { scenarioGroup, groupScenarios, SCENARIO_GROUPS } from '../src/lib/list';
+describe('scenario groups', () => {
+  it('maps ids to sensible groups', () => {
+    const m: Record<string, string> = { 'scenario.lost-in-forest': 'lost', 'scenario.bear-encounter': 'animals', 'scenario.river-crossing-fail': 'water', 'scenario.hypothermia-trail': 'health', 'scenario.offroad-rollover': 'vehicle', 'scenario.camp-flood': 'camp', 'scenario.tornado': 'weather', 'scenario.blackout': 'home', 'scenario.heatwave': 'weather', 'scenario.heatstroke-hike': 'health', 'scenario.flood': 'water' };
+    for (const [id, g] of Object.entries(m)) expect(scenarioGroup(id), id).toBe(g);
+  });
+  it('every scenario lands in exactly one group', () => { const ids = ['scenario.a', 'scenario.lost', 'scenario.storm']; const gs = groupScenarios(ids.map((id) => ({ id }))); expect(gs.flatMap((g) => g.items).length).toBe(3); expect(SCENARIO_GROUPS.length).toBe(8); });
+});

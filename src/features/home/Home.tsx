@@ -35,26 +35,29 @@ export function Home() {
   const pinned = favs.slice(0, 6).map((id) => guides.find((g) => g.id === id)).filter(Boolean) as Guide[];
   return (
     <main class="stack">
+      <a class="btn search-bar" href={href('search')}>🔍 <span>{t('explore.search')}</span></a>
       <a class="btn btn-danger btn-block help-btn" href={href('triage')}>{t('home.help')}</a>
       <a class="btn btn-block" href={href('crisis')}>{crisis ? `${t('crisis.active')}: ${t('counter.day', { n: dayNumber(crisis.start, Date.now()) })}` : t('crisis.living')}</a>
-      <a class="btn poster" href={href('library')}>💡 {pick(factOfDay().text, getSettings().locale)}</a>
-      {today > 0 && <a class="btn card" href={href('tools', 'agenda')}>🗓 {t('home.agenda', { n: today })}</a>}
-      {due > 0 && <a class="btn card" href={href('inventory')}>⏰ {t('home.due', { n: due })}</a>}
-      <p class="muted">{t('home.tagline')}</p>
       {!st.onboarded && <a class="btn card" href={href('onboarding')}>{t('onb.banner')}</a>}
-      <h2>{t('home.tools')}</h2>
-      <a class="btn card" href={href('tools')}>🧰 {t('tools.title')}</a>
-      <div class="grid2">
+      {(today > 0 || due > 0) && <div class="grid2">
+        {today > 0 && <a class="btn card" href={href('tools', 'agenda')}>🗓 {t('home.agenda', { n: today })}</a>}
+        {due > 0 && <a class="btn card" href={href('inventory')}>⏰ {t('home.due', { n: due })}</a>}
+      </div>}
+      <div class="section-head"><h2>{t('home.quick')}</h2><a href={href('tools')}>{t('home.seeall')} ›</a></div>
+      <div class="quick-row">
         <a class="btn tool" href={href('torch')}><span class="ico" aria-hidden="true">🔦</span><span>{t('home.torch')}</span></a>
         <a class="btn tool" href={href('whistle')}><span class="ico" aria-hidden="true">📣</span><span>{t('home.whistle')}</span></a>
-        <a class="btn tool" href={href('torch')}><span class="ico" aria-hidden="true">🆘</span><span>{t('home.sos')}</span></a>
         <a class="btn tool" href={href('numbers')}><span class="ico" aria-hidden="true">📞</span><span>{t('home.numbers')}</span></a>
         <a class="btn tool" href={href('gps')}><span class="ico" aria-hidden="true">📍</span><span>{t('home.gps')}</span></a>
+        <a class="btn tool" href={href('compass')}><span class="ico" aria-hidden="true">🧭</span><span>{t('compass.title')}</span></a>
+        <a class="btn tool" href={href('signal')}><span class="ico" aria-hidden="true">🆘</span><span>{t('home.sos')}</span></a>
         <a class="btn tool" href={href('messages')}><span class="ico" aria-hidden="true">💬</span><span>{t('home.messages')}</span></a>
-        {hasAi && <a class="btn tool" href={href('assistant')}><span class="ico" aria-hidden="true">🤖</span><span>{t('ai.title')}</span></a>}
+        {hasAi ? <a class="btn tool" href={href('assistant')}><span class="ico" aria-hidden="true">🤖</span><span>{t('ai.title')}</span></a> : <a class="btn tool" href={href('prepare', 'kit', '72h')}><span class="ico" aria-hidden="true">🎒</span><span>{t('nav.prepare')}</span></a>}
       </div>
+      <a class="btn card hub-card" href={href('explore')}><span class="ico" aria-hidden="true">🧭</span><b>{t('home.explore')}</b><span class="muted">{t('home.tagline')}</span></a>
       {(st.onboarded || st.loc) && <><h2>{t('suggest.title')}</h2><ul class="list">{sug.map((x) => <li><a class="btn" href={href('guide', SCENARIO_GUIDE[x.scenario as ScenarioKey])}><span style="flex:1">{t(`scenario.${x.scenario}`)}</span><span class="muted">{t('suggest.why')}: {t(x.reason)}</span></a></li>)}</ul></>}
       {pinned.length > 0 && <><h2>{t('fav.title')}</h2><ul class="list">{pinned.map((g) => <li><a class="btn" href={href('guide', g.id)}>{g.title}</a></li>)}</ul></>}
+      <a class="btn poster" href={href('library')}>💡 {pick(factOfDay().text, getSettings().locale)}</a>
     </main>
   );
 }

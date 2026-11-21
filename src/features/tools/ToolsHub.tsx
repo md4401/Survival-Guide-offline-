@@ -1,16 +1,20 @@
 import { t } from '../../i18n';
 import { href } from '../../router';
 
-const ITEMS: Array<[string, string, string[], string]> = [
-  ['🧮', 'calc.title', ['tools', 'calculator'], 'calc'], ['🧭', 'compass.title', ['compass'], 'compass'], ['🕒', 'world.clock', ['world', 'clock'], 'clock'],
-  ['🎙', 'rec.title', ['tools', 'recorder'], 'recorder'], ['📷', 'qrscan.title', ['tools', 'qrscan'], 'qrscan'], ['📝', 'notes.title', ['tools', 'notes'], 'notes'],
-  ['📅', 'world.calendar', ['world', 'calendar'], 'calendar'], ['🗓', 'agenda.title', ['tools', 'agenda'], 'agenda'], ['🔊', 'spl.title', ['tools', 'decibel'], 'decibel'],
-  ['📐', 'level.title', ['tools', 'level'], 'level'], ['🧲', 'metal.title', ['tools', 'metal'], 'metal'], ['⏱', 'timer.title', ['tools', 'timer'], 'timer'],
-  ['🔄', 'converter.title', ['tools', 'converter'], 'converter'], ['👣', 'dist.title', ['tools', 'distance'], 'distance'], ['📡', 'morse.title', ['tools', 'morse'], 'morse'],
+type Item = [icon: string, key: string, route: string[], id?: string];
+const SECTIONS: Array<[string, Item[]]> = [
+  ['tools.sec.emergency', [['🔦', 'home.torch', ['torch']], ['📣', 'home.whistle', ['whistle']], ['🆘', 'home.sos', ['signal']], ['📞', 'home.numbers', ['numbers']], ['📍', 'home.gps', ['gps']], ['🧭', 'compass.title', ['compass'], 'compass'], ['🥾', 'trail.title', ['trail']], ['🪪', 'medcard.title', ['medcard']], ['🤫', 'silent.title', ['silent']]]],
+  ['tools.sec.measure', [['📐', 'level.title', ['tools', 'level'], 'level'], ['🔊', 'spl.title', ['tools', 'decibel'], 'decibel'], ['🧲', 'metal.title', ['tools', 'metal'], 'metal'], ['👣', 'dist.title', ['tools', 'distance'], 'distance'], ['⏱', 'timer.title', ['tools', 'timer'], 'timer'], ['🕒', 'world.clock', ['world', 'clock'], 'clock']]],
+  ['tools.sec.write', [['🧮', 'calc.title', ['tools', 'calculator'], 'calc'], ['🔄', 'converter.title', ['tools', 'converter'], 'converter'], ['📝', 'notes.title', ['tools', 'notes'], 'notes'], ['🗓', 'agenda.title', ['tools', 'agenda'], 'agenda'], ['📅', 'world.calendar', ['world', 'calendar'], 'calendar'], ['🎙', 'rec.title', ['tools', 'recorder'], 'recorder'], ['📷', 'qrscan.title', ['tools', 'qrscan'], 'qrscan'], ['📡', 'morse.title', ['tools', 'morse'], 'morse']]],
 ];
 export function ToolsHub() {
   return (
     <main class="stack"><h1>{t('tools.title')}</h1><p class="muted">{t('tools.intro')}</p>
-      <div class="grid2">{ITEMS.map(([i, k, r, id]) => <a class="btn tool" data-tool={id} href={href(r[0], r[1])}><span class="ico" aria-hidden="true">{i}</span><span>{t(k)}</span></a>)}</div></main>
+      {SECTIONS.map(([title, items]) => (
+        <section class="stack"><h2>{t(title)}</h2>
+          <div class="grid2">{items.map(([i, k, r, id]) => <a class="btn tool" data-tool={id} href={href(...r)}><span class="ico" aria-hidden="true">{i}</span><span>{t(k)}</span></a>)}</div>
+        </section>
+      ))}
+    </main>
   );
 }

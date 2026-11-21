@@ -79,3 +79,23 @@ table.cal td.hol { color: var(--danger); font-weight: 700; }
 details summary { min-block-size: var(--tap); display: flex; align-items: center; cursor: pointer; font-weight: 700; }
 [dir='rtl'] .flip { display: inline-block; transform: scaleX(-1); }
 @media print { .topbar, .tabbar, .no-print, button, select { display: none !important; } body { background: #fff; color: #000; } main { padding: 0; max-inline-size: none; } .card { border-color: #999; } h2 { background: none; color: #000; transform: none; padding: 0; } h1::after { display: none; } }
+/* Hubs (Explore, More, Tools sections) */
+.search-bar { justify-content: flex-start; gap: .6rem; min-block-size: calc(var(--tap) + 6px); font-size: 1.05em; }
+.search-bar span { color: var(--muted); }
+.hub-card { flex-direction: column; align-items: flex-start; gap: .2rem; text-align: start; position: relative; min-block-size: 8.5rem; }
+.hub-card .ico { font-size: 2rem; line-height: 1; }
+.hub-card b { font-family: var(--font-display); font-weight: 400; font-size: 1.25em; text-transform: uppercase; letter-spacing: .02em; }
+.hub-card .count { position: absolute; inset-block-start: .5rem; inset-inline-end: .6rem; background: var(--neon); color: var(--on-neon); border-radius: 999px; padding: .05rem .55rem; font-weight: 700; }
+.hub-danger { box-shadow: inset 0 5px 0 var(--danger), var(--glass-shadow); }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+.cat-tile { flex-direction: column; gap: .1rem; text-align: center; min-block-size: 6rem; font-size: .9em; line-height: 1.15; }
+.cat-tile .ico { font-size: 1.7rem; line-height: 1; }
+.row-link { justify-content: flex-start; gap: .8rem; text-align: start; min-block-size: 4.2rem; inline-size: 100%; }
+.row-link .ico { font-size: 1.6rem; }
+.row-link .grow { flex: 1; }
+.chips { flex-wrap: wrap; }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; }
+.section-head a { color: var(--accent); min-block-size: var(--tap); display: inline-flex; align-items: center; padding-inline: .4rem; }
+.quick-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
+.quick-row .tool { min-block-size: 5rem; font-size: .85em; padding-inline: .2rem; }
+@media (max-width: 380px) { .grid3 { grid-template-columns: repeat(2, 1fr); } .quick-row { grid-template-columns: repeat(2, 1fr); } }
