@@ -5,7 +5,7 @@ import { t } from '../../i18n';
 import { href } from '../../router';
 import { useSettings } from '../../db/settings';
 import { useUserLists } from './Search';
-import { filterGuides, groupByCategory, categoryCounts, sortScenarios, SCENARIO_ICON } from '../../lib/list';
+import { filterGuides, groupByCategory, categoryCounts, groupScenarios, SCENARIO_ICON, scenarioGroup } from '../../lib/list';
 
 const Badges = ({ g }: { g: Guide }) => (
   <span class="muted">
@@ -16,6 +16,10 @@ const Badges = ({ g }: { g: Guide }) => (
 );
 
 function Scenarios({ items }: { items: Guide[] }) {
+  const [q, setQ] = useState(''); const [grp, setGrp] = useState('');
+  const shown = useMemo(() => filterGuides(items.map((g) => ({ ...g, category: scenarioGroup(g.id) })), q, grp), [items, q, grp]);
+  const groups = useMemo(() => groupScenarios(shown), [shown]);
+  const all = useMemo(() => groupScenarios(items), [items]);
   return (
     <main class="stack"><h1>{t('list.scenarios')}</h1><p class="muted">{t('list.scenarios.intro')}</p>
       {items.some((g) => g.status === 'draft') && <p class="danger-box">{t('list.draftnote')}</p>}
@@ -23,20 +27,28 @@ function Scenarios({ items }: { items: Guide[] }) {
         <a class="btn btn-danger" href={href('triage')}>🆘 {t('plan72.a.triage')}</a>
         <a class="btn" href={href('crisis')}>🚨 {t('crisis.title')}</a>
       </div>
-      {items.length === 0 ? <p class="muted">{t('list.empty')}</p> : (
-        <ul class="grid2 list">{sortScenarios(items).map((g) => (
-          <li><a class="btn card stack" href={href('guide', g.id)} style="block-size:100%;align-items:flex-start;text-align:start">
-            <span style="font-size:2rem" aria-hidden="true">{SCENARIO_ICON[g.id] ?? '⚠️'}</span><b>{g.title}</b>
-            <span class="muted">{g.summary}</span><Badges g={g} /></a></li>
-        ))}</ul>
-      )}
+      <input type="search" value={q} onInput={(e) => setQ((e.target as HTMLInputElement).value)} placeholder={t('list.sfilter')} aria-label={t('list.sfilter')} />
+      <div class="row chips" role="group" aria-label={t('list.groups')}>
+        <button class={`btn${grp === '' ? ' primary' : ''}`} onClick={() => setGrp('')}>{t('list.all')} ({items.length})</button>
+        {all.map((g) => <button class={`btn${grp === g.group ? ' primary' : ''}`} onClick={() => setGrp(grp === g.group ? '' : g.group)}>{t(`sgroup.${g.group}`)} ({g.items.length})</button>)}
+      </div>
+      <p class="muted" role="status">{t('list.count', { n: shown.length })}</p>
+      {groups.length === 0 ? <p class="muted">{t('list.none')}</p> : groups.map((gr) => (
+        <section class="stack"><h2>{t(`sgroup.${gr.group}`)}</h2>
+          <ul class="grid2 list">{gr.items.map((g) => (
+            <li><a class="btn card stack" href={href('guide', g.id)} style="block-size:100%;align-items:flex-start;text-align:start">
+              <span style="font-size:2rem" aria-hidden="true">{SCENARIO_ICON[g.id] ?? '⚠️'}</span><b>{g.title}</b>
+              <span class="muted">{g.summary}</span><Badges g={g} /></a></li>
+          ))}</ul>
+        </section>
+      ))}
     </main>
   );
 }
 
-export function ListPage({ kind, titleKey }: { kind: Kind; titleKey: string }) {
+export function ListPage({ kind, titleKey, initialCat = '' }: { kind: Kind; titleKey: string; initialCat?: string }) {
   const s = useSettings(); const { favs, hist } = useUserLists();
-  const [items, setItems] = useState<Guide[] | null>(null); const [q, setQ] = useState(''); const [cat, setCat] = useState('');
+  const [items, setItems] = useState<Guide[] | null>(null); const [q, setQ] = useState(''); const [cat, setCat] = useState(initialCat);
   useEffect(() => { loadGuides().then((r) => setItems(r.guides.filter((g) => g.kind === kind))); }, [kind, s.locale, s.dev]);
   const shown = useMemo(() => filterGuides(items ?? [], q, cat), [items, q, cat]);
   const groups = useMemo(() => groupByCategory(shown), [shown]);

@@ -26,7 +26,7 @@ review:
   date: 2026-11-19
   level: draft
   source: "A verificar: OMS / Cruz Vermelha / Defesa Civil (fonte ainda não registrada)"
-tags: [desinfetar, desinfecção, ferver, fervura, cloro, sodis]
+tags: [desinfetar, desinfecção, ferver, fervura, fervendo, cloro, sodis, "desinfetar água", "água fervendo"]
 ---
 - Desinfecção solar (SODIS): garrafa PET transparente ao sol forte por cerca de 6 horas, ou 2 dias se nublado.
 - Use a calculadora de cloro em Preparar e o rótulo do produto.

@@ -52,7 +52,7 @@
 - The mental health guides only give calming and routine tips and point to helplines; local helpline numbers are not included yet
 - Toolbox: test the recorder, QR camera scan, sound meter and metal detector on real phones (permissions, Android WebView support for `Magnetometer`, iOS has no web magnetometer); the Android build now requests RECORD_AUDIO
 - Sound meter is not calibrated; compare with a reference meter before trusting the numbers
-- All 299 guides and 33 scenarios are drafts shown to users with a notice: they still need sources and professional review (first aid, poisoning, stroke/heart signs, diabetes, asthma, radiation and chemical guides first)
+- All 591 guides and 133 scenarios are drafts shown to users with a notice: they still need sources and professional review (first aid, poisoning, stroke/heart signs, diabetes, asthma, radiation and chemical guides first)
 - Model download: confirm on a real phone (see the Test connection button on the models screen); if both CDNs fail, consider bundling the runtime script with the app
 
 ## Updates without reinstalling

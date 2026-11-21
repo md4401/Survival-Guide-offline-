@@ -26,6 +26,6 @@ review:
   date: 2026-11-19
   level: draft
   source: "To verify: WHO / Red Cross / civil-defense guidance (source not yet registered)"
-tags: []
+tags: [shivering, cold, confused, freezing, "cold exposure", "shivering confused"]
 ---
 - Warm the trunk first. Move the person gently.

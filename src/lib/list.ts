@@ -17,3 +17,19 @@ export function groupByCategory<T extends G>(gs: T[]): Array<{ category: string;
   return [...m.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([category, items]) => ({ category, items: [...items].sort((a, b) => Number(b.vital) - Number(a.vital) || a.title.localeCompare(b.title)) }));
 }
 export const categoryCounts = (gs: Array<{ category: string }>) => groupByCategory(gs as any).map((x) => [x.category, x.items.length] as const);
+
+/** Scenario groups for the scenarios page (first matching rule wins). */
+export const SCENARIO_GROUPS = ['home', 'weather', 'health', 'lost', 'water', 'animals', 'vehicle', 'camp'] as const;
+export type ScenarioGroup = (typeof SCENARIO_GROUPS)[number];
+const RULES: Array<[ScenarioGroup, RegExp]> = [
+  ['camp', /^scenario\.(camp|tent|campfire|gas-stove|park|bear-camp)/],
+  ['vehicle', /^scenario\.(stranded-car|plane|helicopter-down|bus|offroad|atv|bike|horse|paraglider|forest-road|gravel|snowmobile|wildlife-collision|desert-vehicle)/],
+  ['lost', /^scenario\.(lost|separated|fog|compass|phone-dead|pack-lost|swamp|night-on|search|volunteer|found|rescue-wait|helicopter-signal|pet-lost|child-in-group|cliff|cave|summit|ski-lost|injured-leader|group-conflict|desert-heat-walk)/],
+  ['animals', /^scenario\.(bear|cougar|boar|bee|hornet|dog|snake|plant-poisoning|trap|insect|hunting)/],
+  ['water', /^scenario\.(river|swept|lake|kayak|canoe|rafting|waterfall|fishing|beach|quicksand|sea|water-contamination|tsunami|canyon|jungle-flash|flood|dam)/],
+  ['health', /^scenario\.(injured|broken|heat(?!wave)|hypothermia|frostbite|altitude|asthma|diabetic|pregnant|elderly|allergic|bad-water|epidemic|out-of-water)/],
+  ['weather', /^scenario\.(storm|tornado|hurricane|blizzard|lightning|ridge|mountain-storm|cold|ice|sandstorm|night-cold|drought|heatwave|coldwave|avalanche|landslide|rockfall|wildfire|smoke|earthquake|volcano|glacier|desert|sinkhole)/],
+];
+export const scenarioGroup = (id: string): ScenarioGroup => RULES.find(([, re]) => re.test(id))?.[0] ?? 'home';
+export const groupScenarios = <T extends { id: string }>(xs: T[]): Array<{ group: ScenarioGroup; items: T[] }> =>
+  SCENARIO_GROUPS.map((group) => ({ group, items: sortScenarios(xs.filter((x) => scenarioGroup(x.id) === group)) })).filter((g) => g.items.length > 0);

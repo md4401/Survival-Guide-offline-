@@ -137,7 +137,7 @@ try {
   // H: redesigned Guides and Scenarios pages
   {
     await go('scenarios', 'main'); await page.waitForSelector('text=What is happening now?'); check('scenarios page renders with triage shortcut', (await page.textContent('main')).includes('What is happening now?') && !!(await page.$('a[href="#/triage"]')));
-    await go('scenarios', 'ul.grid2'); { const n = await page.$$eval('ul.grid2 li', (e) => e.length); check('scenarios page shows all 33 scenario cards', n === 33, `(${n})`); }
+    await go('scenarios', 'ul.grid2'); { const n = await page.$$eval('ul.grid2 li', (e) => e.length); check('scenarios page shows all 133 scenario cards', n === 133, `(${n})`); }
     check('scenario cards start with the most urgent (house fire)', (await page.textContent('ul.grid2 li')).toLowerCase().includes('fire'));
     await go('guides', 'input[type=search]'); await wait(800); const total = await page.$$eval('section.stack h2', (e) => e.length);
     check('guides page groups guides by category', total >= 8, `(${total})`);
@@ -175,8 +175,18 @@ try {
     check('icon → first step ≤2 s with CPU 6x slower (offline)', ms <= 2000, `(${ms} ms)`);
     await lp.close();
   }
+  // Structure: five tabs, Explore and More hubs, grouped scenarios
+  {
+    await go('', '.tabbar'); const tabs = await page.$$eval('.tabbar a', (e) => e.length); check('tab bar has 5 tabs', tabs === 5, `(${tabs})`);
+    await go('explore', '.cat-tile'); const cards = await page.$$eval('.hub-card', (e) => e.length); const tiles = await page.$$eval('.cat-tile', (e) => e.length);
+    check('explore hub has 4 cards and topic tiles', cards === 4 && tiles >= 10, `(${cards}, ${tiles})`);
+    check('explore keeps its own tab highlighted', (await page.$eval('.tabbar a[aria-current=page]', (e) => e.getAttribute('href'))) === '#/explore');
+    await go('guides/nature', 'h2'); check('a topic tile opens that topic', (await page.$$eval('button.primary', (e) => e.length)) >= 1);
+    await go('more', '.row-link'); check('more hub lists 7 entries', (await page.$$eval('.row-link', (e) => e.length)) === 7);
+    await go('scenarios', 'ul.grid2'); check('scenarios are grouped with filter chips', (await page.$$eval('.chips button', (e) => e.length)) >= 6);
+  }
   // Accessibility: touch targets >= 48 px on key screens
-  for (const h of ['', 'triage', 'emergency', 'guide/water.diy-filter', 'prepare', 'world', 'settings', 'messages', 'messages/sync', 'plans', 'world/climate', 'tools', 'tools/calculator', 'tools/agenda', 'tools/recorder', 'scenarios', 'guides', 'learn', 'library', 'library/phrases', 'system', 'signal', 'prepare/stock']) {
+  for (const h of ['', 'explore', 'more', 'guides/nature', 'triage', 'emergency', 'guide/water.diy-filter', 'prepare', 'world', 'settings', 'messages', 'messages/sync', 'plans', 'world/climate', 'tools', 'tools/calculator', 'tools/agenda', 'tools/recorder', 'scenarios', 'guides', 'learn', 'library', 'library/phrases', 'system', 'signal', 'prepare/stock']) {
     await go(h, 'main');
     const small = await page.$$eval('a, button, select, input:not([type=checkbox]):not([type=range]):not([type=file])', (els) =>
       els.filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && (r.height < 47.5 || r.width < 47.5); })

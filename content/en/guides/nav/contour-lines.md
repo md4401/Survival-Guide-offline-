@@ -1,0 +1,29 @@
+---
+id: nav.contour-lines
+kind: guide
+category: nav
+plan: free
+vital: false
+status: draft
+needsReview: true
+title: "Contour lines"
+summary: "Lines on a map show height and steepness."
+minutes: 5
+warning: "Lines close together mean steep ground. Plan a safer route around cliffs."
+now:
+  - "Read the number on each thick line."
+  - "Close lines mean steep slope."
+  - "Wide lines mean gentle slope."
+  - "V shapes pointing uphill show valleys."
+  - "Rings show hills, peaks or pits."
+materials: []
+related: [nav.topo-map, nav.terrain-association]
+mistakes:
+  - "Ignoring a cliff where lines touch."
+  - "Mixing up hills and pits."
+review:
+  date: 2026-11-19
+  level: draft
+  source: "To verify: WHO / Red Cross / civil-defense guidance (source not yet registered)"
+tags: ["contour", "height", "curvas", "nível"]
+---

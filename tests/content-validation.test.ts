@@ -20,8 +20,16 @@ describe('content validation', () => {
   it('machine-translated languages contain only drafts flagged for review', () => {
     for (const l of MACHINE_LANGS) for (const { raw } of loadRaw(l)) { expect(raw.status, `${l}:${raw.id}`).toBe('draft'); expect(raw.needsReview).toBe(true); }
   });
-  it('the 8 scenarios carry a 6-stage timeline in en and pt', () => {
-    for (const l of ['en', 'pt']) for (const { raw } of loadRaw(l).filter((x) => x.raw.kind === 'scenario')) expect(Object.keys(raw.timeline ?? {}), `${l}:${raw.id}`).toEqual(['10min', '1h', '24h', '72h', '7d', '30d']);
+  it('scenarios carry a timeline in en and pt: 6 stages for the first 33, at least 10 min and 24 h for the later wilderness ones', () => {
+    const FULL = ['10min', '1h', '24h', '72h', '7d', '30d'];
+    for (const l of ['en', 'pt']) for (const { raw } of loadRaw(l).filter((x) => x.raw.kind === 'scenario')) {
+      const keys = Object.keys(raw.timeline ?? {});
+      expect(keys.length, `${l}:${raw.id}`).toBeGreaterThanOrEqual(2);
+      expect(keys.every((k) => FULL.includes(k)), `${l}:${raw.id}`).toBe(true);
+      expect(keys).toContain('10min');
+    }
+    for (const l of ['en', 'pt']) for (const s of ['blackout', 'storm', 'flood', 'house-fire', 'heatwave', 'coldwave', 'earthquake', 'lost'])
+      expect(Object.keys(loadRaw(l).find((x) => x.raw.id === `scenario.${s}`)!.raw.timeline ?? {}), `${l}:${s}`).toEqual(FULL);
   });
   it('Chinese word counting is character based', () => { expect(wordCount('请立即拨打急救电话', 'zh')).toBe(5); expect(wordCount('call now please', 'en')).toBe(3); });
   it('the 8 MVP scenarios exist', () => {

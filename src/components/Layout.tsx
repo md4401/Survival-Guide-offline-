@@ -5,8 +5,16 @@ import { href, back } from '../router';
 import { applyUpdate, onUpdateChange, updateAllowed } from '../pwa';
 
 const TABS: Array<[string, string, string]> = [
-  ['home', '', '🏠'], ['scenarios', 'scenarios', '⚠️'], ['guides', 'guides', '📖'], ['prepare', 'prepare', '🎒'], ['world', 'world', '🌍'],
+  ['home', '', '🏠'], ['explore', 'explore', '🧭'], ['tools', 'tools', '🧰'], ['prepare', 'prepare', '🎒'], ['more', 'more', '☰'],
 ];
+/** Which tab stays highlighted for each route. */
+const TAB_OF: Record<string, string> = {
+  guide: 'explore', guides: 'explore', scenarios: 'explore', search: 'explore', library: 'explore', learn: 'explore', assistant: 'explore',
+  compass: 'tools', gps: 'tools', torch: 'tools', whistle: 'tools', numbers: 'tools', signal: 'tools', trail: 'tools', medcard: 'tools', silent: 'tools',
+  inventory: 'prepare', crisis: 'prepare',
+  world: 'more', messages: 'more', settings: 'more', system: 'more', plans: 'more', about: 'more', legal: 'more',
+};
+export const tabOf = (route: string) => (TABS.some(([, r]) => r === route) ? route : TAB_OF[route] ?? '');
 
 export function Layout({ route, children }: { route: string; children: ComponentChildren }) {
   const [upd, setUpd] = useState(false);
@@ -25,7 +33,7 @@ export function Layout({ route, children }: { route: string; children: Component
       {children}
       <nav class="tabbar" aria-label={t('nav.main')}>
         {TABS.map(([k, r, icon]) => (
-          <a href={href(...(r ? [r] : []))} aria-current={route === r ? 'page' : undefined}>
+          <a href={href(...(r ? [r] : []))} aria-current={tabOf(route) === r ? 'page' : undefined}>
             <span aria-hidden="true">{icon}</span>
             <span>{t(`nav.${k}`)}</span>
           </a>

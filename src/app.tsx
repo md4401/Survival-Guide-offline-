@@ -65,6 +65,7 @@ import { Decibel } from './features/tools/Decibel';
 import { MetalDetector } from './features/tools/MetalDetector';
 import { Library, Myths, Facts, Cases, Diy, Glossary, Phrases, Find, Scales } from './features/library/Library';
 import { Learn, Quiz, Trees, KnowledgeMap, Drill } from './features/learn/Learn';
+import { ExploreHub, MoreHub } from './features/home/Hubs';
 import { t } from './i18n';
 
 export function App() {
@@ -94,7 +95,9 @@ export function App() {
     case 'settings': view = <Settings />; break;
     case 'guide': view = <GuideView id={arg ?? ''} />; break;
     case 'scenarios': view = <ListPage kind="scenario" titleKey="list.scenarios" />; break;
-    case 'guides': view = <ListPage kind="guide" titleKey="list.guides" />; break;
+    case 'guides': view = <ListPage kind="guide" titleKey="list.guides" initialCat={arg ?? ''} key={arg ?? ''} />; break;
+    case 'explore': view = <ExploreHub />; break;
+    case 'more': view = <MoreHub />; break;
     case 'prepare': view = arg === 'kit' ? <Kit kit={arg2 ?? '72h'} /> : arg === 'family' ? <Family /> : arg === 'water' ? <Water /> : arg === 'stock' ? <Stock /> : arg === 'energy' ? <Energy /> : arg === 'docs' ? <Documents /> : arg === 'plan72' ? <Plan72 /> : arg === 'score' ? <Readiness /> : <Prepare />; break;
     case 'tools': view = arg === 'converter' ? <CalcApp tab="conv" /> : arg === 'distance' ? <Distance /> : arg === 'level' ? <Level /> : arg === 'morse' ? <Morse /> : arg === 'notes' ? <Notes /> : arg === 'calculator' ? <CalcApp tab="calc" /> : arg === 'recorder' ? <Recorder /> : arg === 'qrscan' ? <QrScan /> : arg === 'agenda' ? <Agenda /> : arg === 'decibel' ? <Decibel /> : arg === 'metal' ? <MetalDetector /> : arg === 'timer' ? <Timer /> : <ToolsHub />; break;
     case 'assistant': view = arg === 'models' ? <Models /> : <Assistant />; break;
